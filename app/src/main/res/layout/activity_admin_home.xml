@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="3dp"
+    android:paddingRight="3dp"
+    tools:context="com.example.appworthy.personalhealthmonitoringsystem.AdminHome">
+<!--
+    <include
+        layout="@layout/homepage_profile"/>
+-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Admin Home"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:textSize="36dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="#4ccbff" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Registration Requests"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@layout/rounded_border_button"
+        android:id="@+id/button_view_reg_req" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Search for System User"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@layout/rounded_border_button"
+        android:id="@+id/button_search_user" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Sign out"
+        android:id="@+id/text_signout"
+        android:textColor="#4ccbff"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+</ScrollView>

@@ -9,11 +9,53 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="comcse5324projutacatering.httpsgithub.utacatering.Register" >
+            <intent-filter>
+                <action android:name="com.example.appworthy.personalhealthmonitoringsystem.Register" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="comcse5324projutacatering.httpsgithub.utacatering.AdminHome" >
+            <intent-filter>
+                <action android:name="com.example.appworthy.personalhealthmonitoringsystem.AdminHome" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="comcse5324projutacatering.httpsgithub.utacatering.RegistrationRequestList" >
+            <intent-filter>
+                <action android:name="com.example.appworthy.personalhealthmonitoringsystem.RegistrationRequestList" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="comcse5324projutacatering.httpsgithub.utacatering.ViewRegistrationRequest" >
+            <intent-filter>
+                <action android:name="com.example.appworthy.personalhealthmonitoringsystem.ViewRegistrationRequest" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="comcse5324projutacatering.httpsgithub.utacatering.ViewEditProfile" >
+            <intent-filter>
+                <action android:name="com.example.appworthy.personalhealthmonitoringsystem.ViewEditProfile" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="comcse5324projutacatering.httpsgithub.utacatering.SearchSystemUser" >
+            <intent-filter>
+                <action android:name="com.example.appworthy.personalhealthmonitoringsystem.SearchSystemUser" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
     </application>

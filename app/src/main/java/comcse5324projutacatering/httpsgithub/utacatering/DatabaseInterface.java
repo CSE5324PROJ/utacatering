@@ -1,0 +1,398 @@
+package comcse5324projutacatering.httpsgithub.utacatering;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.BaseColumns;
+
+public class DatabaseInterface extends SQLiteOpenHelper {
+
+    private static DatabaseInterface instance;
+
+    public static final String TABLE_NAME_PROFILE      = "profile";
+    public static final String TABLE_NAME_REGISTRATION = "registration_requests";
+    public static final String COLUMN_NAME_USERNAME    = "username";
+    public static final String COLUMN_NAME_PASSWORD    = "password";
+    public static final String COLUMN_NAME_ROLE        = "role";
+    public static final String COLUMN_NAME_UTAID       = "uta_id";
+    public static final String COLUMN_NAME_PERSONAL    = "personal_details";
+    public static final String COLUMN_NAME_CONTACT     = "contact_details";
+
+    private static final String SQL_CREATE_PROFILE_TABLE =
+            "CREATE TABLE " + TABLE_NAME_PROFILE + " (" +
+                    BaseColumns._ID + " INTEGER PRIMARY KEY," +
+                    COLUMN_NAME_USERNAME + " TEXT,"    +
+                    COLUMN_NAME_PASSWORD + " TEXT,"    +
+                    COLUMN_NAME_ROLE     + " TEXT,"    +
+                    COLUMN_NAME_UTAID    + " INTEGER," +
+                    COLUMN_NAME_PERSONAL + " TEXT,"    +
+                    COLUMN_NAME_CONTACT  + " TEXT)"   ;
+
+    private static final String SQL_CREATE_REGISTRATION_TABLE =
+            "CREATE TABLE " + TABLE_NAME_REGISTRATION + " (" +
+                    BaseColumns._ID + " INTEGER PRIMARY KEY," +
+                    COLUMN_NAME_USERNAME + " TEXT,"    +
+                    COLUMN_NAME_PASSWORD + " TEXT,"    +
+                    COLUMN_NAME_ROLE     + " TEXT,"    +
+                    COLUMN_NAME_UTAID    + " INTEGER," +
+                    COLUMN_NAME_PERSONAL + " TEXT,"    +
+                    COLUMN_NAME_CONTACT  + " TEXT)"   ;
+
+    private static final String SQL_DELETE_PROFILE_TABLE =
+            "DROP TABLE IF EXISTS " + TABLE_NAME_PROFILE;
+
+    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "FeedReader.db";
+
+    private DatabaseInterface(Context context) {
+            super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+    public static DatabaseInterface getInstance(Context context) {
+        // Lazy initializer
+        if (instance == null) {
+            instance = new DatabaseInterface(context);
+        }
+        return instance;
+    }
+
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(SQL_CREATE_PROFILE_TABLE);
+        db.execSQL(SQL_CREATE_REGISTRATION_TABLE);
+        createBaseProfile(db, "a","a","Admin",1000555555,"555-555-5555","Base admin");
+
+    }
+
+    // Create system user profiles when the database is first created.
+    private void createBaseProfile(SQLiteDatabase db, String username, String password, String role,
+                              int uta_id, String contactDetails, String personalDetails) {
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME_USERNAME, username);
+        values.put(COLUMN_NAME_PASSWORD, password);
+        values.put(COLUMN_NAME_ROLE,     role);
+        values.put(COLUMN_NAME_UTAID,    uta_id);
+        values.put(COLUMN_NAME_CONTACT,  contactDetails);
+        values.put(COLUMN_NAME_PERSONAL, personalDetails);
+
+        // Insert the new row, returning the primary key value of the new row
+        long newRowId = db.insert(TABLE_NAME_PROFILE, null, values);
+    }
+
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // This database is only a cache for online data, so its upgrade policy is
+        // to simply to discard the data and start over
+        db.execSQL(SQL_DELETE_PROFILE_TABLE);
+        onCreate(db);
+    }
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        onUpgrade(db, oldVersion, newVersion);
+    }
+
+    public void createProfile(String username, String password, String role,
+                              int uta_id, String contactDetails, String personalDetails) {
+
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME_USERNAME, username);
+        values.put(COLUMN_NAME_PASSWORD, password);
+        values.put(COLUMN_NAME_ROLE,     role);
+        values.put(COLUMN_NAME_UTAID,    uta_id);
+        values.put(COLUMN_NAME_CONTACT,  contactDetails);
+        values.put(COLUMN_NAME_PERSONAL, personalDetails);
+
+        // Insert the new row, returning the primary key value of the new row
+        long newRowId = db.insert(TABLE_NAME_PROFILE, null, values);
+    }
+
+    public void createRegistrationRequest(String username, String password, String role,
+                                          int uta_id, String contactDetails, String personalDetails) {
+
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME_USERNAME, username);
+        values.put(COLUMN_NAME_PASSWORD, password);
+        values.put(COLUMN_NAME_ROLE,     role);
+        values.put(COLUMN_NAME_UTAID,    uta_id);
+        values.put(COLUMN_NAME_CONTACT,  contactDetails);
+        values.put(COLUMN_NAME_PERSONAL, personalDetails);
+
+        // Insert the new row, returning the primary key value of the new row
+        long newRowId = db.insert(TABLE_NAME_REGISTRATION, null, values);
+    }
+
+    public Cursor getRegistrationRequests() {
+        SQLiteDatabase db = getReadableDatabase();
+
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                COLUMN_NAME_USERNAME,
+                BaseColumns._ID
+        };
+
+        // TODO: Sort on date/time
+        //String sortOrder = COLUMN_NAME_USERNAME + " DESC";
+
+        return db.query(
+                TABLE_NAME_REGISTRATION,     // The table to query
+                projection,             // The array of columns to return (pass null to get all)
+                null,              // The columns for the WHERE clause
+                null,          // The values for the WHERE clause
+                null,          // don't group the rows
+                null,           // don't filter by row groups
+                null              // The sort order
+        );
+    }
+
+    public Cursor getRegistrationRequest(String req_id) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                COLUMN_NAME_USERNAME,
+                COLUMN_NAME_PASSWORD,
+                COLUMN_NAME_ROLE,
+                COLUMN_NAME_UTAID,
+                COLUMN_NAME_CONTACT,
+                COLUMN_NAME_PERSONAL
+        };
+
+        String selection =
+                BaseColumns._ID + " = ?";
+        String[] selectionArgs = { req_id };
+
+        return db.query(
+                TABLE_NAME_REGISTRATION,     // The table to query
+                projection,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
+                null,          // don't group the rows
+                null,           // don't filter by row groups
+                null              // The sort order
+        );
+    }
+
+    public void updateProfile(String profID, String username, String password, String role,
+                              int uta_id, String contactDetails, String personalDetails) {
+
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME_USERNAME, username);
+        values.put(COLUMN_NAME_PASSWORD, password);
+        values.put(COLUMN_NAME_ROLE,     role);
+        values.put(COLUMN_NAME_UTAID,    uta_id);
+        values.put(COLUMN_NAME_CONTACT,  contactDetails);
+        values.put(COLUMN_NAME_PERSONAL, personalDetails);
+
+        String selection =
+                BaseColumns._ID + " = ?";
+        String[] selectionArgs = { profID };
+
+        db.update(TABLE_NAME_PROFILE, values, selection, selectionArgs);
+    }
+
+    public void deleteProfile(String profileID) {
+        SQLiteDatabase db = getWritableDatabase();
+        String selection = BaseColumns._ID + " = ?";
+        String[] selectionArgs = { profileID };
+
+        int deletedRows = db.delete(TABLE_NAME_PROFILE, selection, selectionArgs);
+    }
+
+    public void deleteRegistrationRequest(String requestID) {
+        SQLiteDatabase db = getWritableDatabase();
+        String selection = BaseColumns._ID + " = ?";
+        String[] selectionArgs = { requestID };
+
+        int deletedRows = db.delete(TABLE_NAME_REGISTRATION, selection, selectionArgs);
+    }
+
+    public String login(String username, String password) {
+        String ret = null;
+        SQLiteDatabase db = getReadableDatabase();
+
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                //BaseColumns._ID,
+                COLUMN_NAME_ROLE
+        };
+
+        // Filter results WHERE "title" = 'My Title'
+        String selection =
+                COLUMN_NAME_USERNAME + " = ? AND " +
+                COLUMN_NAME_PASSWORD + " = ?";
+        String[] selectionArgs = { username, password};
+
+        // How you want the results sorted in the resulting Cursor
+        //String sortOrder = COLUMN_NAME_USERNAME + " DESC";
+
+        Cursor cursor = db.query(
+                TABLE_NAME_PROFILE,     // The table to query
+                projection,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
+                null,          // don't group the rows
+                null,           // don't filter by row groups
+                null              // The sort order
+        );
+
+        if((cursor != null) && (cursor.getCount() > 0)) {
+            cursor.moveToFirst();
+            ret = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_ROLE));
+        }
+
+        cursor.close();
+        return ret;
+    }
+
+    public Cursor searchUsername(String usernameQuery) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                COLUMN_NAME_USERNAME,
+                COLUMN_NAME_ROLE,
+                BaseColumns._ID
+        };
+
+        // Filter results WHERE "title" = 'My Title'
+        String selection =
+                COLUMN_NAME_USERNAME + " LIKE ?";
+        String[] selectionArgs = { usernameQuery };
+
+        // How you want the results sorted in the resulting Cursor
+        //String sortOrder = COLUMN_NAME_USERNAME + " DESC";
+
+        return db.query(
+                TABLE_NAME_PROFILE,     // The table to query
+                projection,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
+                null,          // don't group the rows
+                null,           // don't filter by row groups
+                null              // The sort order
+        );
+    }
+
+    public Cursor getProfileByUsername(String username) {
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                BaseColumns._ID,
+                COLUMN_NAME_USERNAME,
+                COLUMN_NAME_PASSWORD,
+                COLUMN_NAME_ROLE,
+                COLUMN_NAME_UTAID,
+                COLUMN_NAME_CONTACT,
+                COLUMN_NAME_PERSONAL
+        };
+
+        // Filter results WHERE "title" = 'My Title'
+        String selection =
+                COLUMN_NAME_USERNAME + " = ?";
+        String[] selectionArgs = { username };
+
+        // How you want the results sorted in the resulting Cursor
+        //String sortOrder = COLUMN_NAME_USERNAME + " DESC";
+
+        return db.query(
+                TABLE_NAME_PROFILE,     // The table to query
+                projection,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
+                null,          // don't group the rows
+                null,           // don't filter by row groups
+                null              // The sort order
+        );
+    }
+
+    public Cursor getProfileByID(String profileID) {
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                BaseColumns._ID,
+                COLUMN_NAME_USERNAME,
+                COLUMN_NAME_PASSWORD,
+                COLUMN_NAME_ROLE,
+                COLUMN_NAME_UTAID,
+                COLUMN_NAME_CONTACT,
+                COLUMN_NAME_PERSONAL
+        };
+
+        // Filter results WHERE "title" = 'My Title'
+        String selection =
+                BaseColumns._ID + " = ?";
+        String[] selectionArgs = { profileID };
+
+        // How you want the results sorted in the resulting Cursor
+        //String sortOrder = COLUMN_NAME_USERNAME + " DESC";
+
+        return db.query(
+                TABLE_NAME_PROFILE,     // The table to query
+                projection,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
+                null,          // don't group the rows
+                null,           // don't filter by row groups
+                null              // The sort order
+        );
+    }
+
+    public void convertRequestToProfile(String requestID) {
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                COLUMN_NAME_USERNAME,
+                COLUMN_NAME_PASSWORD,
+                COLUMN_NAME_ROLE,
+                COLUMN_NAME_UTAID,
+                COLUMN_NAME_CONTACT,
+                COLUMN_NAME_PERSONAL
+        };
+
+        // Filter results WHERE "title" = 'My Title'
+        String selection =
+                BaseColumns._ID + " = ?";
+        String[] selectionArgs = { requestID };
+
+        // How you want the results sorted in the resulting Cursor
+        //String sortOrder = COLUMN_NAME_USERNAME + " DESC";
+
+        Cursor req = db.query(
+                TABLE_NAME_REGISTRATION,     // The table to query
+                projection,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
+                null,          // don't group the rows
+                null,           // don't filter by row groups
+                null              // The sort order
+        );
+
+        if (req != null) {
+            req.moveToNext();
+            String username = req.getString(req.getColumnIndexOrThrow(DatabaseInterface.COLUMN_NAME_USERNAME));
+            String password = req.getString(req.getColumnIndexOrThrow(DatabaseInterface.COLUMN_NAME_PASSWORD));
+            String role     = req.getString(req.getColumnIndexOrThrow(DatabaseInterface.COLUMN_NAME_ROLE));
+            String uta_id   = req.getString(req.getColumnIndexOrThrow(DatabaseInterface.COLUMN_NAME_UTAID));
+            String contact  = req.getString(req.getColumnIndexOrThrow(DatabaseInterface.COLUMN_NAME_CONTACT));
+            String personal = req.getString(req.getColumnIndexOrThrow(DatabaseInterface.COLUMN_NAME_PERSONAL));
+            createProfile(username, password, role, Integer.parseInt(uta_id), contact, personal);
+            deleteRegistrationRequest(requestID);
+        }
+    }
+
+}
