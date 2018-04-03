@@ -59,16 +59,17 @@ public class Login extends Activity {
                             attempt_counter = MAX_ATTEMPTS;
                             Intent intent = null;
                             switch (role) {
-                                case "Admin": intent = new Intent(Login.this, AdminHome.class);
+                                case "Admin": intent = new Intent(Login.this, AdminHome.class); break;
                                 case "User": break;
                                 case "Caterer": break;
                                 case "Caterer Staff": break;
                             }
-                            Toast.makeText(Login.this,"Welcome, "+ user + " {"+role+"}",
-                                    Toast.LENGTH_SHORT).show();
 
-                            if (intent != null)
+                            if (intent != null) {
+                                Toast.makeText(Login.this, "Welcome, " + user + " {" + role + "}",
+                                        Toast.LENGTH_SHORT).show();
                                 startActivity(intent);
+                            }
 
                         }else {
                             Toast.makeText(Login.this,"Username and Password are not correct",
