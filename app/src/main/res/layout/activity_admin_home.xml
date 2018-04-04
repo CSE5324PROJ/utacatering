@@ -12,7 +12,7 @@
     android:orientation="vertical"
     android:paddingLeft="3dp"
     android:paddingRight="3dp"
-    tools:context="com.example.appworthy.personalhealthmonitoringsystem.AdminHome">
+    tools:context="comcse5324projutacatering.httpsgithub.utacatering.AdminHome">
 <!--
     <include
         layout="@layout/homepage_profile"/>
