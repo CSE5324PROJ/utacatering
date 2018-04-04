@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE resources [
+    <!ENTITY EVENT_TABLE_NAME "events">
+    <!ENTITY EVENT_REQ_USER_COL "req_user">
+    <!ENTITY EVENT_REQ_USER_ID_COL "req_user_id">
+    <!ENTITY EVENT_TIME_COL "time">
+    <!ENTITY EVENT_HALL_COL "hall">
+    <!ENTITY EVENT_AC_COL "assigned_caterer">
+    <!ENTITY EVENT_STAT_COL "status_flag">
+    <!ENTITY EVENT_ATT_COL "attendance">
+    <!ENTITY EVENT_ALC_COL "alco_flag">
+    <!ENTITY EVENT_FORM_COL "formal_flag">
+    <!ENTITY EVENT_MT_COL "meal_type">
+    <!ENTITY EVENT_PRC_COL "price">
+    <!ENTITY EVENT_OCTYP_COL "occ_type">
+    <!ENTITY EVENT_ENT_COL "ent_items">
+
+    <!ENTITY EVENT_CS_ASSIGN_TABLE_NAME "events_cs_assign">
+    <!ENTITY EVENT_ID_COL "event_row_id">
+    <!ENTITY EVENT_CS_PROFILE_ID_COL "profile_row_id">
+    ]>
+<resources>
+    <string name="EVENT_TABLE_NAME">&EVENT_TABLE_NAME;</string>
+    <string name="EVENT_REQ_USER_COL">&EVENT_REQ_USER_COL;</string>
+    <string name="EVENT_REQ_USER_ID_COL">&EVENT_REQ_USER_ID_COL;</string>
+    <string name="EVENT_TIME_COL">&EVENT_TIME_COL;</string>
+    <string name="EVENT_HALL_COL">&EVENT_HALL_COL;</string>
+    <string name="EVENT_AC_COL">&EVENT_AC_COL;</string>
+    <string name="EVENT_STAT_COL">&EVENT_STAT_COL;</string>
+    <string name="EVENT_ATT_COL">&EVENT_ATT_COL;</string>
+    <string name="EVENT_ALC_COL">&EVENT_ALC_COL;</string>
+    <string name="EVENT_FORM_COL">&EVENT_FORM_COL;</string>
+    <string name="EVENT_MT_COL">&EVENT_MT_COL;</string>
+    <string name="EVENT_PRC_COL">&EVENT_PRC_COL;</string>
+    <string name="EVENT_OCTYP_COL">&EVENT_OCTYP_COL;</string>
+    <string name="EVENT_ENT_COL">&EVENT_ENT_COL;</string>
+
+    <string name="EVENT_CS_ASSIGN_TABLE_NAME">&EVENT_CS_ASSIGN_TABLE_NAME;</string>
+    <string name="EVENT_ID_COL">&EVENT_ID_COL;</string>
+    <string name="EVENT_CS_PROFILE_ID_COL">&EVENT_CS_PROFILE_ID_COL;</string>
+
+
+    <string name="SQL_CREATE_EVENT_TABLE_STRING"
+    >CREATE TABLE &EVENT_TABLE_NAME;
+    (
+        _ID INTEGER PRIMARY KEY,
+        &EVENT_REQ_USER_COL; STRING,
+        &EVENT_REQ_USER_ID_COL; INTEGER,
+        &EVENT_TIME_COL; STRING,
+        &EVENT_HALL_COL; STRING,
+        &EVENT_AC_COL; INTEGER,
+        &EVENT_STAT_COL; INTEGER,
+        &EVENT_ATT_COL; INTEGER,
+        &EVENT_ALC_COL; INTEGER,
+        &EVENT_FORM_COL; INTEGER,
+        &EVENT_MT_COL; STRING,
+        &EVENT_PRC_COL; REAL,
+        &EVENT_OCTYP_COL; STRING,
+        &EVENT_ENT_COL; STRING,
+        FOREIGN KEY (&EVENT_REQ_USER_ID_COL;) REFERENCES profile(_ID)
+    );</string>
+    <string name="SQL_CREATE_EVENT_CS_ASSIGN_TABLE_STRING"
+        >CREATE TABLE &EVENT_CS_ASSIGN_TABLE_NAME;
+    (
+        _ID INTEGER PRIMARY KEY,
+        &EVENT_ID_COL; INTEGER,
+        &EVENT_CS_PROFILE_ID_COL; INTEGER,
+        FOREIGN KEY (&EVENT_ID_COL;) REFERENCES &EVENT_TABLE_NAME;(_ID),
+        FOREIGN KEY (&EVENT_CS_PROFILE_ID_COL;) REFERENCES profile(_ID)
+    );</string>
+</resources>

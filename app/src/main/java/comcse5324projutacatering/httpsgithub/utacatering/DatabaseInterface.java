@@ -40,6 +40,23 @@ public class DatabaseInterface extends SQLiteOpenHelper {
                     COLUMN_NAME_PERSONAL + " TEXT,"    +
                     COLUMN_NAME_CONTACT  + " TEXT)"   ;
 
+    private Context mContext;
+
+    public String SQL_CREATE_EVENT_TABLE ;
+    public String EVENT_REQ_USER_COL;
+    public String EVENT_REQ_USER_ID_COL;
+    public String EVENT_TIME_COL;
+    public String EVENT_HALL_COL;
+    public String EVENT_AC_COL;
+    public String EVENT_STAT_COL;
+    public String EVENT_ATT_COL;
+    public String EVENT_ALC_COL;
+    public String EVENT_FORM_COL;
+    public String EVENT_MT_COL;
+    public String EVENT_PRC_COL;
+    public String EVENT_OCTYP_COL;
+    public String EVENT_ENT_COL;
+
     private static final String SQL_DELETE_PROFILE_TABLE =
             "DROP TABLE IF EXISTS " + TABLE_NAME_PROFILE;
 
@@ -48,20 +65,48 @@ public class DatabaseInterface extends SQLiteOpenHelper {
 
     private DatabaseInterface(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        mContext = context;
     }
     public static DatabaseInterface getInstance(Context context) {
         // Lazy initializer
+
         if (instance == null) {
             instance = new DatabaseInterface(context);
         }
         return instance;
     }
 
+    //String SQL_CREATE_EVENT_TABLE;
+
+
+
+
     public void onCreate(SQLiteDatabase db) {
+        SQL_CREATE_EVENT_TABLE = mContext.getString(R.string.SQL_CREATE_EVENT_TABLE_STRING);
+        EVENT_REQ_USER_COL = mContext.getString(R.string.EVENT_REQ_USER_COL);
+        EVENT_REQ_USER_ID_COL = mContext.getString(R.string.EVENT_REQ_USER_ID_COL);
+        EVENT_TIME_COL = mContext.getString(R.string.EVENT_TIME_COL);
+        EVENT_HALL_COL = mContext.getString(R.string.EVENT_HALL_COL);
+        EVENT_AC_COL = mContext.getString(R.string.EVENT_AC_COL);
+        EVENT_STAT_COL = mContext.getString(R.string.EVENT_STAT_COL);
+        EVENT_ATT_COL = mContext.getString(R.string.EVENT_ATT_COL);
+        EVENT_ALC_COL = mContext.getString(R.string.EVENT_ALC_COL);
+        EVENT_FORM_COL = mContext.getString(R.string.EVENT_FORM_COL);
+        EVENT_MT_COL = mContext.getString(R.string.EVENT_MT_COL);
+        EVENT_PRC_COL = mContext.getString(R.string.EVENT_PRC_COL);
+        EVENT_OCTYP_COL = mContext.getString(R.string.EVENT_OCTYP_COL);
+        EVENT_ENT_COL = mContext.getString(R.string.EVENT_ENT_COL);
         db.execSQL(SQL_CREATE_PROFILE_TABLE);
         db.execSQL(SQL_CREATE_REGISTRATION_TABLE);
-        createBaseProfile(db, "a","a","Admin",1000555555,"555-555-5555","Base admin");
+        db.execSQL(SQL_CREATE_EVENT_TABLE);
 
+        createBaseProfile(db, "u","u","User",1000555556,"555-555-5556","Base user");
+        createBaseProfile(db, "a","a","Admin",1000555555,"555-555-5555","Base admin");
+        createBaseProfile(db, "c","c","Caterer",1000555557,"555-555-5557","Base caterer");
+        createBaseProfile(db, "cs","cs","CatererStaff",1000555558,"555-555-5558","Base caterer staff");
+
+        createBaseEvent(db, "u",1,"2018-05-13 15:30", "Arlington","c",1,20,1,
+                1,"Pizza",200.50,"Wedding","Play Rap Music");
     }
 
     // Create system user profiles when the database is first created.
@@ -78,6 +123,29 @@ public class DatabaseInterface extends SQLiteOpenHelper {
 
         // Insert the new row, returning the primary key value of the new row
         long newRowId = db.insert(TABLE_NAME_PROFILE, null, values);
+    }
+
+    private void createBaseEvent(SQLiteDatabase db, String req_user,int req_user_id, String time, String hall,
+                                   String assigned_caterer, int status_flag, int attendance, int alco_flag, int formal_flag, String meal_type,
+                                    double price, String occ_type, String ent_items) {
+
+        ContentValues values = new ContentValues();
+        values.put(EVENT_REQ_USER_COL, req_user);
+        values.put(EVENT_REQ_USER_ID_COL, req_user_id);
+        values.put(EVENT_TIME_COL, time);
+        values.put(EVENT_HALL_COL,     hall);
+        values.put(EVENT_AC_COL,    assigned_caterer);
+        values.put(EVENT_STAT_COL,  status_flag);
+        values.put(EVENT_ATT_COL, attendance);
+        values.put(EVENT_ALC_COL, alco_flag);
+        values.put(EVENT_FORM_COL, formal_flag);
+        values.put(EVENT_MT_COL, meal_type);
+        values.put(EVENT_PRC_COL, price);
+        values.put(EVENT_OCTYP_COL, occ_type);
+        values.put(EVENT_ENT_COL, ent_items);
+
+        // Insert the new row, returning the primary key value of the new row
+        long newRowId = db.insert("events", null, values);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
