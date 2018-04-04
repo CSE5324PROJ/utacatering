@@ -3,7 +3,9 @@
     <!ENTITY EVENT_TABLE_NAME "events">
     <!ENTITY EVENT_REQ_USER_COL "req_user">
     <!ENTITY EVENT_REQ_USER_ID_COL "req_user_id">
-    <!ENTITY EVENT_TIME_COL "time">
+    <!ENTITY EVENT_STIME_COL "S_time">
+    <!ENTITY EVENT_DUR_COL "duration_hrs">
+    <!ENTITY EVENT_ETIME_COL "E_time">
     <!ENTITY EVENT_HALL_COL "hall">
     <!ENTITY EVENT_AC_COL "assigned_caterer">
     <!ENTITY EVENT_STAT_COL "status_flag">
@@ -18,12 +20,16 @@
     <!ENTITY EVENT_CS_ASSIGN_TABLE_NAME "events_cs_assign">
     <!ENTITY EVENT_ID_COL "event_row_id">
     <!ENTITY EVENT_CS_PROFILE_ID_COL "profile_row_id">
+
+    <!ENTITY SQL_EVENT_TRIGGER_CALC_END_TIME_NAME "SQL_EVENT_TRIGGER_CALC_END_TIME">
     ]>
 <resources>
     <string name="EVENT_TABLE_NAME">&EVENT_TABLE_NAME;</string>
     <string name="EVENT_REQ_USER_COL">&EVENT_REQ_USER_COL;</string>
     <string name="EVENT_REQ_USER_ID_COL">&EVENT_REQ_USER_ID_COL;</string>
-    <string name="EVENT_TIME_COL">&EVENT_TIME_COL;</string>
+    <string name="EVENT_STIME_COL">&EVENT_STIME_COL;</string>
+    <string name="EVENT_DUR_COL">&EVENT_DUR_COL;</string>
+    <string name="EVENT_ETIME_COL">&EVENT_ETIME_COL;</string>
     <string name="EVENT_HALL_COL">&EVENT_HALL_COL;</string>
     <string name="EVENT_AC_COL">&EVENT_AC_COL;</string>
     <string name="EVENT_STAT_COL">&EVENT_STAT_COL;</string>
@@ -40,13 +46,16 @@
     <string name="EVENT_CS_PROFILE_ID_COL">&EVENT_CS_PROFILE_ID_COL;</string>
 
 
+
     <string name="SQL_CREATE_EVENT_TABLE_STRING"
     >CREATE TABLE &EVENT_TABLE_NAME;
     (
         _ID INTEGER PRIMARY KEY,
         &EVENT_REQ_USER_COL; STRING,
         &EVENT_REQ_USER_ID_COL; INTEGER,
-        &EVENT_TIME_COL; STRING,
+        &EVENT_STIME_COL; STRING,
+        &EVENT_DUR_COL; STRING,
+        &EVENT_ETIME_COL; STRING,
         &EVENT_HALL_COL; STRING,
         &EVENT_AC_COL; INTEGER,
         &EVENT_STAT_COL; INTEGER,
@@ -68,4 +77,17 @@
         FOREIGN KEY (&EVENT_ID_COL;) REFERENCES &EVENT_TABLE_NAME;(_ID),
         FOREIGN KEY (&EVENT_CS_PROFILE_ID_COL;) REFERENCES profile(_ID)
     );</string>
+    <string name="SQL_EVENT_TRIGGER_CALC_END_TIME"
+        >CREATE TRIGGER &SQL_EVENT_TRIGGER_CALC_END_TIME_NAME;
+        AFTER INSERT ON &EVENT_TABLE_NAME;
+        BEGIN
+            UPDATE &EVENT_TABLE_NAME;
+            SET &EVENT_ETIME_COL; = (SELECT &EVENT_STIME_COL; FROM &EVENT_TABLE_NAME; WHERE &EVENT_ETIME_COL; IS NULL)
+            WHERE &EVENT_ETIME_COL; IS NULL;
+
+            UPDATE &EVENT_TABLE_NAME;
+            SET &EVENT_ETIME_COL; = datetime(&EVENT_ETIME_COL;,"'+' || &EVENT_DUR_COL; || ' hours'")
+            WHERE &EVENT_ETIME_COL; =&EVENT_STIME_COL;;
+        END;
+    </string>
 </resources>

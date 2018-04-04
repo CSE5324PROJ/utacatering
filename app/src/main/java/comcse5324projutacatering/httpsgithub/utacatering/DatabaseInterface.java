@@ -45,7 +45,9 @@ public class DatabaseInterface extends SQLiteOpenHelper {
     public String SQL_CREATE_EVENT_TABLE ;
     public String EVENT_REQ_USER_COL;
     public String EVENT_REQ_USER_ID_COL;
-    public String EVENT_TIME_COL;
+    public String EVENT_STIME_COL;
+    public String EVENT_DUR_COL;
+    public String EVENT_ETIME_COL;
     public String EVENT_HALL_COL;
     public String EVENT_AC_COL;
     public String EVENT_STAT_COL;
@@ -56,6 +58,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
     public String EVENT_PRC_COL;
     public String EVENT_OCTYP_COL;
     public String EVENT_ENT_COL;
+    public String SQL_EVENT_TRIGGER_CALC_END_TIME;
 
     private static final String SQL_DELETE_PROFILE_TABLE =
             "DROP TABLE IF EXISTS " + TABLE_NAME_PROFILE;
@@ -85,7 +88,8 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         SQL_CREATE_EVENT_TABLE = mContext.getString(R.string.SQL_CREATE_EVENT_TABLE_STRING);
         EVENT_REQ_USER_COL = mContext.getString(R.string.EVENT_REQ_USER_COL);
         EVENT_REQ_USER_ID_COL = mContext.getString(R.string.EVENT_REQ_USER_ID_COL);
-        EVENT_TIME_COL = mContext.getString(R.string.EVENT_TIME_COL);
+        EVENT_STIME_COL = mContext.getString(R.string.EVENT_STIME_COL);
+        EVENT_DUR_COL = mContext.getString(R.string.EVENT_DUR_COL);
         EVENT_HALL_COL = mContext.getString(R.string.EVENT_HALL_COL);
         EVENT_AC_COL = mContext.getString(R.string.EVENT_AC_COL);
         EVENT_STAT_COL = mContext.getString(R.string.EVENT_STAT_COL);
@@ -96,16 +100,18 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         EVENT_PRC_COL = mContext.getString(R.string.EVENT_PRC_COL);
         EVENT_OCTYP_COL = mContext.getString(R.string.EVENT_OCTYP_COL);
         EVENT_ENT_COL = mContext.getString(R.string.EVENT_ENT_COL);
+        SQL_EVENT_TRIGGER_CALC_END_TIME = mContext.getString(R.string.SQL_EVENT_TRIGGER_CALC_END_TIME);
         db.execSQL(SQL_CREATE_PROFILE_TABLE);
         db.execSQL(SQL_CREATE_REGISTRATION_TABLE);
         db.execSQL(SQL_CREATE_EVENT_TABLE);
+        db.execSQL(SQL_EVENT_TRIGGER_CALC_END_TIME);
 
         createBaseProfile(db, "u","u","User",1000555556,"555-555-5556","Base user");
         createBaseProfile(db, "a","a","Admin",1000555555,"555-555-5555","Base admin");
         createBaseProfile(db, "c","c","Caterer",1000555557,"555-555-5557","Base caterer");
         createBaseProfile(db, "cs","cs","CatererStaff",1000555558,"555-555-5558","Base caterer staff");
 
-        createBaseEvent(db, "u",1,"2018-05-13 15:30", "Arlington","c",1,20,1,
+        createBaseEvent(db, "u",1,"2018-05-13 15:30:00","6", "Arlington","c",1,20,1,
                 1,"Pizza",200.50,"Wedding","Play Rap Music");
     }
 
@@ -125,14 +131,15 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         long newRowId = db.insert(TABLE_NAME_PROFILE, null, values);
     }
 
-    private void createBaseEvent(SQLiteDatabase db, String req_user,int req_user_id, String time, String hall,
+    private void createBaseEvent(SQLiteDatabase db, String req_user,int req_user_id, String Stime, String dur, String hall,
                                    String assigned_caterer, int status_flag, int attendance, int alco_flag, int formal_flag, String meal_type,
                                     double price, String occ_type, String ent_items) {
 
         ContentValues values = new ContentValues();
         values.put(EVENT_REQ_USER_COL, req_user);
         values.put(EVENT_REQ_USER_ID_COL, req_user_id);
-        values.put(EVENT_TIME_COL, time);
+        values.put(EVENT_STIME_COL, Stime);
+        values.put(EVENT_DUR_COL, dur);
         values.put(EVENT_HALL_COL,     hall);
         values.put(EVENT_AC_COL,    assigned_caterer);
         values.put(EVENT_STAT_COL,  status_flag);
