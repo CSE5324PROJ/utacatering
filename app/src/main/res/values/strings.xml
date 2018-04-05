@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">utacatering</string>
+    <string name="app_name">MavCat</string>
+    <string-array name="roles">
+        <item>User</item>
+        <item>Caterer</item>
+        <item>Caterer Staff</item>
+        <item>Admin</item>
+    </string-array>
 </resources>

@@ -7,8 +7,10 @@ import android.provider.BaseColumns;
 import android.provider.ContactsContract;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 public class ViewEditProfile extends Activity {
@@ -18,12 +20,14 @@ public class ViewEditProfile extends Activity {
 
     private EditText editUsername;
     private EditText editPassword;
-    private EditText editRole;
+    private Spinner  editRole;
     private EditText editStudentID;
     private EditText editContactDetails;
     private EditText editPersonalDetails;
     private Button   saveButton;
     private Button   deleteButton;
+
+    private String selectedRole;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +44,12 @@ public class ViewEditProfile extends Activity {
 
         editUsername        = (EditText) findViewById(R.id.edit_username);
         editPassword        = (EditText) findViewById(R.id.edit_password);
-        editRole            = (EditText) findViewById(R.id.edit_role);
+        editRole            = (Spinner)  findViewById(R.id.edit_role);
         editStudentID       = (EditText) findViewById(R.id.edit_student_id);
         editContactDetails  = (EditText) findViewById(R.id.edit_contact_details);
         editPersonalDetails = (EditText) findViewById(R.id.edit_personal_details);
 
-        saveButton = (Button) findViewById(R.id.button_save_profile);
+        saveButton   = (Button) findViewById(R.id.button_save_profile);
         deleteButton = (Button) findViewById(R.id.button_delete_profile);
 
         addListeners();
@@ -53,19 +57,25 @@ public class ViewEditProfile extends Activity {
     }
 
     private void addListeners() {
+        editRole.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedRole = String.valueOf(editRole.getSelectedItem());
+            }
+            @Override public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String username = editUsername.getText().toString();
                 String password = editPassword.getText().toString();
-                String role     = editRole.getText().toString();
                 int    stu_id   = Integer.parseInt(editStudentID.getText().toString());
                 String contact  = editContactDetails.getText().toString();
                 String personal = editPersonalDetails.getText().toString();
 
                 DatabaseInterface.getInstance(ViewEditProfile.this).updateProfile(
-                        workingProfileID, username, password, role, stu_id, contact, personal
+                        workingProfileID, username, password, selectedRole, stu_id, contact, personal
                 );
 
                 Toast.makeText(ViewEditProfile.this, "Profile updated.", Toast.LENGTH_LONG).show();
@@ -97,7 +107,12 @@ public class ViewEditProfile extends Activity {
 
         editUsername.setText(username);
         editPassword.setText(password);
-        editRole.setText(role);
+
+        String[] roles = getResources().getStringArray(R.array.roles);
+        for(int i = 0; i < roles.length; i++) {
+            if ( role.equals(roles[i]) )
+                editRole.setSelection(i);
+        }
         editStudentID.setText(uta_id);
         editContactDetails.setText(contact);
         editPersonalDetails.setText(personal);

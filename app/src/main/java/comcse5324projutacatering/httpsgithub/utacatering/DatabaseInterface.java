@@ -2,6 +2,7 @@ package comcse5324projutacatering.httpsgithub.utacatering;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -67,24 +68,8 @@ public class DatabaseInterface extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "FeedReader.db";
 
     private DatabaseInterface(Context context) {
-            super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
-    }
-    public static DatabaseInterface getInstance(Context context) {
-        // Lazy initializer
-
-        if (instance == null) {
-            instance = new DatabaseInterface(context);
-        }
-        return instance;
-    }
-
-    //String SQL_CREATE_EVENT_TABLE;
-
-
-
-
-    public void onCreate(SQLiteDatabase db) {
         SQL_CREATE_EVENT_TABLE = mContext.getString(R.string.SQL_CREATE_EVENT_TABLE_STRING);
         EVENT_REQ_USER_COL = mContext.getString(R.string.EVENT_REQ_USER_COL);
         EVENT_REQ_USER_ID_COL = mContext.getString(R.string.EVENT_REQ_USER_ID_COL);
@@ -101,6 +86,19 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         EVENT_OCTYP_COL = mContext.getString(R.string.EVENT_OCTYP_COL);
         EVENT_ENT_COL = mContext.getString(R.string.EVENT_ENT_COL);
         SQL_EVENT_TRIGGER_CALC_END_TIME = mContext.getString(R.string.SQL_EVENT_TRIGGER_CALC_END_TIME);
+    }
+    public static DatabaseInterface getInstance(Context context) {
+        // Lazy initializer
+
+        if (instance == null) {
+            instance = new DatabaseInterface(context);
+        }
+        return instance;
+    }
+
+    //String SQL_CREATE_EVENT_TABLE;
+
+    public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_PROFILE_TABLE);
         db.execSQL(SQL_CREATE_REGISTRATION_TABLE);
         db.execSQL(SQL_CREATE_EVENT_TABLE);

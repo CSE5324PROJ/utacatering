@@ -4,19 +4,24 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 public class Register extends Activity {
 
     private EditText editUsername;
     private EditText editPassword;
-    private EditText editRole;
+    private Spinner  editRole;
     private EditText editStudentID;
     private EditText editContactDetails;
     private EditText editPersonalDetails;
-    private Button submitButton;
+    private Button   submitButton;
+
+    private String selectedRole;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +30,13 @@ public class Register extends Activity {
 
         android.app.ActionBar actionBar = getActionBar();
         if(actionBar != null) {
-            actionBar.setTitle("View Profile");
+            actionBar.setTitle("Register");
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
         editUsername        = (EditText) findViewById(R.id.edit_username);
         editPassword        = (EditText) findViewById(R.id.edit_password);
-        editRole            = (EditText) findViewById(R.id.edit_role);
+        editRole            = (Spinner)  findViewById(R.id.edit_role);
         editStudentID       = (EditText) findViewById(R.id.edit_student_id);
         editContactDetails  = (EditText) findViewById(R.id.edit_contact_details);
         editPersonalDetails = (EditText) findViewById(R.id.edit_personal_details);
@@ -39,22 +44,29 @@ public class Register extends Activity {
         submitButton = (Button) findViewById(R.id.button_submit);
 
         addListeners();
+        editRole.setSelection(0);
     }
 
     private void addListeners() {
+        editRole.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedRole = String.valueOf(editRole.getSelectedItem());
+            }
+            @Override public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String username = editUsername.getText().toString();
                 String password = editPassword.getText().toString();
-                String role     = editRole.getText().toString();
                 int    stu_id   = Integer.parseInt(editStudentID.getText().toString());
                 String contact  = editContactDetails.getText().toString();
                 String personal = editPersonalDetails.getText().toString();
 
                 DatabaseInterface.getInstance(Register.this).createRegistrationRequest(
-                        username, password, role, stu_id, contact, personal
+                        username, password, selectedRole, stu_id, contact, personal
                 );
 
                 Toast.makeText(Register.this, "Registration submitted.", Toast.LENGTH_LONG).show();

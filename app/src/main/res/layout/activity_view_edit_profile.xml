@@ -60,12 +60,12 @@
                     android:layout_height="wrap_content"
                     android:text="Role:"
                     android:layout_marginTop="15dp" />
-                <!-- TODO: Change this to spinner (drop down list) -->
-                <EditText
+                <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:padding = "3dp"
+                    android:entries="@array/roles"
                     android:id="@+id/edit_role"
                     android:background="@layout/rounded_border" />
 
