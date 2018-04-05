@@ -32,6 +32,7 @@ public class user_uc0_Home extends Activity {
             case R.id.main_menu_go_home:
                 Intent intent = new Intent(user_uc0_Home.this, user_uc0_Home.class);
                 startActivity(intent);
+                finish();
                 return true;
             default:
                 return false;
