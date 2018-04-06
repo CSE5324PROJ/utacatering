@@ -61,6 +61,7 @@ public class Login extends Activity {
                                     intent = new Intent(Login.this, user_uc0_Home.class);
                                     break;
                                 case "Caterer":
+                                    intent = new Intent(Login.this, cat_uc0_Home.class);
                                     break;
                                 case "Caterer Staff":
                                     break;
