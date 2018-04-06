@@ -1,5 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-
+//PURELY TO TEST GIT
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
@@ -164,7 +164,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
     }
 
     public void createProfile(String username, String password, String role,
-                              int uta_id, String contactDetails, String personalDetails) {
+                              long uta_id, String contactDetails, String personalDetails) {
 
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
