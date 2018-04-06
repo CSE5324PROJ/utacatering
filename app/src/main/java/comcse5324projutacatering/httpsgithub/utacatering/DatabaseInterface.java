@@ -180,7 +180,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
     }
 
     public void createRegistrationRequest(String username, String password, String role,
-                                          int uta_id, String contactDetails, String personalDetails) {
+                                          long uta_id, String contactDetails, String personalDetails) {
 
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
