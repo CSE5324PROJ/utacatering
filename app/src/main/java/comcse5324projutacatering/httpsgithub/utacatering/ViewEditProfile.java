@@ -70,7 +70,7 @@ public class ViewEditProfile extends Activity {
 
                 String username = editUsername.getText().toString();
                 String password = editPassword.getText().toString();
-                int    stu_id   = Integer.parseInt(editStudentID.getText().toString());
+                long    stu_id   = Long.parseLong(editStudentID.getText().toString());
                 String contact  = editContactDetails.getText().toString();
                 String personal = editPersonalDetails.getText().toString();
 

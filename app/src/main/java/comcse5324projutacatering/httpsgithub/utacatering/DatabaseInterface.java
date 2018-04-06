@@ -45,6 +45,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
     private Context mContext;
 
     public String SQL_CREATE_EVENT_TABLE ;
+    public String SQL_EVENT_TABLE_NAME ;
     public String EVENT_REQ_USER_COL;
     public String EVENT_REQ_USER_ID_COL;
     public String EVENT_STIME_COL;
@@ -60,7 +61,11 @@ public class DatabaseInterface extends SQLiteOpenHelper {
     public String EVENT_PRC_COL;
     public String EVENT_OCTYP_COL;
     public String EVENT_ENT_COL;
+    public String SQL_CREATE_EVENT_CS_ASSIGN_TABLE_STRING;
     public String SQL_EVENT_TRIGGER_CALC_END_TIME;
+    public String EVENT_ID_COL;
+    public String EVENT_CS_PROFILE_ID_COL;
+    public String EVENT_CS_ASSIGN_TABLE_NAME;
 
     private static final String SQL_DELETE_PROFILE_TABLE =
             "DROP TABLE IF EXISTS " + TABLE_NAME_PROFILE;
@@ -72,6 +77,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
         SQL_CREATE_EVENT_TABLE = mContext.getString(R.string.SQL_CREATE_EVENT_TABLE_STRING);
+        SQL_EVENT_TABLE_NAME = mContext.getString(R.string.EVENT_TABLE_NAME);
         EVENT_REQ_USER_COL = mContext.getString(R.string.EVENT_REQ_USER_COL);
         EVENT_REQ_USER_ID_COL = mContext.getString(R.string.EVENT_REQ_USER_ID_COL);
         EVENT_STIME_COL = mContext.getString(R.string.EVENT_STIME_COL);
@@ -86,7 +92,11 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         EVENT_PRC_COL = mContext.getString(R.string.EVENT_PRC_COL);
         EVENT_OCTYP_COL = mContext.getString(R.string.EVENT_OCTYP_COL);
         EVENT_ENT_COL = mContext.getString(R.string.EVENT_ENT_COL);
+        SQL_CREATE_EVENT_CS_ASSIGN_TABLE_STRING = mContext.getString(R.string.SQL_CREATE_EVENT_CS_ASSIGN_TABLE_STRING);
         SQL_EVENT_TRIGGER_CALC_END_TIME = mContext.getString(R.string.SQL_EVENT_TRIGGER_CALC_END_TIME);
+        EVENT_ID_COL = mContext.getString(R.string.EVENT_ID_COL);
+        EVENT_CS_PROFILE_ID_COL = mContext.getString(R.string.EVENT_CS_PROFILE_ID_COL);
+        EVENT_CS_ASSIGN_TABLE_NAME = mContext.getString(R.string.EVENT_CS_ASSIGN_TABLE_NAME);
     }
     public static DatabaseInterface getInstance(Context context) {
         // Lazy initializer
@@ -103,6 +113,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_PROFILE_TABLE);
         db.execSQL(SQL_CREATE_REGISTRATION_TABLE);
         db.execSQL(SQL_CREATE_EVENT_TABLE);
+        db.execSQL(SQL_CREATE_EVENT_CS_ASSIGN_TABLE_STRING);
         db.execSQL(SQL_EVENT_TRIGGER_CALC_END_TIME);
 
         createBaseProfile(db, "u","u","User",1000555556,"555-555-5556","Base user");
@@ -112,11 +123,13 @@ public class DatabaseInterface extends SQLiteOpenHelper {
 
         createBaseEvent(db, "u",1,"2018-05-13 15:30:00","6", "Arlington","c",1,20,1,
                 1,"Pizza",200.50,"Wedding","Play Rap Music");
+        createBaseEventAssignedCS(db,1,4); //Manually added assigned caterer staff, eventID & profileID only known due to the order of the above functions.. based on row position in the DB.
+        //Default "cs" caterer staff (profile table 4th db row) user is assigned the the default dummie event (event table 1st db row)
     }
 
     // Create system user profiles when the database is first created.
     private void createBaseProfile(SQLiteDatabase db, String username, String password, String role,
-                              int uta_id, String contactDetails, String personalDetails) {
+                              long uta_id, String contactDetails, String personalDetails) {
 
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME_USERNAME, username);
@@ -151,9 +164,19 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         values.put(EVENT_ENT_COL, ent_items);
 
         // Insert the new row, returning the primary key value of the new row
-        long newRowId = db.insert("events", null, values);
+        long newRowId = db.insert(SQL_EVENT_TABLE_NAME, null, values);
     }
 
+    private void createBaseEventAssignedCS(SQLiteDatabase db, int EventID, int profileID) {
+
+        ContentValues values = new ContentValues();
+        values.put(EVENT_ID_COL, EventID);
+        values.put(EVENT_CS_PROFILE_ID_COL, profileID);
+
+
+        // Insert the new row, returning the primary key value of the new row
+        long newRowId = db.insert(EVENT_CS_ASSIGN_TABLE_NAME, null, values);
+    }
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
@@ -250,7 +273,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
     }
 
     public void updateProfile(String profID, String username, String password, String role,
-                              int uta_id, String contactDetails, String personalDetails) {
+                              long uta_id, String contactDetails, String personalDetails) {
 
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
