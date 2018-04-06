@@ -72,7 +72,93 @@
         app:layout_constraintStart_toEndOf="@+id/spinner_month"
         app:layout_constraintTop_toBottomOf="@+id/textView_day" />
 
+    <TextView
+        android:id="@+id/textView_hour"
+        android:layout_width="72dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Hour"
+        android:textSize="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_year" />
 
+    <Spinner
+        android:id="@+id/spinner_hour"
+        android:layout_width="84dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_hour" />
+
+    <TextView
+        android:id="@+id/textView_minute"
+        android:layout_width="85dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="16dp"
+        android:text="Minute"
+        android:textSize="25dp"
+        app:layout_constraintStart_toEndOf="@+id/textView_hour"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_month" />
+
+    <Spinner
+        android:id="@+id/spinner_minute"
+        android:layout_width="84dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@+id/spinner_hour"
+        app:layout_constraintTop_toBottomOf="@+id/textView_minute" />
+
+    <TextView
+        android:id="@+id/textView_dur"
+        android:layout_width="100dp"
+        android:layout_height="31dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="16dp"
+        android:text="Duration"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView_minute"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_day" />
+
+    <Spinner
+        android:id="@+id/spinner_duration"
+        android:layout_width="84dp"
+        android:layout_height="47dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/spinner_minute"
+        app:layout_constraintTop_toBottomOf="@+id/textView_dur" />
+
+    <TextView
+        android:id="@+id/textView_availHalls"
+        android:layout_width="178dp"
+        android:layout_height="31dp"
+        android:layout_marginEnd="190dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:text="Available Halls"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_hour" />
+
+    <Spinner
+        android:id="@+id/spinner_availHalls"
+        android:layout_width="245dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="123dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="22dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_availHalls" />
 
 
 </android.support.constraint.ConstraintLayout>
