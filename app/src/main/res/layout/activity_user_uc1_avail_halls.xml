@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".user_uc1_availHalls">
+
+    <!-- INCOMPLETE-->
+
+    <TextView
+        android:id="@+id/textView_year"
+        android:layout_width="72dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Year"
+        android:textSize="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinner_year"
+        android:layout_width="84dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_year" />
+
+    <TextView
+        android:id="@+id/textView_month"
+        android:layout_width="72dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="24dp"
+        android:text="Month"
+        android:textSize="25dp"
+        app:layout_constraintStart_toEndOf="@+id/textView_year"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinner_month"
+        android:layout_width="72dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="18dp"
+        app:layout_constraintStart_toEndOf="@+id/spinner_year"
+        app:layout_constraintTop_toBottomOf="@+id/textView_month" />
+
+    <TextView
+        android:id="@+id/textView_day"
+        android:layout_width="72dp"
+        android:layout_height="31dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:text="Day"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView_month"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinner_day"
+        android:layout_width="72dp"
+        android:layout_height="47dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/spinner_month"
+        app:layout_constraintTop_toBottomOf="@+id/textView_day" />
+
+
+
+
+</android.support.constraint.ConstraintLayout>

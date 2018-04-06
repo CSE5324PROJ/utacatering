@@ -124,7 +124,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         createBaseEvent(db, "u",1,"2018-05-13 15:30:00","6", "Arlington","c",1,20,1,
                 1,"Pizza",200.50,"Wedding","Play Rap Music");
         createBaseEventAssignedCS(db,1,4); //Manually added assigned caterer staff, eventID & profileID only known due to the order of the above functions.. based on row position in the DB.
-        //Default "cs" caterer staff (profile table 4th db row) user is assigned the the default dummie event (event table 1st db row)
+        //Default "cs" caterer staff (profile table 4th db row) user is assigned the the default dummy event (event table 1st db row)
     }
 
     // Create system user profiles when the database is first created.
