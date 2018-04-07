@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.EditText;
 
+
 public class user_uc2_ReqEvent extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     String[] durations={"2 hr","3 hr","4 hr","5 hr","6 hr"};

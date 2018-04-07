@@ -6,13 +6,18 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 public class user_uc0_Home extends Activity {
+
+    private Button user_uc1_availHalls_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_uc0__home);
+        setupButtons();
     }
 
     @Override
@@ -37,5 +42,19 @@ public class user_uc0_Home extends Activity {
             default:
                 return false;
         }
+    }
+
+    private void setupButtons() {
+        user_uc1_availHalls_btn = (Button)findViewById(R.id.button_user_uc1);
+
+        user_uc1_availHalls_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v)  {
+                Intent intent =  new Intent(user_uc0_Home.this, user_uc1_availHalls.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 }
