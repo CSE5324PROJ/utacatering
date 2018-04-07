@@ -5,10 +5,14 @@ package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO button to transition to reqEvent given current selections
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.provider.BaseColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -331,6 +335,38 @@ public class user_uc1_availHalls extends Activity{
         spinDur.setAdapter(durAdapter);
         selectedDur=2;
 
+    }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.main_menu_sign_out:
+                finish();
+                return true;
+            case R.id.main_menu_go_home:
+                Intent intent = new Intent(user_uc1_availHalls.this, user_uc0_Home.class);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return false;
+        }
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(user_uc1_availHalls.this, user_uc0_Home.class);
+        startActivity(intent);
+        finish();
     }
 }
 

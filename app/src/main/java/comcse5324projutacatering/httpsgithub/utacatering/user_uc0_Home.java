@@ -52,6 +52,7 @@ public class user_uc0_Home extends Activity {
             public void onClick (View v)  {
                 Intent intent =  new Intent(user_uc0_Home.this, user_uc1_availHalls.class);
                 startActivity(intent);
+                finish();
             }
         });
 
