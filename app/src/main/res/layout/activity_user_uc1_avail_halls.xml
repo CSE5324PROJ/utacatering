@@ -31,7 +31,7 @@
 
     <TextView
         android:id="@+id/textView_month"
-        android:layout_width="72dp"
+        android:layout_width="80dp"
         android:layout_height="31dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="24dp"
@@ -53,12 +53,10 @@
         android:id="@+id/textView_day"
         android:layout_width="72dp"
         android:layout_height="31dp"
-        android:layout_marginEnd="72dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:text="Day"
         android:textSize="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView_month"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -66,10 +64,8 @@
         android:id="@+id/spinner_day"
         android:layout_width="72dp"
         android:layout_height="47dp"
-        android:layout_marginEnd="72dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="18dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/spinner_month"
         app:layout_constraintTop_toBottomOf="@+id/textView_day" />
 
@@ -117,12 +113,10 @@
         android:id="@+id/textView_dur"
         android:layout_width="100dp"
         android:layout_height="31dp"
-        android:layout_marginEnd="44dp"
         android:layout_marginStart="19dp"
         android:layout_marginTop="16dp"
         android:text="Duration"
         android:textSize="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView_minute"
         app:layout_constraintTop_toBottomOf="@+id/spinner_day" />
 
@@ -130,10 +124,8 @@
         android:id="@+id/spinner_duration"
         android:layout_width="84dp"
         android:layout_height="47dp"
-        android:layout_marginEnd="60dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/spinner_minute"
         app:layout_constraintTop_toBottomOf="@+id/textView_dur" />
 
@@ -141,12 +133,10 @@
         android:id="@+id/textView_availHalls"
         android:layout_width="178dp"
         android:layout_height="31dp"
-        android:layout_marginEnd="190dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
         android:text="Available Halls"
         android:textSize="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_hour" />
 
@@ -154,10 +144,8 @@
         android:id="@+id/spinner_availHalls"
         android:layout_width="245dp"
         android:layout_height="36dp"
-        android:layout_marginEnd="123dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="22dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_availHalls" />
 

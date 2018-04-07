@@ -82,6 +82,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         EVENT_REQ_USER_ID_COL = mContext.getString(R.string.EVENT_REQ_USER_ID_COL);
         EVENT_STIME_COL = mContext.getString(R.string.EVENT_STIME_COL);
         EVENT_DUR_COL = mContext.getString(R.string.EVENT_DUR_COL);
+        EVENT_ETIME_COL=mContext.getString(R.string.EVENT_ETIME_COL);
         EVENT_HALL_COL = mContext.getString(R.string.EVENT_HALL_COL);
         EVENT_AC_COL = mContext.getString(R.string.EVENT_AC_COL);
         EVENT_STAT_COL = mContext.getString(R.string.EVENT_STAT_COL);
@@ -490,6 +491,39 @@ public class DatabaseInterface extends SQLiteOpenHelper {
             createProfile(username, password, role, Integer.parseInt(uta_id), contact, personal);
             deleteRegistrationRequest(requestID);
         }
+    }
+
+    public Cursor searchAvailHalls(String startTime, String endTime) {
+        //Input is in Epoch (since 1970) time
+        SQLiteDatabase db = getReadableDatabase();
+
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                EVENT_HALL_COL
+        };
+
+        // Filter results WHERE "title" = 'My Title'
+        String selection =
+                //COLUMN_NAME_USERNAME + " LIKE ?";
+                "(CAST(((julianday("+EVENT_STIME_COL+")-2440587.5)*86400.0) AS INTEGER) < CAST(? AS INTEGER)) AND (CAST(((julianday("+EVENT_ETIME_COL+")-2440587.5)*86400.0) AS INTEGER) > CAST(? AS INTEGER))";
+                //EVENT_HALL_COL+ " LIKE ?";
+        String[] selectionArgs = {endTime, startTime };
+        //String test ="Arlington";
+        //String[] selectionArgs = {test};
+
+        // How you want the results sorted in the resulting Cursor
+        //String sortOrder = COLUMN_NAME_USERNAME + " DESC";
+
+        return db.query(
+                SQL_EVENT_TABLE_NAME,     // The table to query
+                projection,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
+                null,          // don't group the rows
+                null,           // don't filter by row groups
+                null              // The sort order
+        );
     }
 
 }
