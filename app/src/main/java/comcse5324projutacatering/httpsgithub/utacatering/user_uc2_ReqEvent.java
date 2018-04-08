@@ -267,4 +267,10 @@ public class user_uc2_ReqEvent extends Activity {
             }
         });
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(user_uc2_ReqEvent.this, user_uc0_Home.class);
+        startActivity(intent);
+        finish();
+    }
 }

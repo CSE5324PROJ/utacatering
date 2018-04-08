@@ -59,9 +59,9 @@ public class user_uc0_Home extends Activity {
         user_uc3_availHalls_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
-                Intent intent =  new Intent(user_uc0_Home.this, user_uc2_ReqEvent.class); //TODO temporary!
+                /*Intent intent =  new Intent(user_uc0_Home.this, user_uc2_ReqEvent.class); //TODO temporary!
                 startActivity(intent);
-                finish();
+                finish();*/
             }
         });
 
