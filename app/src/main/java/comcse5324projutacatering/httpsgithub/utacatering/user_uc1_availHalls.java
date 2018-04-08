@@ -1,7 +1,7 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-//TODO test case with a time range where there are no available halls at all.
+//TODO add text to halls showing capacity in the spinner
+//TODO flash spinners red when they reset to make sure user knows they reset
 //TODO buffer time between events? Ask Robb.
-//TODO last step incrementing of date/time if it is hour 24, check sqlite docs if its even necessary
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

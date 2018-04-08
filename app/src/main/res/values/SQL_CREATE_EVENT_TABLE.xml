@@ -83,7 +83,13 @@
     <string name="SQL_EVENT_TRIGGER_CALC_END_TIME"
         >CREATE TRIGGER &SQL_EVENT_TRIGGER_CALC_END_TIME_NAME;
         AFTER INSERT ON &EVENT_TABLE_NAME;
+        FOR EACH ROW
         BEGIN
+            /*done to correct for when hour field is 24, rolls the date forward instead and sets hour to 0*/
+            UPDATE &EVENT_TABLE_NAME;
+            SET &EVENT_STIME_COL; = datetime(julianday("&EVENT_STIME_COL;"))
+            WHERE &EVENT_ETIME_COL; IS NULL;
+
             UPDATE &EVENT_TABLE_NAME;
             SET &EVENT_ETIME_COL; = (SELECT &EVENT_STIME_COL; FROM &EVENT_TABLE_NAME; WHERE &EVENT_ETIME_COL; IS NULL)
             WHERE &EVENT_ETIME_COL; IS NULL;

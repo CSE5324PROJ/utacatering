@@ -1,6 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-//PURELY TO TEST GIT
-//Hi
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
@@ -124,9 +123,21 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         createBaseProfile(db, "c","c","Caterer",1000555557,"555-555-5557","Base caterer");
         createBaseProfile(db, "cs","cs","CatererStaff",1000555558,"555-555-5558","Base caterer staff");
 
-        createBaseEvent(db, "u",1,"2018-05-13 15:30:00","6", "Arlington", "Pizza","c",1,20,1,
-                1,"Breakfast",200.50,"Wedding","Play Rap Music");
+        createBaseEvent(db, "u",1,"2018-05-13 15:30:00","6", "Arlington", "Italian","c",1,40,1,
+                1,"Dinner",2280.00,"Wedding","Play 80's Music");
+        createBaseEvent(db, "u",1,"2018-05-13 14:30:00","6", "Maverick", "Indian","c",1,100,1,
+                1,"Dinner",5400.00,"Wedding","Play 70's Music");
+        createBaseEvent(db, "u",1,"2018-05-13 13:30:00","6", "KC", "American","c",1,20,1,
+                1,"Dinner",1140.00,"Wedding","Play 60's Music");
+        createBaseEvent(db, "u",1,"2018-05-13 12:30:00","6", "Shard", "Chinese","c",1,25,1,
+                1,"Dinner",1350.00,"Wedding","Play 50's Music");
+        createBaseEvent(db, "u",1,"2018-05-13 11:30:00","6", "Liberty", "French","c",1,70,1,
+                1,"Dinner",3840.00,"Wedding","Play 40's Music");
         createBaseEventAssignedCS(db,1,4); //Manually added assigned caterer staff, eventID & profileID only known due to the order of the above functions.. based on row position in the DB.
+        createBaseEventAssignedCS(db,2,4);
+        createBaseEventAssignedCS(db,3,4);
+        createBaseEventAssignedCS(db,4,4);
+        createBaseEventAssignedCS(db,5,4);
         //Default "cs" caterer staff (profile table 4th db row) user is assigned the the default dummy event (event table 1st db row)
     }
 
