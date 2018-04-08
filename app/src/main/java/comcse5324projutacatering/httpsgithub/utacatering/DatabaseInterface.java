@@ -2,7 +2,7 @@ package comcse5324projutacatering.httpsgithub.utacatering;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.Resources;
+//import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -12,8 +12,8 @@ public class DatabaseInterface extends SQLiteOpenHelper {
 
     private static DatabaseInterface instance;
 
-    public static final String TABLE_NAME_PROFILE      = "profile";
-    public static final String TABLE_NAME_REGISTRATION = "registration_requests";
+    private static final String TABLE_NAME_PROFILE      = "profile";
+    private static final String TABLE_NAME_REGISTRATION = "registration_requests";
     public static final String COLUMN_NAME_USERNAME    = "username";
     public static final String COLUMN_NAME_PASSWORD    = "password";
     public static final String COLUMN_NAME_ROLE        = "role";
@@ -41,10 +41,10 @@ public class DatabaseInterface extends SQLiteOpenHelper {
                     COLUMN_NAME_PERSONAL + " TEXT,"    +
                     COLUMN_NAME_CONTACT  + " TEXT)"   ;
 
-    private Context mContext;
 
-    public String SQL_CREATE_EVENT_TABLE ;
-    public String SQL_EVENT_TABLE_NAME ;
+
+    private String SQL_CREATE_EVENT_TABLE ;
+    private String SQL_EVENT_TABLE_NAME ;
     public String EVENT_REQ_USER_COL;
     public String EVENT_REQ_USER_ID_COL;
     public String EVENT_STIME_COL;
@@ -70,11 +70,12 @@ public class DatabaseInterface extends SQLiteOpenHelper {
     private static final String SQL_DELETE_PROFILE_TABLE =
             "DROP TABLE IF EXISTS " + TABLE_NAME_PROFILE;
 
-    public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "FeedReader.db";
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "FeedReader.db";
 
     private DatabaseInterface(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        Context mContext;
         mContext = context;
         SQL_CREATE_EVENT_TABLE = mContext.getString(R.string.SQL_CREATE_EVENT_TABLE_STRING);
         SQL_EVENT_TABLE_NAME = mContext.getString(R.string.EVENT_TABLE_NAME);
@@ -122,6 +123,9 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         createBaseProfile(db, "a","a","Admin",1000555555,"555-555-5555","Base admin");
         createBaseProfile(db, "c","c","Caterer",1000555557,"555-555-5557","Base caterer");
         createBaseProfile(db, "cs","cs","CatererStaff",1000555558,"555-555-5558","Base caterer staff");
+        createBaseProfile(db, "u2","u2","User",1000555566,"555-556-5556","Base user2");
+        createBaseProfile(db, "c2","c2","Caterer",1000555567,"555-556-5566","Base caterer2");
+        createBaseProfile(db, "cs2","cs2","CatererStaff",1000555568,"555-555-5568","Base caterer staff2");
 
         createBaseEvent(db, "u",1,"2018-05-13 15:30:00","6", "Arlington", "Italian","c",1,40,1,
                 1,"Dinner",2280.00,"Wedding","Play 80's Music");
@@ -133,11 +137,14 @@ public class DatabaseInterface extends SQLiteOpenHelper {
                 1,"Dinner",1350.00,"Wedding","Play 50's Music");
         createBaseEvent(db, "u",1,"2018-05-13 11:30:00","6", "Liberty", "French","c",1,70,1,
                 1,"Dinner",3840.00,"Wedding","Play 40's Music");
+        createBaseEvent(db, "u2",5,"2018-05-15 13:30:00","2", "Liberty", "Mexican","c2",0,50,0,
+                0,"Lunch",900.00,"Fiesta","Mariachi band");
         createBaseEventAssignedCS(db,1,4); //Manually added assigned caterer staff, eventID & profileID only known due to the order of the above functions.. based on row position in the DB.
         createBaseEventAssignedCS(db,2,4);
         createBaseEventAssignedCS(db,3,4);
         createBaseEventAssignedCS(db,4,4);
         createBaseEventAssignedCS(db,5,4);
+        createBaseEventAssignedCS(db,6,7);
         //Default "cs" caterer staff (profile table 4th db row) user is assigned the the default dummy event (event table 1st db row)
     }
 
@@ -355,9 +362,10 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         if((cursor != null) && (cursor.getCount() > 0)) {
             cursor.moveToFirst();
             ret = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_ROLE));
+            cursor.close();
         }
 
-        cursor.close();
+
         return ret;
     }
 
@@ -504,6 +512,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
             String personal = req.getString(req.getColumnIndexOrThrow(DatabaseInterface.COLUMN_NAME_PERSONAL));
             createProfile(username, password, role, Integer.parseInt(uta_id), contact, personal);
             deleteRegistrationRequest(requestID);
+            req.close();
         }
     }
 

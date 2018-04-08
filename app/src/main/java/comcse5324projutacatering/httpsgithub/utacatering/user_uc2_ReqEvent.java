@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.support.v7.app.AppCompatActivity;
+//import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -38,11 +38,10 @@ public class user_uc2_ReqEvent extends Activity {
     Integer[] attendance;
     Integer selectedAtdnc=1;
     Double calcdPrice=0.0;
-    private Context mContext;
+    //private Context mContext;
     private Button submitEvReq_btn;
 
-    private Intent mIntent;
-    private Bundle extras;
+
     int selectedYear;
     int selectedMonth;
     int selectedDay;
@@ -56,17 +55,25 @@ public class user_uc2_ReqEvent extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Context mContext;
         mContext = getApplicationContext();
         setContentView(R.layout.activity_user_uc2_req_event);
+        Intent mIntent;
+        Bundle extras;
         mIntent = getIntent();
         extras=mIntent.getExtras();
-        selectedYear=(int) extras.get("selectedYear");
-        selectedMonth=(int) extras.get("selectedMonth");
-        selectedDay=(int) extras.get("selectedDay");
-        selectedHour=(int) extras.get("selectedHour");
-        selectedMin=(int) extras.get("selectedMin");
-        selectedDuration=(int) extras.get("selectedDur");
-        selectedHall = (String) extras.get("selectedHall");
+        if(extras!=null){
+            selectedYear=(int) extras.get("selectedYear");
+            selectedMonth=(int) extras.get("selectedMonth");
+            selectedDay=(int) extras.get("selectedDay");
+            selectedHour=(int) extras.get("selectedHour");
+            selectedMin=(int) extras.get("selectedMin");
+            selectedDuration=(int) extras.get("selectedDur");
+            selectedHall = (String) extras.get("selectedHall");
+        }
+        else{
+            finish(); //activity not properly accessed
+        }
         setImportedStrings();
         addListeners();
         setupButtons();
@@ -77,8 +84,8 @@ public class user_uc2_ReqEvent extends Activity {
 
     private void addListeners(){
         //Durations spinner
-        Spinner spin1 = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter<String> venuesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, venues);
+        Spinner spin1 = findViewById(R.id.spinner);
+        ArrayAdapter<String> venuesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, venues);
         venuesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin1.setAdapter(venuesAdapter);
         spin1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
@@ -92,8 +99,8 @@ public class user_uc2_ReqEvent extends Activity {
             @Override public void onNothingSelected(AdapterView<?> adapterView) {}
         });
         //Meal-type spinner (breakfast, lunch etc)
-        Spinner spin2 = (Spinner) findViewById(R.id.spinnerMtype);
-        ArrayAdapter<String> mTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mealTypes);
+        Spinner spin2 = findViewById(R.id.spinnerMtype);
+        ArrayAdapter<String> mTypeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mealTypes);
         mTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin2.setAdapter(mTypeAdapter);
         spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
@@ -107,8 +114,8 @@ public class user_uc2_ReqEvent extends Activity {
             @Override public void onNothingSelected(AdapterView<?> adapterView) {}
         });
         //Formality Spinner
-        Spinner spin3 = (Spinner) findViewById(R.id.spinnerFormality);
-        ArrayAdapter<String> formalAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, formality);
+        Spinner spin3 = findViewById(R.id.spinnerFormality);
+        ArrayAdapter<String> formalAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, formality);
         formalAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin3.setAdapter(formalAdapter);
         spin3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
@@ -122,8 +129,8 @@ public class user_uc2_ReqEvent extends Activity {
             @Override public void onNothingSelected(AdapterView<?> adapterView) {}
         });
         //Drinks Spinner
-        Spinner spin4 = (Spinner) findViewById(R.id.spinnerDrink);
-        ArrayAdapter<String> drinkAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, drinkTypes);
+        Spinner spin4 = findViewById(R.id.spinnerDrink);
+        ArrayAdapter<String> drinkAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, drinkTypes);
         drinkAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin4.setAdapter(drinkAdapter);
         spin4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
@@ -177,8 +184,8 @@ public class user_uc2_ReqEvent extends Activity {
             capacity=0;
             //expect error, this case should not happen.
         }
-        Spinner spin5 = (Spinner) findViewById(R.id.spinnerAttn);
-        ArrayAdapter<Integer> atdncAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, attendance);
+        Spinner spin5 = findViewById(R.id.spinnerAttn);
+        ArrayAdapter<Integer> atdncAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, attendance);
         atdncAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin5.setAdapter(atdncAdapter);
         spin5.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
@@ -200,7 +207,8 @@ public class user_uc2_ReqEvent extends Activity {
         calcdPrice=calcdPrice+((1.0*selectedMealPrice)*(1.0*selectedAtdnc)*(selectedFormMulti));
         calcdPrice=calcdPrice+((1.0*15)*(1.0*selectedAtdnc)*(1.0*selectedDrinkInt)); //Wont change if non-alcoholic, since selectedDrinkInt will = 0.
         //((TextView)findViewById(R.id.editTextPrice)).setText(Double.toString(calcdPrice));
-        ((TextView)findViewById(R.id.editTextPrice)).setText("$"+String.format("%.2f", calcdPrice)+" (before tax)");
+        String tempText="$"+String.format(Locale.US,"%.2f", calcdPrice)+" (before tax)";
+        ((TextView)findViewById(R.id.editTextPrice)).setText(tempText);
     }
 
 
@@ -210,10 +218,10 @@ public class user_uc2_ReqEvent extends Activity {
     }
 
     public void setImportedStrings(){
-        EditText editText_Time = (EditText)findViewById(R.id.editText);
-        EditText editText_Date = (EditText)findViewById(R.id.editText2);
-        EditText editText_Hall = (EditText)findViewById(R.id.editText3);
-        EditText editText_Dur = (EditText)findViewById(R.id.editText4);
+        EditText editText_Time = findViewById(R.id.editText);
+        EditText editText_Date = findViewById(R.id.editText2);
+        EditText editText_Hall = findViewById(R.id.editText3);
+        EditText editText_Dur = findViewById(R.id.editText4);
 
         //String selectedHall = mIntent.getStringExtra("selectedHall");
 
@@ -221,7 +229,7 @@ public class user_uc2_ReqEvent extends Activity {
         //if(extras!=null)
 
 
-        int friendlyHour=0;
+        int friendlyHour;
         if(selectedHour==0){
             friendlyHour=12;
         }
@@ -254,7 +262,7 @@ public class user_uc2_ReqEvent extends Activity {
 
 
     private void setupButtons() {
-        submitEvReq_btn = (Button)findViewById(R.id.button_submitEvReq);
+        submitEvReq_btn = findViewById(R.id.button_submitEvReq);
         submitEvReq_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {

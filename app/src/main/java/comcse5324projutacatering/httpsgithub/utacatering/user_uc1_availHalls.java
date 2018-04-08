@@ -7,8 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.provider.BaseColumns;
-import android.support.v7.app.AppCompatActivity;
+//import android.provider.BaseColumns;
+//import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,16 +18,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
+//import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.LocalDateTime;
-import java.time.Month;
+//import java.time.LocalDate;
+//import java.time.LocalTime;
+//import java.time.LocalDateTime;
+//import java.time.Month;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -72,7 +72,7 @@ public class user_uc1_availHalls extends Activity{
     String durations[]={"2 hr","3 hr","4 hr","5 hr","6 hr"};
     Integer durationsInt[]={2,3,4,5,6};
     public String EVENT_HALL_COL;
-    private Context mContext;
+    //private Context mContext;
     private boolean userIsInteracting;
     Calendar caltemp;
     Calendar caltemp2;
@@ -88,6 +88,7 @@ public class user_uc1_availHalls extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Context mContext;
         mContext = getApplicationContext();
         setContentView(R.layout.activity_user_uc1_avail_halls);
 
@@ -118,8 +119,8 @@ public class user_uc1_availHalls extends Activity{
         String uniqueYearString = Arrays.toString(uniqueYear.toArray(new Integer[uniqueYear.size()]));
         uniqueYearArray=uniqueYearString.substring(1,uniqueYearString.length()-1).split(", ");
 
-        spinYear = (Spinner) findViewById(R.id.spinner_year);
-        yearAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, uniqueYearArray);
+        spinYear = findViewById(R.id.spinner_year);
+        yearAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, uniqueYearArray);
         yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinYear.setAdapter(yearAdapter);
 
@@ -168,9 +169,9 @@ public class user_uc1_availHalls extends Activity{
                 i--;
             }
         }
-        spinHalls = (Spinner) findViewById(R.id.spinner_availHalls);
+        spinHalls = findViewById(R.id.spinner_availHalls);
         if(availHalls.length>0){
-            ArrayAdapter<String> hallsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, availHalls);
+            ArrayAdapter<String> hallsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, availHalls);
             hallsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinHalls.setAdapter(hallsAdapter);
         }
@@ -365,7 +366,7 @@ public class user_uc1_availHalls extends Activity{
     private void genMonthsArray() {
         uniqueMonthValidSet.clear();
         int sizing = validYear.size();
-        int i=0;
+        int i;
         for(i=0;i<sizing;i++){
             if(validYear.get(i)==selectedYear){
                 uniqueMonthValidSet.add(validMonth.get(i));
@@ -379,20 +380,20 @@ public class user_uc1_availHalls extends Activity{
             uniqueMonthArray[i]=uniqueMonthArrayTemp[i];
             uniqueMonthArrayFriendly[i]=String.valueOf(Integer.parseInt(uniqueMonthArrayTemp[i])+1);
         }
-        monthAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, uniqueMonthArray); //used for indexing
+        monthAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, uniqueMonthArray); //used for indexing
         monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ArrayAdapter<String> monthAdapterF = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, uniqueMonthArrayFriendly); //user visible version
+        ArrayAdapter<String> monthAdapterF = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, uniqueMonthArrayFriendly); //user visible version
         monthAdapterF.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinMonth = (Spinner) findViewById(R.id.spinner_month);
+        spinMonth = findViewById(R.id.spinner_month);
         spinMonth.setAdapter(monthAdapterF);
 
     }
 
-    private ArrayAdapter<String> genDaysArray() {
+    private void genDaysArray() {
         caltemp2.set(selectedYear,selectedMonth,selectedDay,12,0,0);
         uniqueDayValidSet.clear();
         int sizing = validYear.size();
-        int i=0;
+        int i;
         for(i=0;i<sizing;i++){
             if(validYear.get(i)==selectedYear && validMonth.get(i)==selectedMonth){
                 uniqueDayValidSet.add(validDay.get(i));
@@ -409,16 +410,14 @@ public class user_uc1_availHalls extends Activity{
             uniqueDayArrayFriendly[i]=uniqueDayArray[i]+" "+dayOfWeekNames[iteratingDayofWeek2-1]; //1 is "Sun" 2 is "Mon" etc.
         }
 
-        dayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, uniqueDayArray); //Used for indexing
+        dayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, uniqueDayArray); //Used for indexing
         dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        ArrayAdapter<String> dayAdapterF = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, uniqueDayArrayFriendly);
+        ArrayAdapter<String> dayAdapterF = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, uniqueDayArrayFriendly);
         dayAdapterF.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinDay = (Spinner) findViewById(R.id.spinner_day);
+        spinDay = findViewById(R.id.spinner_day);
         spinDay.setAdapter(dayAdapterF);
 
-
-        return dayAdapter;
     }
 
     private void getHoursArray(){
@@ -520,12 +519,12 @@ public class user_uc1_availHalls extends Activity{
 
 
 
-        hourAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, hours_milStr); //Used for indexing
+        hourAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, hours_milStr); //Used for indexing
         hourAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        ArrayAdapter<String> hourAdapterF = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, hours_FriendlyStr);
+        ArrayAdapter<String> hourAdapterF = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, hours_FriendlyStr);
         hourAdapterF.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinHour = (Spinner) findViewById(R.id.spinner_hour);
+        spinHour = findViewById(R.id.spinner_hour);
         spinHour.setAdapter(hourAdapterF);
         selectedHour=Integer.valueOf(hours_milStr[0]);
     }
@@ -540,15 +539,15 @@ public class user_uc1_availHalls extends Activity{
         minutesStr[0]="00";
         minutesStr[1]="05";
 
-        ArrayAdapter<String> minAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, minutesStr);
+        ArrayAdapter<String> minAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, minutesStr);
         minAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinMin = (Spinner) findViewById(R.id.spinner_minute);
+        spinMin = findViewById(R.id.spinner_minute);
         spinMin.setAdapter(minAdapter);
         selectedMin=0;
 
-        ArrayAdapter<String> durAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, durations);
+        ArrayAdapter<String> durAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, durations);
         minAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinDur = (Spinner) findViewById(R.id.spinner_duration);
+        spinDur = findViewById(R.id.spinner_duration);
         spinDur.setAdapter(durAdapter);
         selectedDur=2;
 
@@ -586,7 +585,7 @@ public class user_uc1_availHalls extends Activity{
         finish();
     }
     private void setupButtons() {
-        user_uc2_ReqEvent_btn = (Button)findViewById(R.id.button_user_uc2);
+        user_uc2_ReqEvent_btn = findViewById(R.id.button_user_uc2);
         user_uc2_ReqEvent_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {

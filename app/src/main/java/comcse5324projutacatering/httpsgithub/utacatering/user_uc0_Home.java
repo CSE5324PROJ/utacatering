@@ -11,9 +11,6 @@ import android.widget.Button;
 
 public class user_uc0_Home extends Activity {
 
-    private Button user_uc1_availHalls_btn;
-    private Button user_uc3_availHalls_btn;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,8 +43,10 @@ public class user_uc0_Home extends Activity {
     }
 
     private void setupButtons() {
-        user_uc1_availHalls_btn = (Button)findViewById(R.id.button_user_uc1);
-        user_uc3_availHalls_btn = (Button)findViewById(R.id.button_user_uc3);
+        Button user_uc1_availHalls_btn;
+        Button user_uc3_availHalls_btn;
+        user_uc1_availHalls_btn = findViewById(R.id.button_user_uc1);
+        user_uc3_availHalls_btn = findViewById(R.id.button_user_uc3);
         user_uc1_availHalls_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
