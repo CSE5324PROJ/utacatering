@@ -52,8 +52,9 @@ public class DatabaseInterface extends SQLiteOpenHelper {
     public String EVENT_DUR_COL;
     public String EVENT_ETIME_COL;
     public String EVENT_HALL_COL;
+    public String EVENT_VENUE_COL;
     public String EVENT_AC_COL;
-    public String EVENT_STAT_COL;
+    public String EVENT_APPROVAL_COL;
     public String EVENT_ATT_COL;
     public String EVENT_ALC_COL;
     public String EVENT_FORM_COL;
@@ -84,8 +85,9 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         EVENT_DUR_COL = mContext.getString(R.string.EVENT_DUR_COL);
         EVENT_ETIME_COL=mContext.getString(R.string.EVENT_ETIME_COL);
         EVENT_HALL_COL = mContext.getString(R.string.EVENT_HALL_COL);
+        EVENT_VENUE_COL = mContext.getString(R.string.EVENT_VENUE_COL);
         EVENT_AC_COL = mContext.getString(R.string.EVENT_AC_COL);
-        EVENT_STAT_COL = mContext.getString(R.string.EVENT_STAT_COL);
+        EVENT_APPROVAL_COL = mContext.getString(R.string.EVENT_APPROVAL_COL);
         EVENT_ATT_COL = mContext.getString(R.string.EVENT_ATT_COL);
         EVENT_ALC_COL = mContext.getString(R.string.EVENT_ALC_COL);
         EVENT_FORM_COL = mContext.getString(R.string.EVENT_FORM_COL);
@@ -122,8 +124,8 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         createBaseProfile(db, "c","c","Caterer",1000555557,"555-555-5557","Base caterer");
         createBaseProfile(db, "cs","cs","CatererStaff",1000555558,"555-555-5558","Base caterer staff");
 
-        createBaseEvent(db, "u",1,"2018-05-13 15:30:00","6", "Arlington","c",1,20,1,
-                1,"Pizza",200.50,"Wedding","Play Rap Music");
+        createBaseEvent(db, "u",1,"2018-05-13 15:30:00","6", "Arlington", "Pizza","c",1,20,1,
+                1,"Breakfast",200.50,"Wedding","Play Rap Music");
         createBaseEventAssignedCS(db,1,4); //Manually added assigned caterer staff, eventID & profileID only known due to the order of the above functions.. based on row position in the DB.
         //Default "cs" caterer staff (profile table 4th db row) user is assigned the the default dummy event (event table 1st db row)
     }
@@ -144,8 +146,8 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         long newRowId = db.insert(TABLE_NAME_PROFILE, null, values);
     }
 
-    private void createBaseEvent(SQLiteDatabase db, String req_user,int req_user_id, String Stime, String dur, String hall,
-                                   String assigned_caterer, int status_flag, int attendance, int alco_flag, int formal_flag, String meal_type,
+    private void createBaseEvent(SQLiteDatabase db, String req_user,int req_user_id, String Stime, String dur, String hall, String venue,
+                                   String assigned_caterer, int approval_flag, int attendance, int alco_flag, int formal_flag, String meal_type,
                                     double price, String occ_type, String ent_items) {
 
         ContentValues values = new ContentValues();
@@ -154,8 +156,9 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         values.put(EVENT_STIME_COL, Stime);
         values.put(EVENT_DUR_COL, dur);
         values.put(EVENT_HALL_COL,     hall);
+        values.put(EVENT_VENUE_COL,     venue);
         values.put(EVENT_AC_COL,    assigned_caterer);
-        values.put(EVENT_STAT_COL,  status_flag);
+        values.put(EVENT_APPROVAL_COL,  approval_flag);
         values.put(EVENT_ATT_COL, attendance);
         values.put(EVENT_ALC_COL, alco_flag);
         values.put(EVENT_FORM_COL, formal_flag);

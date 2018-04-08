@@ -7,8 +7,9 @@
     <!ENTITY EVENT_DUR_COL "duration_hrs">
     <!ENTITY EVENT_ETIME_COL "E_time">
     <!ENTITY EVENT_HALL_COL "hall">
+    <!ENTITY EVENT_VENUE_COL "venue">
     <!ENTITY EVENT_AC_COL "assigned_caterer">
-    <!ENTITY EVENT_STAT_COL "status_flag">
+    <!ENTITY EVENT_APPROVAL_COL "approval_flag">
     <!ENTITY EVENT_ATT_COL "attendance">
     <!ENTITY EVENT_ALC_COL "alco_flag">
     <!ENTITY EVENT_FORM_COL "formal_flag">
@@ -31,8 +32,9 @@
     <string name="EVENT_DUR_COL">&EVENT_DUR_COL;</string>
     <string name="EVENT_ETIME_COL">&EVENT_ETIME_COL;</string>
     <string name="EVENT_HALL_COL">&EVENT_HALL_COL;</string>
+    <string name="EVENT_VENUE_COL">&EVENT_VENUE_COL;</string>
     <string name="EVENT_AC_COL">&EVENT_AC_COL;</string>
-    <string name="EVENT_STAT_COL">&EVENT_STAT_COL;</string>
+    <string name="EVENT_APPROVAL_COL">&EVENT_APPROVAL_COL;</string>
     <string name="EVENT_ATT_COL">&EVENT_ATT_COL;</string>
     <string name="EVENT_ALC_COL">&EVENT_ALC_COL;</string>
     <string name="EVENT_FORM_COL">&EVENT_FORM_COL;</string>
@@ -57,8 +59,9 @@
         &EVENT_DUR_COL; STRING,
         &EVENT_ETIME_COL; STRING,
         &EVENT_HALL_COL; STRING,
+        &EVENT_VENUE_COL; STRING,
         &EVENT_AC_COL; INTEGER,
-        &EVENT_STAT_COL; INTEGER,
+        &EVENT_APPROVAL_COL; INTEGER,
         &EVENT_ATT_COL; INTEGER,
         &EVENT_ALC_COL; INTEGER,
         &EVENT_FORM_COL; INTEGER,
