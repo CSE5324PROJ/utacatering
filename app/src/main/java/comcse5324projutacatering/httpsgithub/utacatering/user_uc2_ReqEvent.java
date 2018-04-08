@@ -52,6 +52,7 @@ public class user_uc2_ReqEvent extends Activity {
     String selectedHall;
 
     String sqlFormattedDateTime; //YYYY-MM-DD HH:MM:SS.
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,50 +67,7 @@ public class user_uc2_ReqEvent extends Activity {
         selectedMin=(int) extras.get("selectedMin");
         selectedDuration=(int) extras.get("selectedDur");
         selectedHall = (String) extras.get("selectedHall");
-
         setImportedStrings();
-
-        //Spinner & Listener Sets
-        //Venue Spinner
-        //Spinner spin1 = (Spinner) findViewById(R.id.spinner);
-        //spin1.setOnItemSelectedListener(this);
-
-        //Meal Type Spinner
-        //Spinner spin2 = (Spinner) findViewById(R.id.spinnermTypes);
-        //spin2.setOnItemSelectedListener(this);
-        //Formality Spinner
-        //Spinner spin3 = (Spinner) findViewById(R.id.spinnerFormality);
-        //spin3.setOnItemSelectedListener(this);
-        //Drink Spinner
-        //Spinner spin4 = (Spinner) findViewById(R.id.spinnerDrink);
-        //spin4.setOnItemSelectedListener(this);
-        //Attendance Spinner
-        //Spinner spin5 = (Spinner) findViewById(R.id.spinnerAttn);
-        //spin5.setOnItemSelectedListener(this);
-
-        //Creating Adapters
-        //Duration Adapter
-        //ArrayAdapter<String> durationsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, venues);
-        //durationsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //spin1.setAdapter(durationsAdapter);
-        //Meal Type Spinner
-        //ArrayAdapter<String> mTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mealTypes);
-        //mTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //spin2.setAdapter(mTypeAdapter);
-        //Formality Spinner
-        //ArrayAdapter<String> formalAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, formality);
-        //formalAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //spin3.setAdapter(formalAdapter);
-        //Drink Spinner
-        //ArrayAdapter<String> drinkAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, drinkTypes);
-        //drinkAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //spin4.setAdapter(drinkAdapter);
-        //Attendance Spinner w/ Capacity calculation
-
-        //ArrayAdapter<Integer> atdncAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, attendance);
-        //atdncAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //spin5.setAdapter(atdncAdapter);
-
         addListeners();
         setupButtons();
         submitEvReq_btn.setBackgroundColor(Color.BLUE);
@@ -309,69 +267,4 @@ public class user_uc2_ReqEvent extends Activity {
             }
         });
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-
-    public void setOnItemSelectedListener(AdapterView<?> arg0, View arg1, int position,long id) {
-        Spinner spinner = (Spinner) arg0;
-        if(spinner.getId() == R.id.spinner) {
-            selectedDuration=durationsInt[position];
-        }
-        else if(spinner.getId() == R.id.spinnerMtype){
-
-        }
-        else if(spinner.getId() == R.id.spinnerFormality){
-
-        }
-        else if(spinner.getId() == R.id.spinnerDrink){
-
-        }
-        else if(spinner.getId() == R.id.spinnerAttn){
-
-        }
-        calcdPrice=(1.0*2)*(1.0*capacity)*(1.0*selectedDuration);
-        calcdPrice=calcdPrice+((1.0*selectedMealPrice)*(1.0*selectedAtdnc)*(selectedFormMulti));
-        calcdPrice=calcdPrice+((1.0*15)*(1.0*selectedAtdnc)*(1.0*selectedDrinkInt)); //Wont change if non-alcoholic, since selectedDrinkInt will = 0.
-        //((TextView)findViewById(R.id.editTextPrice)).setText(Double.toString(calcdPrice));
-        ((TextView)findViewById(R.id.editTextPrice)).setText("$"+String.format("%.2f", calcdPrice)+" (before tax)");
-        //Toast.makeText(getApplicationContext(), durations[position], Toast.LENGTH_LONG).show();
-    }
-
-    public void onNothingSelected(AdapterView<?> arg0) {
-    // nothing
-
-    }
-    //View layout=(View)findViewById(R.id.reqLayout).requestFocusFromTouch();
-    */
 }

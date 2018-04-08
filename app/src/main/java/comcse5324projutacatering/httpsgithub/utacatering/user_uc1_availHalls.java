@@ -1,6 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO test case with a time range where there are no available halls at all.
-//TODO translated spinner options to more user friendly options (month translated to 1-12, days of the week (Mon-Sunday) to be done, change from military time.
 //TODO buffer time between events? Ask Robb.
 //TODO last step incrementing of date/time if it is hour 24, check sqlite docs if its even necessary
 import android.app.Activity;
@@ -61,6 +60,7 @@ public class user_uc1_availHalls extends Activity{
     String uniqueMonthArray[];
     Set<Integer> uniqueDayValidSet = new LinkedHashSet<>();
     String uniqueDayArray[];
+    //String uniqueDayArrayFriendly[];
     String halls[]={"Maverick", "KC", "Arlington", "Shard", "Liberty"};
     String availHalls[];
     List<String> conflictingHalls = new ArrayList<>();
@@ -75,9 +75,13 @@ public class user_uc1_availHalls extends Activity{
     private Context mContext;
     private boolean userIsInteracting;
     Calendar caltemp;
+    Calendar caltemp2;
     int iteratingDayofWeek;
+    int iteratingDayofWeek2;
+    String[] dayOfWeekNames={"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
 
     private Button user_uc2_ReqEvent_btn;
+    ArrayAdapter<String> hourAdapter; //if needed for indexing
     ArrayAdapter<String> dayAdapter;
     ArrayAdapter<String> monthAdapter;
     ArrayAdapter<String> yearAdapter;
@@ -122,6 +126,7 @@ public class user_uc1_availHalls extends Activity{
 
         EVENT_HALL_COL = mContext.getString(R.string.EVENT_HALL_COL);
         genMonthsArray();
+        caltemp2 = Calendar.getInstance();
         genDaysArray();
         genOtherArray();
         caltemp = Calendar.getInstance();
@@ -384,6 +389,7 @@ public class user_uc1_availHalls extends Activity{
     }
 
     private ArrayAdapter<String> genDaysArray() {
+        caltemp2.set(selectedYear,selectedMonth,selectedDay,12,0,0);
         uniqueDayValidSet.clear();
         int sizing = validYear.size();
         int i=0;
@@ -394,14 +400,22 @@ public class user_uc1_availHalls extends Activity{
         }
         String uniqueDayString = Arrays.toString(uniqueDayValidSet.toArray(new Integer[uniqueDayValidSet.size()]));
         uniqueDayArray= new String[uniqueDayValidSet.size()];
+        String[] uniqueDayArrayFriendly= new String[uniqueDayValidSet.size()];
         String uniqueDayArrayTemp[]=uniqueDayString.substring(1,uniqueDayString.length()-1).split(", ");
         for(i=0;i<uniqueDayValidSet.size();i++){
             uniqueDayArray[i]=uniqueDayArrayTemp[i];
+            caltemp2.set(selectedYear,selectedMonth,Integer.parseInt(uniqueDayArray[i]),12,0,0);
+            iteratingDayofWeek2=caltemp2.get(Calendar.DAY_OF_WEEK);
+            uniqueDayArrayFriendly[i]=uniqueDayArray[i]+" "+dayOfWeekNames[iteratingDayofWeek2-1]; //1 is "Sun" 2 is "Mon" etc.
         }
-        dayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, uniqueDayArray);
+
+        dayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, uniqueDayArray); //Used for indexing
         dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        ArrayAdapter<String> dayAdapterF = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, uniqueDayArrayFriendly);
+        dayAdapterF.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinDay = (Spinner) findViewById(R.id.spinner_day);
-        spinDay.setAdapter(dayAdapter);
+        spinDay.setAdapter(dayAdapterF);
 
 
         return dayAdapter;
@@ -428,43 +442,91 @@ public class user_uc1_availHalls extends Activity{
         endHour=(endHour-(selectedDur-2))+1; //prior end hour assumed 2 hr duration
         //below 1st loop misses that one can schedule a 2hr event at midnight day of sunday and monday.
         //Loops allow i=endHour because when endHour is selected, minute cannot pass 00.
+        String[] hours_FriendlyStr;
         if(selectedDur==2){
             if(iteratingDayofWeek!=1 && iteratingDayofWeek!=2){
                 hours_mil=new int[(endHour-startHour)];//
                 hours_milStr=new String[(endHour-startHour)];
+                hours_FriendlyStr=new String[(endHour-startHour)];
                 for(i=startHour;i<endHour;i++){
                     hours_mil[i-startHour]=i;
                     hours_milStr[i-startHour]=String.valueOf(i);
+                    if(0<i && i<12){
+                        hours_FriendlyStr[i-startHour]=String.valueOf(i)+" AM";
+                    }
+                    else if (i!=24){
+                        if(i!=12){
+                            hours_FriendlyStr[i-startHour]=String.valueOf(i-12)+" PM";
+                        }
+                        else{
+                            hours_FriendlyStr[i-startHour]=String.valueOf(i)+" PM";
+                        }
+                    }
+                    else{ //only if 2 hr duration is selected is a "24" hour possible due to 2AM closing
+                        hours_FriendlyStr[i-startHour]=String.valueOf(i-12)+" AM (early-morning next day)";
+                    }
                 }
             }
             else{
                 hours_mil=new int[(endHour-startHour)+1];
                 hours_milStr=new String[(endHour-startHour)+1];
+                hours_FriendlyStr=new String[(endHour-startHour)+1];
                 hours_mil[0]=0; //adding midnight possibility
                 hours_milStr[0]="0";
+                hours_FriendlyStr[0]="12 AM (early-morning day of)";
                 for(i=startHour;i<endHour;i++){
                     hours_mil[i-startHour+1]=i;
                     hours_milStr[i-startHour+1]=String.valueOf(i);
+                    if(0<i && i<12){
+                        hours_FriendlyStr[i-startHour+1]=String.valueOf(i)+" AM";
+                    }
+                    else if (i!=24){
+                        if(i!=12){
+                            hours_FriendlyStr[i-startHour+1]=String.valueOf(i-12)+" PM";
+                        }
+                        else{
+                            hours_FriendlyStr[i-startHour+1]=String.valueOf(i)+" PM";
+                        }
+                    }
+                    else{ //only if 2 hr duration is selected is a "24" hour possible due to 2AM closing
+                        hours_FriendlyStr[i-startHour+1]=String.valueOf(i-12)+" AM (early-morning next day)";
+                    }
                 }
             }
         }
         else{
             hours_mil=new int[endHour-startHour];
             hours_milStr=new String[endHour-startHour];
-            for(i=startHour;i<endHour;i++){
-                hours_mil[i-startHour]=i;
-                hours_milStr[i-startHour]=String.valueOf(i);
+            hours_FriendlyStr=new String[endHour-startHour];
+            for(i=startHour;i<endHour;i++) {
+                hours_mil[i - startHour] = i;
+                hours_milStr[i - startHour] = String.valueOf(i);
+                if (0 < i && i < 12) {
+                    hours_FriendlyStr[i - startHour] = String.valueOf(i) + " AM";
+                }
+                else if (i != 24) {
+                    if (i != 12) {
+                        hours_FriendlyStr[i - startHour] = String.valueOf(i - 12) + " PM";
+                    } else {
+                        hours_FriendlyStr[i - startHour] = String.valueOf(i) + " PM";
+                    }
+                }
+                else { //only if 2 hr duration is selected is a "24" hour possible due to 2AM closing.. so this is added if that changes.
+                    hours_FriendlyStr[i - startHour] = String.valueOf(i - 12) + " AM (early-morning next day)";
+                }
             }
         }
 
 
 
 
-
-        ArrayAdapter<String> hourAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, hours_milStr);
+        hourAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, hours_milStr); //Used for indexing
         hourAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        ArrayAdapter<String> hourAdapterF = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, hours_FriendlyStr);
+        hourAdapterF.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinHour = (Spinner) findViewById(R.id.spinner_hour);
-        spinHour.setAdapter(hourAdapter);
+        spinHour.setAdapter(hourAdapterF);
         selectedHour=Integer.valueOf(hours_milStr[0]);
     }
 
