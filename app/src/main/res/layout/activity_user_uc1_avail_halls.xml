@@ -11,8 +11,8 @@
 
     <TextView
         android:id="@+id/textViewInfo"
-        android:layout_width="196dp"
-        android:layout_height="101dp"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
         android:background="#d7dde2"
