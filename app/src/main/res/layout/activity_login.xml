@@ -41,7 +41,7 @@
         android:padding="3dp"
         android:maxLength="32"
         android:background="@layout/rounded_border"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="10dp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -55,37 +55,37 @@
         android:hint="password"
         android:background="@layout/rounded_border"
         android:padding="3dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:maxLength="32"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
     <TextView
+        android:id="@+id/textView_attempts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Attempts Remaining"
-        android:id="@+id/textView_attempts"
+        android:layout_alignBottom="@+id/textView_count"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="0dp"
         android:layout_toLeftOf="@+id/editText_password"
         android:layout_toStartOf="@+id/editText_password"
-        android:layout_alignBottom="@+id/textView_count"
-        android:layout_marginTop="5dp"
-        android:textColor="#ff0000"
-        android:layout_marginLeft="5dp"
-        android:layout_marginBottom="5dp" />
+        android:text="Attempts Remaining"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#ff0000" />
 
     <Button
+        android:id="@+id/button_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:id="@+id/button_login"
         android:layout_alignBaseline="@+id/register_button"
         android:layout_alignBottom="@+id/register_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="5dp"
+        android:text="Login" />
 
     <TextView
         android:layout_width="wrap_content"

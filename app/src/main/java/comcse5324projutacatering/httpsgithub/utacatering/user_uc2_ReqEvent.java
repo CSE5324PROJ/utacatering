@@ -1,13 +1,14 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-//TODO take data and insert into table
 //TODO alphabetical order the venues?
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.database.sqlite.SQLiteDatabase;
+//import android.graphics.Color;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Spinner;
 //import android.support.v7.app.AppCompatActivity;
@@ -30,10 +31,13 @@ public class user_uc2_ReqEvent extends Activity {
     //Integer[] durationsInt={2,3,4,5,6};
     //Integer selectedDuration=2;
     String[] mealTypes={"Breakfast","Lunch","Dinner"};
+    String[] selectedMealType;
     Integer[] mealPrices={8,12,18}; //per attending
     Integer selectedMealPrice=8;
     String[] formality={"Informal","Formal"};
     Double[] formSetMulti={1.0,1.5};
+    int[] formalityFlag={0,1};
+    int selectedFormality;
     Double selectedFormMulti=1.0;
     String[] drinkTypes={"Non-Alcoholic","Alcoholic"};
     Integer[] drinkSetInt={0,1};
@@ -42,8 +46,9 @@ public class user_uc2_ReqEvent extends Activity {
     Integer[] attendance;
     Integer selectedAtdnc=1;
     Double calcdPrice=0.0;
-    //private Context mContext;
+
     private Button submitEvReq_btn;
+
 
 
     int selectedYear;
@@ -60,12 +65,22 @@ public class user_uc2_ReqEvent extends Activity {
     public int customRed;
     public int customGreen;
     public int customBlue;
+
+    String occasion;
+    String ent_items;
+    EditText editOccasion;
+    EditText editEntItems;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Context mContext;
-        mContext = getApplicationContext();
         setContentView(R.layout.activity_user_uc2_req_event);
+        //Context mContext;
+        //mContext = getApplicationContext();
+
+        editOccasion = findViewById(R.id.editTextOccasion);
+        editEntItems = findViewById(R.id.editTextEntItems);
+
         Intent mIntent;
         Bundle extras;
         mIntent = getIntent();
@@ -90,6 +105,8 @@ public class user_uc2_ReqEvent extends Activity {
         customGreen = getResources().getColor(R.color.customGreen);
         customBlue = getResources().getColor(R.color.customBlue);
         submitEvReq_btn.setBackgroundColor(customBlue);
+
+
     }
 
 
@@ -120,6 +137,8 @@ public class user_uc2_ReqEvent extends Activity {
                 Spinner spinner = (Spinner) adapterView;
                 if(spinner.getId() == R.id.spinnerMtype) {
                     selectedMealPrice=mealPrices[position];
+                    selectedMealType=new String[1];
+                    selectedMealType[0]=mealTypes[position];
                     recalcPrice();
                 }
             }
@@ -135,6 +154,7 @@ public class user_uc2_ReqEvent extends Activity {
                 Spinner spinner = (Spinner) adapterView;
                 if(spinner.getId() == R.id.spinnerFormality) {
                     selectedFormMulti=formSetMulti[position];
+                    selectedFormality=formalityFlag[position];
                     recalcPrice();
                 }
             }
@@ -156,7 +176,6 @@ public class user_uc2_ReqEvent extends Activity {
             @Override public void onNothingSelected(AdapterView<?> adapterView) {}
         });
         //Hall & Capacity
-        //final EditText hall =  (EditText) findViewById(R.id.editText3);
         if (selectedHall.equals("Maverick")){
             capacity=100;
             attendance=new Integer[capacity];
@@ -235,11 +254,6 @@ public class user_uc2_ReqEvent extends Activity {
         EditText editText_Hall = findViewById(R.id.editText3);
         EditText editText_Dur = findViewById(R.id.editText4);
 
-        //String selectedHall = mIntent.getStringExtra("selectedHall");
-
-        //check if extras is not null
-        //if(extras!=null)
-
 
         int friendlyHour;
         if(selectedHour==0){
@@ -278,7 +292,7 @@ public class user_uc2_ReqEvent extends Activity {
         submitEvReq_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
-                Intent intent =  new Intent(user_uc2_ReqEvent.this, user_uc0_Home.class);
+                Intent intent =  new Intent(user_uc2_ReqEvent.this, user_uc0_Home.class); //TODO eventually this should go to events list, not home.
                 if( selectedHall.length() > 0){
                     submitEvReq_btn.setBackgroundColor(customGreen);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -286,11 +300,24 @@ public class user_uc2_ReqEvent extends Activity {
 
                     );
                     startActivity(intent);
+                    processSubmission();
                     finish();
                 }
             }
         });
     }
+
+    private void processSubmission(){
+        //editOccasion      = findViewById(R.id.editTextOccasion);
+        //editEntItems        = findViewById(R.id.editTextEntItems);
+        occasion = editOccasion.getText().toString();
+        ent_items = editEntItems .getText().toString();
+        SQLiteDatabase db = DatabaseInterface.getInstance(user_uc2_ReqEvent.this).getWritableDatabase();
+        DatabaseInterface.getInstance(user_uc2_ReqEvent.this).createBaseEvent(db, username,5,sqlFormattedDateTime,String.valueOf(selectedDuration),
+                selectedHall, selectedVenue,"",0,selectedAtdnc,selectedDrinkInt,
+                selectedFormality,selectedMealType[0],calcdPrice,occasion,ent_items);
+    }
+
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(user_uc2_ReqEvent.this, user_uc0_Home.class);
@@ -329,6 +356,15 @@ public class user_uc2_ReqEvent extends Activity {
                 return true;
             default:
                 return false;
+        }
+    }
+
+    public void hideKeyboard(View view){
+        if(view!=null){
+            InputMethodManager inMethMan = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            if(inMethMan!=null){
+                inMethMan.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
         }
     }
 }

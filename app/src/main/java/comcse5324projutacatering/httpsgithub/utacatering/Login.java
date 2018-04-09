@@ -3,12 +3,17 @@ package comcse5324projutacatering.httpsgithub.utacatering;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import static android.content.ContentValues.TAG;
 
 public class Login extends Activity {
 
@@ -38,9 +43,9 @@ public class Login extends Activity {
         register_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(Login.this, Register.class);
                 startActivity(intent);
+
             }
         });
         login_button.setOnClickListener(
@@ -85,5 +90,19 @@ public class Login extends Activity {
 
                 }
         );
+        password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
+                        || (actionId == EditorInfo.IME_ACTION_DONE)) {
+                    Log.i(TAG,"Enter selected");
+                    login_button.performClick();
+                    login_button.setPressed(true);
+                    login_button.invalidate();
+                    login_button.setPressed(false);
+                    login_button.invalidate();
+                }
+                return false;
+            }
+        });
     }
 }

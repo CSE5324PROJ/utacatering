@@ -2,34 +2,27 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="comcse5324projutacatering.httpsgithub.utacatering.user_uc2_ReqEvent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="comcse5324projutacatering.httpsgithub.utacatering.user_uc2_ReqEvent">
+    >
+    <!-- Below is android:focusable="true" necessary to hide keyboard also-->
+    <!-- Below android:onClick="hideKeyboard" function allowing keyboard  when clicking background-->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:id="@+id/reqLayout"
     android:descendantFocusability="beforeDescendants"
+    android:clickable="true"
     android:focusable="true"
-    android:focusableInTouchMode="true" >
-
-
-    <!-- Dummy item-
-    <LinearLayout
-        android:focusable="true"
+    android:onClick="hideKeyboard">
+    <!-- Below is used instead of android:focusableInTouchMode="true" because it makes ONE click remove the keyboard, otherwise would take two clicks-->
+    <LinearLayout android:focusable="true"
         android:focusableInTouchMode="true"
         android:layout_width="0px"
-        android:layout_height="0px"/>
-
-    Focus dummy
-    <AutoCompleteTextView android:id="@+id/auto"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:nextFocusUp="@id/auto"
-        android:nextFocusLeft="@id/auto"/>
-    -->
-
-
+        android:layout_height="0px" >
+        <requestFocus />
+    </LinearLayout>
     <TextView
         android:id="@+id/textView"
         android:layout_width="72dp"
@@ -37,6 +30,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:text="Time"
+        android:focusable="false"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -61,6 +55,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:text="Date"
+        android:focusable="false"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -87,6 +82,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:text="Hall"
+        android:focusable="false"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -112,6 +108,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
         android:text="Duration"
+        android:focusable="false"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -137,6 +134,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Venue"
+        android:focusable="false"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -157,6 +155,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="18dp"
         android:text="Meal Type"
+        android:focusable="false"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4b" />
@@ -177,6 +176,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Formality"
+        android:focusable="false"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -197,6 +197,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="18dp"
         android:text="Drinks"
+        android:focusable="false"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -217,6 +218,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="18dp"
         android:text="Attendance"
+        android:focusable="false"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
@@ -237,6 +239,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:text="Price"
+        android:focusable="false"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -262,6 +265,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="Occasion"
+        android:focusable="false"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPrice" />
@@ -286,7 +290,8 @@
         android:layout_marginEnd="136dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="15dp"
-        android:text="Entertainment Items"
+        android:text=""
+        android:focusable="false"
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -307,7 +312,7 @@
         android:minLines="5"
         android:scrollHorizontally="false"
         android:scrollbars="vertical"
-        android:text="Requesting Music"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />

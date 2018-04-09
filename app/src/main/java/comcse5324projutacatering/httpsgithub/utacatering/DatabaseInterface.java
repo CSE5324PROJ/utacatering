@@ -167,7 +167,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         long newRowId = db.insert(TABLE_NAME_PROFILE, null, values);
     }
 
-    private void createBaseEvent(SQLiteDatabase db, String req_user,int req_user_id, String Stime, String dur, String hall, String venue,
+    public void createBaseEvent(SQLiteDatabase db, String req_user,int req_user_id, String Stime, String dur, String hall, String venue,
                                    String assigned_caterer, int approval_flag, int attendance, int alco_flag, int formal_flag, String meal_type,
                                     double price, String occ_type, String ent_items) {
 
