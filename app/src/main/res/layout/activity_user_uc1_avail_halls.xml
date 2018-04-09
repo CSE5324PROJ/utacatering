@@ -16,7 +16,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
         android:background="#d7dde2"
-        android:text="Halls close at 11pm on week nights and 2am on weekends.\n\nHalls open at 7am each day except on Sunday, when the halls open at noon."
+        android:text="@string/HallHoursString"
         android:textColor="#6f7275"
         android:textStyle="italic"
         app:layout_constraintStart_toEndOf="@+id/textView_dur"
@@ -29,7 +29,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:text="Year"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,7 +49,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="24dp"
         android:text="Month"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintStart_toEndOf="@+id/textView_year"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -69,7 +69,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:text="Day"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintStart_toEndOf="@+id/textView_month"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -89,7 +89,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="14dp"
         android:text="Hour"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_duration" />
 
@@ -109,7 +109,7 @@
         android:layout_marginStart="195dp"
         android:layout_marginTop="14dp"
         android:text="Minute"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintStart_toEndOf="@+id/textView_hour"
         app:layout_constraintTop_toBottomOf="@+id/spinner_duration" />
 
@@ -129,7 +129,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Duration"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_year" />
 
@@ -149,7 +149,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="Available Halls"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_hour" />
 

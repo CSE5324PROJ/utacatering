@@ -1,6 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO implement top menu signout/home page  (implemented differently than on home page!)
-//TODO !UCID shows red line from approve/reject back to details screen, should be removed, this only returns to list screen (since it never leaves detail screen otherwise)
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;

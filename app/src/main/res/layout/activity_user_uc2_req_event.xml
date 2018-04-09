@@ -31,7 +31,7 @@
         android:layout_marginTop="4dp"
         android:text="Time"
         android:focusable="false"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,7 +56,7 @@
         android:layout_marginTop="24dp"
         android:text="Date"
         android:focusable="false"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -83,7 +83,7 @@
         android:layout_marginTop="20dp"
         android:text="Hall"
         android:focusable="false"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -109,7 +109,7 @@
         android:layout_marginTop="28dp"
         android:text="Duration"
         android:focusable="false"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -122,7 +122,7 @@
         android:ems="10"
         android:focusable="false"
         android:inputType="text"
-        android:text="BLAH3"
+        android:text="BLAH4"
         android:textColor="#6f7275"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText3" />
@@ -135,7 +135,7 @@
         android:layout_marginTop="16dp"
         android:text="Venue"
         android:focusable="false"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -156,7 +156,7 @@
         android:layout_marginTop="18dp"
         android:text="Meal Type"
         android:focusable="false"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4b" />
 
@@ -177,7 +177,7 @@
         android:layout_marginTop="16dp"
         android:text="Formality"
         android:focusable="false"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -198,7 +198,7 @@
         android:layout_marginTop="18dp"
         android:text="Drinks"
         android:focusable="false"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -219,7 +219,7 @@
         android:layout_marginTop="18dp"
         android:text="Attendance"
         android:focusable="false"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
@@ -240,7 +240,7 @@
         android:layout_marginTop="12dp"
         android:text="Price"
         android:focusable="false"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -266,7 +266,7 @@
         android:layout_marginTop="8dp"
         android:text="Occasion"
         android:focusable="false"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPrice" />
 
@@ -292,7 +292,7 @@
         android:layout_marginTop="15dp"
         android:text=""
         android:focusable="false"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
