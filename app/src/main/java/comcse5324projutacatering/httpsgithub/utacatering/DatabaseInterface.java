@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
+import java.util.ArrayList;
+
 public class DatabaseInterface extends SQLiteOpenHelper {
 
     private static DatabaseInterface instance;
@@ -20,6 +22,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
     public static final String COLUMN_NAME_UTAID       = "uta_id";
     public static final String COLUMN_NAME_PERSONAL    = "personal_details";
     public static final String COLUMN_NAME_CONTACT     = "contact_details";
+    private ArrayList<String> resultsList;
 
     private static final String SQL_CREATE_PROFILE_TABLE =
             "CREATE TABLE " + TABLE_NAME_PROFILE + " (" +
@@ -397,6 +400,60 @@ public class DatabaseInterface extends SQLiteOpenHelper {
                 null,           // don't filter by row groups
                 null              // The sort order
         );
+    }
+
+    public boolean searchUsernameRegistrationConflictCheck(String usernameQuery) {
+        boolean foundConflict;
+        String currentTable=TABLE_NAME_PROFILE;
+        foundConflict=subcheck(usernameQuery, currentTable);
+        if(!foundConflict){
+            currentTable=TABLE_NAME_REGISTRATION;
+            foundConflict=subcheck(usernameQuery, currentTable);
+            return foundConflict;
+        }
+        else{
+            return foundConflict;
+        }
+    }
+
+    public boolean subcheck(String usernameQuery, String currentTable) {
+        boolean foundConflict=false;
+        SQLiteDatabase db = getReadableDatabase();
+
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                COLUMN_NAME_USERNAME
+        };
+
+        // Filter results WHERE "title" = 'My Title'
+        String selection =
+                COLUMN_NAME_USERNAME + " LIKE ?";
+        String[] selectionArgs = { usernameQuery };
+
+        // How you want the results sorted in the resulting Cursor
+        //String sortOrder = COLUMN_NAME_USERNAME + " DESC";
+
+        Cursor resultCursor = db.query(
+                currentTable,     // The table to query
+                projection,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
+                null,          // don't group the rows
+                null,           // don't filter by row groups
+                null              // The sort order
+        );
+        resultsList = new ArrayList<>();
+        if(resultCursor != null) {
+            while (resultCursor.moveToNext()) {
+                String username = resultCursor.getString(resultCursor.getColumnIndexOrThrow(DatabaseInterface.COLUMN_NAME_USERNAME));
+                resultsList.add(username);
+            }
+            if(resultsList.contains(usernameQuery) ){
+                foundConflict=true;
+            }
+        }
+        return foundConflict;
     }
 
     public Cursor getProfileByUsername(String username) {

@@ -1,5 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-
+//TODO handle exception of someone trying to register with an existing username (toast saying to retry?)
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -65,12 +65,18 @@ public class Register extends Activity {
                 String contact  = editContactDetails.getText().toString();
                 String personal = editPersonalDetails.getText().toString();
 
-                DatabaseInterface.getInstance(Register.this).createRegistrationRequest(
-                        username, password, selectedRole, stu_id, contact, personal
-                );
+                if(DatabaseInterface.getInstance(Register.this).searchUsernameRegistrationConflictCheck(username)){
+                    //means conflict is found
+                    Toast.makeText(Register.this, "Registration failed, there is a user or pending user request with this username already.", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    DatabaseInterface.getInstance(Register.this).createRegistrationRequest(
+                            username, password, selectedRole, stu_id, contact, personal
+                    );
 
-                Toast.makeText(Register.this, "Registration submitted.", Toast.LENGTH_LONG).show();
-                finish();
+                    Toast.makeText(Register.this, "Registration submitted.", Toast.LENGTH_LONG).show();
+                    finish();
+                }
             }
         });
 
