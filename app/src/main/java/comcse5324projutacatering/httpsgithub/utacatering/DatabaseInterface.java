@@ -24,7 +24,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
     private static final String SQL_CREATE_PROFILE_TABLE =
             "CREATE TABLE " + TABLE_NAME_PROFILE + " (" +
                     BaseColumns._ID + " INTEGER PRIMARY KEY," +
-                    COLUMN_NAME_USERNAME + " TEXT,"    +
+                    COLUMN_NAME_USERNAME + " TEXT UNIQUE,"    +
                     COLUMN_NAME_PASSWORD + " TEXT,"    +
                     COLUMN_NAME_ROLE     + " TEXT,"    +
                     COLUMN_NAME_UTAID    + " INTEGER," +
