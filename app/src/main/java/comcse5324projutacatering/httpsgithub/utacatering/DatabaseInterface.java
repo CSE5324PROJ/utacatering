@@ -567,7 +567,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
             String uta_id   = req.getString(req.getColumnIndexOrThrow(DatabaseInterface.COLUMN_NAME_UTAID));
             String contact  = req.getString(req.getColumnIndexOrThrow(DatabaseInterface.COLUMN_NAME_CONTACT));
             String personal = req.getString(req.getColumnIndexOrThrow(DatabaseInterface.COLUMN_NAME_PERSONAL));
-            createProfile(username, password, role, Integer.parseInt(uta_id), contact, personal);
+            createProfile(username, password, role, Long.parseLong(uta_id), contact, personal);
             deleteRegistrationRequest(requestID);
             req.close();
         }
