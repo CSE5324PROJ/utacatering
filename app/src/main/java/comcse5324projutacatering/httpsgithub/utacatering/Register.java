@@ -1,5 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-//TODO handle exception of someone trying to register with an existing username (toast saying to retry?)
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
