@@ -26,7 +26,7 @@ public class admin_uc5_SearchSystemUser extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_sys_user);
+        setContentView(R.layout.activity_admin_uc5_search_sys_user);
         android.app.ActionBar actionBar = getActionBar();
         if(actionBar != null) {
             actionBar.setTitle("Search for System User");

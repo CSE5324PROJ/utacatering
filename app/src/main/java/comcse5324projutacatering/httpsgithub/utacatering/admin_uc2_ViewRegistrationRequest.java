@@ -26,7 +26,7 @@ public class admin_uc2_ViewRegistrationRequest extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_registration_request);
+        setContentView(R.layout.activity_admin_uc2_view_registration_request);
         request_id = getIntent().getStringExtra("request_id");
         regCursor = DatabaseInterface.getInstance(this).getRegistrationRequest(request_id);
 

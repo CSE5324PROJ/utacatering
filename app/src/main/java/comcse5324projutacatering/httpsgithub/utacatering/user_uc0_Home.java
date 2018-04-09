@@ -18,7 +18,7 @@ public class user_uc0_Home extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_uc0__home);
+        setContentView(R.layout.activity_user_uc0_home);
         Intent mIntent;
         Bundle extras;
         mIntent = getIntent();

@@ -1,6 +1,8 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO implement top menu signout/home page  (implemented differently than on home page!)
+//TODO Does Robb want a user's events cancelled if that user is deleted? what if the caterer is deleted? or staff removed from assignment?
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.BaseColumns;
@@ -18,6 +20,7 @@ public class admin_uc678_ViewEditProfile extends Activity {
     private Cursor   profCursor;
 
     private EditText editUsername;
+    private String usernameInitial;
     private EditText editPassword;
     private Spinner  editRole;
     private EditText editStudentID;
@@ -31,7 +34,7 @@ public class admin_uc678_ViewEditProfile extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_edit_profile);
+        setContentView(R.layout.activity_admin_uc678_view_edit_profile);
         String profile_id = getIntent().getStringExtra("profile_id");
         profCursor = DatabaseInterface.getInstance(this).getProfileByID(profile_id);
 
@@ -42,6 +45,7 @@ public class admin_uc678_ViewEditProfile extends Activity {
         }
 
         editUsername        = (EditText) findViewById(R.id.edit_username);
+        usernameInitial = editUsername.getText().toString();
         editPassword        = (EditText) findViewById(R.id.edit_password);
         editRole            = (Spinner)  findViewById(R.id.edit_role);
         editStudentID       = (EditText) findViewById(R.id.edit_student_id);
@@ -73,18 +77,19 @@ public class admin_uc678_ViewEditProfile extends Activity {
                 String contact  = editContactDetails.getText().toString();
                 String personal = editPersonalDetails.getText().toString();
 
-                if(DatabaseInterface.getInstance(admin_uc678_ViewEditProfile.this).searchUsernameRegistrationConflictCheck(username)){
-                    //means conflict is found
-                    Toast.makeText(admin_uc678_ViewEditProfile.this, "Edit profile failed, there is a user or pending user request with this username already.", Toast.LENGTH_LONG).show();
+                if(username.equals(usernameInitial)){
+                    executeSaveChanges(username, password, stu_id, contact, personal);
                 }
                 else{
-                    DatabaseInterface.getInstance(admin_uc678_ViewEditProfile.this).updateProfile(
-                            workingProfileID, username, password, selectedRole, stu_id, contact, personal
-                    );
-
-                    Toast.makeText(admin_uc678_ViewEditProfile.this, "Profile updated.", Toast.LENGTH_LONG).show();
+                    //Verify the new username doesnt conflict
+                    if(DatabaseInterface.getInstance(admin_uc678_ViewEditProfile.this).searchUsernameRegistrationConflictCheck(username)){
+                        //means conflict is found
+                        Toast.makeText(admin_uc678_ViewEditProfile.this, "Edit profile failed, there is a user or pending user request with this username already.", Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        executeSaveChanges(username, password, stu_id, contact, personal);
+                    }
                 }
-
             }
         });
         deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -93,9 +98,25 @@ public class admin_uc678_ViewEditProfile extends Activity {
                 // TODO: Check if non-admin before removing
                 DatabaseInterface.getInstance(admin_uc678_ViewEditProfile.this).deleteProfile(workingProfileID);
                 Toast.makeText(admin_uc678_ViewEditProfile.this, "System user removed.", Toast.LENGTH_LONG).show();
+
+                Intent intent1 = new Intent(admin_uc678_ViewEditProfile .this, admin_uc5_SearchSystemUser .class);
+                intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        | Intent.FLAG_ACTIVITY_SINGLE_TOP
+
+                );
+                startActivity(intent1);
                 finish();
             }
         });
+    }
+
+    private void executeSaveChanges(String username, String  password, long stu_id, String  contact, String  personal){
+        DatabaseInterface.getInstance(admin_uc678_ViewEditProfile.this).updateProfile(
+                workingProfileID, username, password, selectedRole, stu_id, contact, personal
+        );
+
+        Toast.makeText(admin_uc678_ViewEditProfile.this, "Profile updated.", Toast.LENGTH_LONG).show();
+        //No transition to another page according to UCID.
     }
 
     private void populateFields() {

@@ -34,7 +34,7 @@ public class sysuser_uc2_Login extends Activity {
         }
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_sysuser_uc2_login);
         username = (EditText)findViewById(R.id.editText_user);
         password = (EditText)findViewById(R.id.editText_password);
         attemptMessage = (TextView)findViewById(R.id.textView_attempts);

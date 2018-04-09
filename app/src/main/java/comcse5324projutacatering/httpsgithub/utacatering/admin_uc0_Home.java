@@ -21,7 +21,7 @@ public class admin_uc0_Home extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_home);
+        setContentView(R.layout.activity_admin_uc0_home);
 
         setupButtons();
 

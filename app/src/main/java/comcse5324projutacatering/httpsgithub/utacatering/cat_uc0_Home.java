@@ -12,7 +12,7 @@ public class cat_uc0_Home extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cat_uc0__home);
+        setContentView(R.layout.activity_cat_uc0_home);
     }
 
     @Override

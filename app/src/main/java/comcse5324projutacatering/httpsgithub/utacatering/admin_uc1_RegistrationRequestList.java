@@ -22,7 +22,7 @@ public class admin_uc1_RegistrationRequestList extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration_request_list);
+        setContentView(R.layout.activity_admin_uc1_registration_request_list);
         android.app.ActionBar actionBar = getActionBar();
         if(actionBar != null) {
             actionBar.setTitle("Registration Requests");
