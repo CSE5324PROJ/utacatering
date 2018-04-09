@@ -4,16 +4,16 @@
 
     <item
         android:id="@+id/main_menu_sign_out"
-        android:title="Sign Out"
+        android:title="@string/SignOutString"
         android:enabled="true"
         android:icon="@drawable/ic_menu"
-        android:orderInCategory="100"
-        app:showAsAction="always"/>
+        android:orderInCategory="2"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/main_menu_go_home"
-        android:title="Home Page"
+        android:title="@string/HomeString"
         android:enabled="true"
         android:icon="@drawable/ic_menu"
-        android:orderInCategory="99"
-        app:showAsAction="always"/>
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom"/>
 </menu>
