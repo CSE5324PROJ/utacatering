@@ -167,7 +167,7 @@
         android:layout_width="353dp"
         android:layout_height="73dp"
         android:layout_marginTop="16dp"
-        android:text="PROCEED TO REQUEST AN EVENT AT THIS TIME AND HALL"
+        android:text="@string/user_uc1_proceed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

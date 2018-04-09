@@ -1,15 +1,14 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-//TODO add text to halls showing capacity in the spinner
-//TODO flash spinners red when they reset to make sure user knows they reset
 //TODO buffer time between events? Ask Robb.
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
+//import android.graphics.Color;
 //import android.provider.BaseColumns;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -62,7 +61,9 @@ public class user_uc1_availHalls extends Activity{
     String uniqueDayArray[];
     //String uniqueDayArrayFriendly[];
     String halls[]={"Maverick", "KC", "Arlington", "Shard", "Liberty"};
+    String capacityStringArray[]={" (capacity of 100)"," (capacity of 25)"," (capacity of 50)"," (capacity of 25)"," (capacity of 75)"};
     String availHalls[];
+    String availHallsFriendly[];
     List<String> conflictingHalls = new ArrayList<>();
     int i=0;
     int hours_mil[];
@@ -85,13 +86,24 @@ public class user_uc1_availHalls extends Activity{
     ArrayAdapter<String> dayAdapter;
     ArrayAdapter<String> monthAdapter;
     ArrayAdapter<String> yearAdapter;
+    public int customRed;
+    public int customGreen;
+    public int customBlue;
+    public String user_uc1_btn_proceed;
+    public String user_uc1_btn_noHalls;
+    //int old_selectedDay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Context mContext;
         mContext = getApplicationContext();
         setContentView(R.layout.activity_user_uc1_avail_halls);
-
+        customRed = getResources().getColor(R.color.customRed);
+        customGreen = getResources().getColor(R.color.customGreen);
+        customBlue = getResources().getColor(R.color.customBlue);
+        user_uc1_btn_proceed = getString(R.string.user_uc1_proceed);
+        user_uc1_btn_noHalls = getString(R.string.user_uc1_noHalls);
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date()); // today's date
         cal.add(Calendar.DATE, 7); // Adds 7 days
@@ -129,6 +141,7 @@ public class user_uc1_availHalls extends Activity{
         genMonthsArray();
         caltemp2 = Calendar.getInstance();
         genDaysArray();
+        //old_selectedDay=selectedDay;
         genOtherArray();
         caltemp = Calendar.getInstance();
         getHoursArray();
@@ -160,10 +173,12 @@ public class user_uc1_availHalls extends Activity{
             }
         }
         availHalls =  new  String[5-conflictingHalls.size()]; //At most 5 conflicts (thus no halls available)
+        availHallsFriendly =  new  String[5-conflictingHalls.size()]; //At most 5 conflicts (thus no halls available)
         int j;
         for(i=0,j=0;i<availHalls.length;i++,j++){
             if(!conflictingHalls.contains(halls[j])){
                 availHalls[i]=halls[j];
+                availHallsFriendly[i]=halls[j]+capacityStringArray[j];
             }
             else{
                 i--;
@@ -171,14 +186,15 @@ public class user_uc1_availHalls extends Activity{
         }
         spinHalls = findViewById(R.id.spinner_availHalls);
         if(availHalls.length>0){
-            ArrayAdapter<String> hallsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, availHalls);
+            ArrayAdapter<String> hallsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, availHallsFriendly);
             hallsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinHalls.setAdapter(hallsAdapter);
         }
         else{
             spinHalls.setAdapter(null);
             selectedHall="";
-            user_uc2_ReqEvent_btn.setBackgroundColor(Color.RED);
+            user_uc2_ReqEvent_btn.setBackgroundColor(customRed);
+            user_uc2_ReqEvent_btn.setText(user_uc1_btn_noHalls);
         }
 
     }
@@ -194,10 +210,11 @@ public class user_uc1_availHalls extends Activity{
                     selectedYear=Integer.parseInt(uniqueYearArray[position]);
                     genMonthsArray();
                     genDaysArray();
-                    /*if(userIsInteracting){
-                        searchAvailHalls(selectedYear,selectedMonth,selectedDay,selectedHour,selectedMin,selectedDur);
+                    if(userIsInteracting){
+                        monthFlash();
+                        dayFlash();
                         userIsInteracting=false;
-                    }*/
+                    }
                 }
             }
             @Override public void onNothingSelected(AdapterView<?> adapterView) {}
@@ -207,9 +224,15 @@ public class user_uc1_availHalls extends Activity{
                 //selectedRole = String.valueOf(editRole.getSelectedItem());
                 Spinner spinner = (Spinner) adapterView;
                 if(spinner.getId() == R.id.spinner_month) {
+
                     selectedMonth=Integer.parseInt(uniqueMonthArray[position]);
                     genDaysArray();
                     if(userIsInteracting){
+                        /*if(old_selectedDay!=selectedDay){
+                            old_selectedDay=selectedDay;
+                            dayFlash();
+                        }*/
+                        dayFlash();
                         searchAvailHalls(selectedYear,selectedMonth,selectedDay,selectedHour,selectedMin,selectedDur);
                         userIsInteracting=false;
                     }
@@ -221,10 +244,15 @@ public class user_uc1_availHalls extends Activity{
             @Override public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 //selectedRole = String.valueOf(editRole.getSelectedItem());
                 Spinner spinner = (Spinner) adapterView;
+                int old_selectedHour=selectedHour;
                 if(spinner.getId() == R.id.spinner_day) {
+                    //old_selectedDay=selectedDay;
                     selectedDay=Integer.parseInt(uniqueDayArray[position]);
                     //searchAvailHalls(selectedYear,selectedMonth,selectedDay,selectedHour,selectedMin,selectedDur);
                     getHoursArray();
+                    if(old_selectedHour!=selectedHour){
+                        hourFlash();
+                    }
                     if(userIsInteracting){
                         searchAvailHalls(selectedYear,selectedMonth,selectedDay,selectedHour,selectedMin,selectedDur);
                         userIsInteracting=false;
@@ -242,20 +270,24 @@ public class user_uc1_availHalls extends Activity{
                     if(selectedHour!=0){
                         if (!spinMin.isEnabled()){//if hour spinner is reset without user selecting the hour, safe to re-enable minute spinner.
                             spinMin.setEnabled(true);
+                            minFlashGreen();
                         }
                     }
                     else{
                         spinMin.setSelection(0);
                         spinMin.setEnabled(false);
+                        minFlash();
                     }
                     //searchAvailHalls(selectedYear,selectedMonth,selectedDay,selectedHour,selectedMin,selectedDur);
                     if(userIsInteracting){
                         if((hours_mil.length-1)==position && selectedHour!=24){//means last possible hour was selected, so minute must be hard set to 00.
                             spinMin.setSelection(0);
                             spinMin.setEnabled(false);
+                            minFlash();
                         }
                         else if(selectedHour!=0 && selectedHour!=24){
                             spinMin.setEnabled(true);
+                            minFlashGreen();
                         }
                         else if(selectedHour==24){
                             String tempDaySearch = String.valueOf(selectedDay);
@@ -266,6 +298,8 @@ public class user_uc1_availHalls extends Activity{
                                 spinHour.setSelection(0);
                                 spinMin.setSelection(0);
                                 spinMin.setEnabled(false);
+                                dayFlash();
+                                minFlash();
                             }
                             else{
                                 String tempMonthSearch = String.valueOf(selectedMonth);
@@ -277,6 +311,9 @@ public class user_uc1_availHalls extends Activity{
                                     spinHour.setSelection(0);
                                     spinMin.setSelection(0);
                                     spinMin.setEnabled(false);
+                                    monthFlash();
+                                    dayFlash();
+                                    minFlash();
                                 }
                                 else{
                                     String tempYearSearch = String.valueOf(selectedYear);
@@ -289,10 +326,15 @@ public class user_uc1_availHalls extends Activity{
                                         spinHour.setSelection(0);
                                         spinMin.setSelection(0);
                                         spinMin.setEnabled(false);
+                                        yearFlash();
+                                        monthFlash();
+                                        dayFlash();
+                                        minFlash();
                                     }
                                     else{
                                         spinMin.setSelection(0);
                                         spinMin.setEnabled(false);
+                                        minFlash();
                                     }
                                 }
                             }
@@ -337,6 +379,7 @@ public class user_uc1_availHalls extends Activity{
                         //}
                         searchAvailHalls(selectedYear,selectedMonth,selectedDay,selectedHour,selectedMin,selectedDur);
                         userIsInteracting=false;
+                        hourFlash();
                     }
                 }
             }
@@ -349,7 +392,8 @@ public class user_uc1_availHalls extends Activity{
                 if(spinner.getId() == R.id.spinner_availHalls) {
                     if(availHalls.length>0){
                         selectedHall=(availHalls[position]);
-                        user_uc2_ReqEvent_btn.setBackgroundColor(Color.BLUE);
+                        user_uc2_ReqEvent_btn.setBackgroundColor(customBlue);
+                        user_uc2_ReqEvent_btn.setText(user_uc1_btn_proceed);
                         //if size =0 selectedHall = "", as updated by searchAvailHalls function when another spinner is accessed.
                     }
                     //searchAvailHalls(selectedYear,selectedMonth,selectedDay,selectedHour,selectedMin,selectedDur);
@@ -386,7 +430,6 @@ public class user_uc1_availHalls extends Activity{
         monthAdapterF.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinMonth = findViewById(R.id.spinner_month);
         spinMonth.setAdapter(monthAdapterF);
-
     }
 
     private void genDaysArray() {
@@ -417,7 +460,7 @@ public class user_uc1_availHalls extends Activity{
         dayAdapterF.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinDay = findViewById(R.id.spinner_day);
         spinDay.setAdapter(dayAdapterF);
-
+        //dayFlash();
     }
 
     private void getHoursArray(){
@@ -549,10 +592,70 @@ public class user_uc1_availHalls extends Activity{
         minAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinDur = findViewById(R.id.spinner_duration);
         spinDur.setAdapter(durAdapter);
+        //spinDur.setBackgroundResource(R.drawable.spinner_redbg);
+        //spinDur.setBackgroundResource(R.drawable.spinner_normbg);
         selectedDur=2;
 
     }
 
+    public void yearFlash(){
+        spinYear.setBackgroundResource(R.drawable.spinner_redbg);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                spinYear.setBackgroundResource(R.drawable.spinner_normbg);
+            }
+        }, 250);
+    }
+
+    public void monthFlash(){
+        spinMonth.setBackgroundResource(R.drawable.spinner_redbg);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                spinMonth.setBackgroundResource(R.drawable.spinner_normbg);
+            }
+        }, 250);
+    }
+
+    public void dayFlash(){
+        spinDay.setBackgroundResource(R.drawable.spinner_redbg);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                spinDay.setBackgroundResource(R.drawable.spinner_normbg);
+            }
+        }, 250);
+    }
+
+    public void hourFlash(){
+        spinHour.setBackgroundResource(R.drawable.spinner_redbg);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                spinHour.setBackgroundResource(R.drawable.spinner_normbg);
+            }
+        }, 250);
+    }
+    public void minFlash(){
+        spinMin.setBackgroundResource(R.drawable.spinner_redbg);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                spinMin.setBackgroundResource(R.drawable.spinner_normbg);
+            }
+        }, 250);
+    }
+
+    public void minFlashGreen(){
+        spinMin.setBackgroundResource(R.drawable.spinner_greenbg);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                spinMin.setBackgroundResource(R.drawable.spinner_normbg);
+            }
+        }, 250);
+    }
 
 
     @Override
@@ -591,7 +694,7 @@ public class user_uc1_availHalls extends Activity{
             public void onClick (View v)  {
                 Intent intent =  new Intent(user_uc1_availHalls.this, user_uc2_ReqEvent.class);
                 if( selectedHall.length() > 0){
-                    user_uc2_ReqEvent_btn.setBackgroundColor(Color.GREEN);
+                    user_uc2_ReqEvent_btn.setBackgroundColor(customGreen);
                     intent.putExtra("selectedYear",selectedYear); //all int's except selectedHall is a String
                     intent.putExtra("selectedMonth",selectedMonth);
                     intent.putExtra("selectedDay",selectedDay);

@@ -6,4 +6,6 @@
         <item>Caterer Staff</item>
         <item>Admin</item>
     </string-array>
+    <string name="user_uc1_proceed">PROCEED TO REQUEST AN EVENT AT THIS TIME AND HALL</string>
+    <string name="user_uc1_noHalls">NO HALLS AVAILABLE AT THIS TIME AND DURATION</string>
 </resources>

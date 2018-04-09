@@ -10,11 +10,16 @@ import android.view.View;
 import android.widget.Button;
 
 public class user_uc0_Home extends Activity {
-
+    public int customRed;
+    public int customGreen;
+    public int customBlue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_uc0__home);
+        customRed = getResources().getColor(R.color.customRed);
+        customGreen = getResources().getColor(R.color.customGreen);
+        customBlue = getResources().getColor(R.color.customBlue);
         setupButtons();
     }
 
@@ -43,13 +48,13 @@ public class user_uc0_Home extends Activity {
     }
 
     private void setupButtons() {
-        Button user_uc1_availHalls_btn;
-        Button user_uc3_availHalls_btn;
-        user_uc1_availHalls_btn = findViewById(R.id.button_user_uc1);
-        user_uc3_availHalls_btn = findViewById(R.id.button_user_uc3);
+        final Button user_uc1_availHalls_btn = findViewById(R.id.button_user_uc1);
+        Button user_uc3_availHalls_btn = findViewById(R.id.button_user_uc3);
+        user_uc1_availHalls_btn.setBackgroundColor(customBlue);
         user_uc1_availHalls_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
+                user_uc1_availHalls_btn.setBackgroundColor(customGreen);
                 Intent intent =  new Intent(user_uc0_Home.this, user_uc1_availHalls.class);
                 startActivity(intent);
                 finish();
