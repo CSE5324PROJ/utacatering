@@ -86,7 +86,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".sysuser_uc4_nonadmin_UpdateProfile"></activity>
+        <activity android:name=".sysuser_uc4_nonadmin_UpdateProfile" />
+        <activity android:name=".user_uc3_ViewReservedEventsCalendar" />
+        <activity android:name=".user_uc4_5_ViewReservedEventAndCancel"></activity>
     </application>
 
 </manifest>
