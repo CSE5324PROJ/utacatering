@@ -9,7 +9,10 @@
     android:paddingRight="16dp"
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
-    tools:context=".Login">
+    tools:context=".Login"
+    android:clickable="true"
+    android:focusable="true"
+    android:onClick="hideKeyboard">
 
 
     <ImageView
