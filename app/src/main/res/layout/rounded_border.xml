@@ -5,8 +5,8 @@
     <shape xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content">
-        <solid android:color="#00000000" />
-        <stroke android:width="1dip" android:color="#4ccbff" />
+        <solid android:color="#F2F2F2" />
+        <stroke android:width="1dip" android:color="#333333" />
         <corners android:radius="7dp" />
     </shape>
 

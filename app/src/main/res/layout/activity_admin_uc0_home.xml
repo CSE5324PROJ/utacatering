@@ -34,7 +34,6 @@
         android:text="View Registration Requests"
         android:layout_marginBottom="2dp"
         android:layout_marginTop="2dp"
-        android:background="@layout/rounded_border_button"
         android:id="@+id/button_view_reg_req" />
 
     <Button
@@ -43,7 +42,6 @@
         android:text="Search for System User"
         android:layout_marginBottom="2dp"
         android:layout_marginTop="2dp"
-        android:background="@layout/rounded_border_button"
         android:id="@+id/button_search_user" />
 
     <TextView

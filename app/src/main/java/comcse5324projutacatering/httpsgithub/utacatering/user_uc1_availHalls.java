@@ -310,8 +310,10 @@ public class user_uc1_availHalls extends Activity{
                             minFlash();
                         }
                         else if(selectedHour!=0 && selectedHour!=24){
-                            spinMin.setEnabled(true);
-                            minFlashGreen();
+                            if (!spinMin.isEnabled()){
+                                spinMin.setEnabled(true);
+                                minFlashGreen();
+                            }
                         }
                         else if(selectedHour==24){
                             String tempDaySearch = String.valueOf(selectedDay);

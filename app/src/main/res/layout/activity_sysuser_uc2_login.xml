@@ -29,7 +29,7 @@
         android:layout_gravity="center_horizontal"
         android:text="Sign In"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#4ccbff"
+        android:textColor="#0063B1"
         android:layout_marginTop="0dp"/>
 
     <EditText
@@ -101,7 +101,7 @@
         android:id="@+id/text_register"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:textColor="#4ccbff" />
+        android:textColor="#46c0f2" />
 
 
 </LinearLayout>

@@ -24,7 +24,7 @@
             android:text="View available halls\n and request event"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <Button
             android:id="@+id/button_user_uc3"
