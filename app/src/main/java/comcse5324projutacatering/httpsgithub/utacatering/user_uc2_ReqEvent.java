@@ -277,9 +277,9 @@ public class user_uc2_ReqEvent extends Activity {
 
         editText_Time.setText(timeFriendly, TextView.BufferType.EDITABLE);
         editText_Date.setText(dateFriendly, TextView.BufferType.EDITABLE);
-        sqlFormattedDateTime=String.valueOf(selectedYear)+'-'+String.format(Locale.US,"%02d", selectedMonth)+'-'+String.format(Locale.US,"%02d", selectedDay)
+        sqlFormattedDateTime=String.valueOf(selectedYear)+'-'+String.format(Locale.US,"%02d", selectedMonth+1)+'-'+String.format(Locale.US,"%02d", selectedDay)
                 +' '+String.format(Locale.US,"%02d", selectedHour)+':'+String.format(Locale.US,"%02d", selectedMin)+':'+"00";
-
+        //+1 to month here to correct for Java Calendar using 0-11 for month ans sqlite using 1-12.
         editText_Hall.setText(selectedHall, TextView.BufferType.EDITABLE);
         String friendlyHours=String.valueOf(selectedDuration)+" hours";
         editText_Dur.setText(friendlyHours, TextView.BufferType.EDITABLE);

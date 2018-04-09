@@ -159,9 +159,19 @@ public class user_uc1_availHalls extends Activity{
         genOtherArray();
         caltemp = Calendar.getInstance();
         getHoursArray();
-        searchAvailHalls(selectedYear,selectedMonth,selectedDay,selectedHour,selectedMin,selectedDur);
+
+        //needs to initialize as null assuming no available halls to start.
+        spinHalls = findViewById(R.id.spinner_availHalls);
+        spinHalls.setAdapter(null);
+        selectedHall="";
         addListeners();
         setupButtons();
+
+        user_uc2_ReqEvent_btn = findViewById(R.id.button_user_uc2);
+        user_uc2_ReqEvent_btn.setBackgroundColor(customRed);
+        user_uc2_ReqEvent_btn.setText(user_uc1_btn_noHalls);
+
+        searchAvailHalls(selectedYear,selectedMonth,selectedDay,selectedHour,selectedMin,selectedDur);
     }
 
     @Override

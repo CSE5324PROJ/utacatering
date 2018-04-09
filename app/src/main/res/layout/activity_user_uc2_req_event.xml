@@ -279,7 +279,7 @@
         android:ems="10"
         android:inputType="text"
         android:maxLength="20"
-        android:text="Birthday"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPrice" />
 
