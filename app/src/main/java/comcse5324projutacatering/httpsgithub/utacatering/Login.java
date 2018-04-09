@@ -71,6 +71,7 @@ public class Login extends Activity {
                                     Toast.LENGTH_SHORT).show();
 
                             if (intent != null)
+                                intent.putExtra("username",user);
                                 startActivity(intent);
 
                         }else {

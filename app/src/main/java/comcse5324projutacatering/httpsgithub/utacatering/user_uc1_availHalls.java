@@ -1,5 +1,6 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO buffer time between events? Ask Robb.
+//TODO alphabetical order the halls? capacity order?
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.database.Cursor;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.IntentCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -92,6 +94,7 @@ public class user_uc1_availHalls extends Activity{
     public String user_uc1_btn_proceed;
     public String user_uc1_btn_noHalls;
     //int old_selectedDay;
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +107,18 @@ public class user_uc1_availHalls extends Activity{
         customBlue = getResources().getColor(R.color.customBlue);
         user_uc1_btn_proceed = getString(R.string.user_uc1_proceed);
         user_uc1_btn_noHalls = getString(R.string.user_uc1_noHalls);
+
+        Intent mIntent;
+        Bundle extras;
+        mIntent = getIntent();
+        extras=mIntent.getExtras();
+        if(extras!=null){
+            username = (String) extras.get("username");
+        }
+        else{
+            finish(); //activity not properly accessed (must come from login)
+        }
+
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date()); // today's date
         cal.add(Calendar.DATE, 7); // Adds 7 days
@@ -670,11 +685,17 @@ public class user_uc1_availHalls extends Activity{
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.main_menu_sign_out:
+                Intent intent0 = new Intent(user_uc1_availHalls.this, Login.class);
+                intent0.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                );
+                startActivity(intent0);
                 finish();
                 return true;
             case R.id.main_menu_go_home:
-                Intent intent = new Intent(user_uc1_availHalls.this, user_uc0_Home.class);
-                startActivity(intent);
+                Intent intent1 = new Intent(user_uc1_availHalls.this, user_uc0_Home.class);
+                startActivity(intent1);
                 finish();
                 return true;
             default:
@@ -702,8 +723,16 @@ public class user_uc1_availHalls extends Activity{
                     intent.putExtra("selectedMin",selectedMin);
                     intent.putExtra("selectedDur",selectedDur);
                     intent.putExtra("selectedHall",selectedHall);
+                    intent.putExtra("username",username);
                     startActivity(intent);
-                    finish();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            user_uc2_ReqEvent_btn.setBackgroundColor(customBlue);
+                        }
+                    }, 500);
+
+                    //finish();
                 }
             }
         });

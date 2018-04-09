@@ -1,9 +1,13 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO take data and insert into table
+//TODO alphabetical order the venues?
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Spinner;
 //import android.support.v7.app.AppCompatActivity;
@@ -51,7 +55,11 @@ public class user_uc2_ReqEvent extends Activity {
     String selectedHall;
 
     String sqlFormattedDateTime; //YYYY-MM-DD HH:MM:SS.
+    String username;
 
+    public int customRed;
+    public int customGreen;
+    public int customBlue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +78,7 @@ public class user_uc2_ReqEvent extends Activity {
             selectedMin=(int) extras.get("selectedMin");
             selectedDuration=(int) extras.get("selectedDur");
             selectedHall = (String) extras.get("selectedHall");
+            username = (String) extras.get("username");
         }
         else{
             finish(); //activity not properly accessed
@@ -77,7 +86,10 @@ public class user_uc2_ReqEvent extends Activity {
         setImportedStrings();
         addListeners();
         setupButtons();
-        submitEvReq_btn.setBackgroundColor(Color.BLUE);
+        customRed = getResources().getColor(R.color.customRed);
+        customGreen = getResources().getColor(R.color.customGreen);
+        customBlue = getResources().getColor(R.color.customBlue);
+        submitEvReq_btn.setBackgroundColor(customBlue);
     }
 
 
@@ -268,7 +280,11 @@ public class user_uc2_ReqEvent extends Activity {
             public void onClick (View v)  {
                 Intent intent =  new Intent(user_uc2_ReqEvent.this, user_uc0_Home.class);
                 if( selectedHall.length() > 0){
-                    submitEvReq_btn.setBackgroundColor(Color.GREEN);
+                    submitEvReq_btn.setBackgroundColor(customGreen);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                            | Intent.FLAG_ACTIVITY_SINGLE_TOP
+
+                    );
                     startActivity(intent);
                     finish();
                 }
@@ -280,5 +296,39 @@ public class user_uc2_ReqEvent extends Activity {
         Intent intent = new Intent(user_uc2_ReqEvent.this, user_uc0_Home.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.main_menu_sign_out:
+                Intent intent0 = new Intent(user_uc2_ReqEvent.this, Login.class);
+                intent0.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                );
+                startActivity(intent0);
+                finish();
+                return true;
+            case R.id.main_menu_go_home:
+                Intent intent1 = new Intent(user_uc2_ReqEvent.this, user_uc0_Home.class);
+                intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        | Intent.FLAG_ACTIVITY_SINGLE_TOP
+
+                );
+                startActivity(intent1);
+                finish();
+                return true;
+            default:
+                return false;
+        }
     }
 }
