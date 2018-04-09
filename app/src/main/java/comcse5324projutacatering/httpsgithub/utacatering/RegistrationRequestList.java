@@ -1,5 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-
+//TODO implement top menu signout/home page (implemented differently than on home page!)
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;

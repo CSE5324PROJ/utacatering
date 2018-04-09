@@ -3,6 +3,9 @@ package comcse5324projutacatering.httpsgithub.utacatering;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -77,5 +80,29 @@ public class AdminHome extends Activity {
         super.onDestroy();
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.main_menu_sign_out:
+                finish();
+                return true;
+            case R.id.main_menu_go_home:
+                Intent intent = new Intent(AdminHome.this, AdminHome.class);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return false;
+        }
+    }
 
 }
