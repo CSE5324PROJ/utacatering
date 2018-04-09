@@ -59,7 +59,7 @@
             </intent-filter>
         </activity>
 
-        <!--                  USER RELATED ACTIVITIES HERE - -->
+        <!-- USER RELATED ACTIVITIES HERE - -->
         <activity android:name=".user_uc0_Home">
             <intent-filter>
                 <action android:name="comcse5324projutacatering.httpsgithub.utacatering.user_uc0_Home" />
@@ -78,8 +78,7 @@
             </intent-filter>
         </activity>
 
-
-        <!--                 CATERER RELATED ACTIVITIES HERE - -->
+        <!-- CATERER RELATED ACTIVITIES HERE - -->
         <activity android:name=".cat_uc0_Home">
             <intent-filter>
                 <action android:name="comcse5324projutacatering.httpsgithub.utacatering.cat_uc0_Home" />
@@ -87,7 +86,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".sysuser_uc4_nonadmin_UpdateProfile"></activity>
     </application>
 
 </manifest>
