@@ -34,13 +34,13 @@ public class DatabaseInterface extends SQLiteOpenHelper {
     private static final String SQL_CREATE_REGISTRATION_TABLE =
             "CREATE TABLE " + TABLE_NAME_REGISTRATION + " (" +
                     BaseColumns._ID + " INTEGER PRIMARY KEY," +
-                    COLUMN_NAME_USERNAME + " TEXT,"    +
+                    COLUMN_NAME_USERNAME + " TEXT UNIQUE,"    +
                     COLUMN_NAME_PASSWORD + " TEXT,"    +
                     COLUMN_NAME_ROLE     + " TEXT,"    +
                     COLUMN_NAME_UTAID    + " INTEGER," +
                     COLUMN_NAME_PERSONAL + " TEXT,"    +
                     COLUMN_NAME_CONTACT  + " TEXT)"   ;
-
+            //Made username unique, so that caterer's profileID isnt needed in some function.. can just use the username.
 
 
     private String SQL_CREATE_EVENT_TABLE ;
