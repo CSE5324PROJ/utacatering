@@ -3,17 +3,13 @@ package comcse5324projutacatering.httpsgithub.utacatering;
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-public class ViewRegistrationRequest extends Activity {
+public class admin_uc2_ViewRegistrationRequest extends Activity {
 
     private Cursor   regCursor;
     private String   request_id;
@@ -59,16 +55,16 @@ public class ViewRegistrationRequest extends Activity {
         approveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseInterface.getInstance(ViewRegistrationRequest.this).convertRequestToProfile(request_id);
-                Toast.makeText(ViewRegistrationRequest.this, "Request approved.", Toast.LENGTH_LONG).show();
+                DatabaseInterface.getInstance(admin_uc2_ViewRegistrationRequest.this).convertRequestToProfile(request_id);
+                Toast.makeText(admin_uc2_ViewRegistrationRequest.this, "Request approved.", Toast.LENGTH_LONG).show();
                 finish();
             }
         });
         rejectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseInterface.getInstance(ViewRegistrationRequest.this).deleteRegistrationRequest(request_id);
-                Toast.makeText(ViewRegistrationRequest.this, "Request rejected.", Toast.LENGTH_LONG).show();
+                DatabaseInterface.getInstance(admin_uc2_ViewRegistrationRequest.this).deleteRegistrationRequest(request_id);
+                Toast.makeText(admin_uc2_ViewRegistrationRequest.this, "Request rejected.", Toast.LENGTH_LONG).show();
                 finish();
             }
         });

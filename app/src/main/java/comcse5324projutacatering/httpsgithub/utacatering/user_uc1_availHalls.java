@@ -10,7 +10,6 @@ import android.database.Cursor;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.content.IntentCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -685,7 +684,7 @@ public class user_uc1_availHalls extends Activity{
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.main_menu_sign_out:
-                Intent intent0 = new Intent(user_uc1_availHalls.this, Login.class);
+                Intent intent0 = new Intent(user_uc1_availHalls.this, sysuser_uc2_Login.class);
                 intent0.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                         | Intent.FLAG_ACTIVITY_CLEAR_TOP
                         | Intent.FLAG_ACTIVITY_CLEAR_TASK

@@ -9,49 +9,49 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login">
+        <activity android:name=".sysuser_uc2_Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Register">
+        <activity android:name=".sysuser_uc1_Register">
             <intent-filter>
                 <action android:name="com.example.appworthy.personalhealthmonitoringsystem.Register" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".AdminHome">
+        <activity android:name=".admin_uc0_Home">
             <intent-filter>
                 <action android:name="comcse5324projutacatering.httpsgithub.utacatering.AdminHome" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegistrationRequestList">
+        <activity android:name=".admin_uc1_RegistrationRequestList">
             <intent-filter>
                 <action android:name="com.example.appworthy.personalhealthmonitoringsystem.RegistrationRequestList" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".ViewRegistrationRequest">
+        <activity android:name=".admin_uc2_ViewRegistrationRequest">
             <intent-filter>
                 <action android:name="com.example.appworthy.personalhealthmonitoringsystem.ViewRegistrationRequest" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".ViewEditProfile">
+        <activity android:name=".admin_uc678_ViewEditProfile">
             <intent-filter>
                 <action android:name="com.example.appworthy.personalhealthmonitoringsystem.ViewEditProfile" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchSystemUser">
+        <activity android:name=".admin_uc5_SearchSystemUser">
             <intent-filter>
                 <action android:name="com.example.appworthy.personalhealthmonitoringsystem.SearchSystemUser" />
 

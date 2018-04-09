@@ -125,10 +125,10 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         createBaseProfile(db, "u","u","User",1000555556,"555-555-5556","Base user");
         createBaseProfile(db, "a","a","Admin",1000555555,"555-555-5555","Base admin");
         createBaseProfile(db, "c","c","Caterer",1000555557,"555-555-5557","Base caterer");
-        createBaseProfile(db, "cs","cs","CatererStaff",1000555558,"555-555-5558","Base caterer staff");
+        createBaseProfile(db, "cs","cs","Caterer Staff",1000555558,"555-555-5558","Base caterer staff");
         createBaseProfile(db, "u2","u2","User",1000555566,"555-556-5556","Base user2");
         createBaseProfile(db, "c2","c2","Caterer",1000555567,"555-556-5566","Base caterer2");
-        createBaseProfile(db, "cs2","cs2","CatererStaff",1000555568,"555-555-5568","Base caterer staff2");
+        createBaseProfile(db, "cs2","cs2","Caterer Staff",1000555568,"555-555-5568","Base caterer staff2");
 
         createBaseEvent(db, "u",1,"2018-05-13 16:30:00","6", "Arlington", "Italian","c",1,40,1,
                 1,"Dinner",2280.00,"Wedding","Play 80's Music");

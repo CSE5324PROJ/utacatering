@@ -5,13 +5,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class Register extends Activity {
+public class sysuser_uc1_Register extends Activity {
 
     private EditText editUsername;
     private EditText editPassword;
@@ -30,7 +29,7 @@ public class Register extends Activity {
 
         android.app.ActionBar actionBar = getActionBar();
         if(actionBar != null) {
-            actionBar.setTitle("Register");
+            actionBar.setTitle("MavCat Register");
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
@@ -65,16 +64,16 @@ public class Register extends Activity {
                 String contact  = editContactDetails.getText().toString();
                 String personal = editPersonalDetails.getText().toString();
 
-                if(DatabaseInterface.getInstance(Register.this).searchUsernameRegistrationConflictCheck(username)){
+                if(DatabaseInterface.getInstance(sysuser_uc1_Register.this).searchUsernameRegistrationConflictCheck(username)){
                     //means conflict is found
-                    Toast.makeText(Register.this, "Registration failed, there is a user or pending user request with this username already.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(sysuser_uc1_Register.this, "Registration failed, there is a user or pending user request with this username already.", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    DatabaseInterface.getInstance(Register.this).createRegistrationRequest(
+                    DatabaseInterface.getInstance(sysuser_uc1_Register.this).createRegistrationRequest(
                             username, password, selectedRole, stu_id, contact, personal
                     );
 
-                    Toast.makeText(Register.this, "Registration submitted.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(sysuser_uc1_Register.this, "Registration submitted.", Toast.LENGTH_LONG).show();
                     finish();
                 }
             }

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.BaseColumns;
-import android.provider.ContactsContract;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,7 +12,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class ViewEditProfile extends Activity {
+public class admin_uc678_ViewEditProfile extends Activity {
 
     private String   workingProfileID;
     private Cursor   profCursor;
@@ -74,19 +73,26 @@ public class ViewEditProfile extends Activity {
                 String contact  = editContactDetails.getText().toString();
                 String personal = editPersonalDetails.getText().toString();
 
-                DatabaseInterface.getInstance(ViewEditProfile.this).updateProfile(
-                        workingProfileID, username, password, selectedRole, stu_id, contact, personal
-                );
+                if(DatabaseInterface.getInstance(admin_uc678_ViewEditProfile.this).searchUsernameRegistrationConflictCheck(username)){
+                    //means conflict is found
+                    Toast.makeText(admin_uc678_ViewEditProfile.this, "Edit profile failed, there is a user or pending user request with this username already.", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    DatabaseInterface.getInstance(admin_uc678_ViewEditProfile.this).updateProfile(
+                            workingProfileID, username, password, selectedRole, stu_id, contact, personal
+                    );
 
-                Toast.makeText(ViewEditProfile.this, "Profile updated.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(admin_uc678_ViewEditProfile.this, "Profile updated.", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO: Check if non-admin before removing
-                DatabaseInterface.getInstance(ViewEditProfile.this).deleteProfile(workingProfileID);
-                Toast.makeText(ViewEditProfile.this, "System user removed.", Toast.LENGTH_LONG).show();
+                DatabaseInterface.getInstance(admin_uc678_ViewEditProfile.this).deleteProfile(workingProfileID);
+                Toast.makeText(admin_uc678_ViewEditProfile.this, "System user removed.", Toast.LENGTH_LONG).show();
                 finish();
             }
         });

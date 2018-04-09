@@ -1,11 +1,7 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO implement top menu signout/home page (implemented differently than on home page!)
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.BaseColumns;
@@ -13,14 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class RegistrationRequestList extends Activity {
+public class admin_uc1_RegistrationRequestList extends Activity {
 
     private ArrayList<String[]> registrationRequests;
     private ListView regRequestListView;
@@ -60,7 +54,7 @@ public class RegistrationRequestList extends Activity {
 
     private class registrationRequestListAdapter extends ArrayAdapter<String[]> {
 
-        public registrationRequestListAdapter() {super(RegistrationRequestList.this, R.layout.listview_item, registrationRequests);}
+        public registrationRequestListAdapter() {super(admin_uc1_RegistrationRequestList.this, R.layout.listview_item, registrationRequests);}
 
         @Override
         public View getView(int position,View view,ViewGroup parent) {
@@ -72,7 +66,7 @@ public class RegistrationRequestList extends Activity {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(RegistrationRequestList.this, ViewRegistrationRequest.class);
+                    Intent intent = new Intent(admin_uc1_RegistrationRequestList.this, admin_uc2_ViewRegistrationRequest.class);
                     intent.putExtra("request_id", req_id);
                     startActivity(intent);
                 }

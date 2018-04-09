@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class AdminHome extends Activity {
+public class admin_uc0_Home extends Activity {
 
     private Button viewRegReqButton;
     private Button searchUserButton;
@@ -51,7 +51,7 @@ public class AdminHome extends Activity {
         viewRegReqButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick (View v)  {
-                    Intent intent =  new Intent(AdminHome.this, RegistrationRequestList.class);
+                    Intent intent =  new Intent(admin_uc0_Home.this, admin_uc1_RegistrationRequestList.class);
                     startActivity(intent);
                 }
         });
@@ -59,7 +59,7 @@ public class AdminHome extends Activity {
         searchUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =  new Intent(AdminHome.this, SearchSystemUser.class);
+                Intent intent =  new Intent(admin_uc0_Home.this, admin_uc5_SearchSystemUser.class);
                 startActivity(intent);
             }
         });
@@ -96,7 +96,7 @@ public class AdminHome extends Activity {
                 finish();
                 return true;
             case R.id.main_menu_go_home:
-                Intent intent = new Intent(AdminHome.this, AdminHome.class);
+                Intent intent = new Intent(admin_uc0_Home.this, admin_uc0_Home.class);
                 startActivity(intent);
                 finish();
                 return true;

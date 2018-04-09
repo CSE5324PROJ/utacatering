@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import static android.content.ContentValues.TAG;
 
-public class Login extends Activity {
+public class sysuser_uc2_Login extends Activity {
 
     private EditText username;
     private EditText password;
@@ -27,6 +27,12 @@ public class Login extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        android.app.ActionBar actionBar = getActionBar();
+        if(actionBar != null) {
+            actionBar.setTitle("MavCat Login");
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         username = (EditText)findViewById(R.id.editText_user);
@@ -45,7 +51,7 @@ public class Login extends Activity {
         register_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Login.this, Register.class);
+                Intent intent = new Intent(sysuser_uc2_Login.this, sysuser_uc1_Register.class);
                 startActivity(intent);
 
             }
@@ -56,25 +62,25 @@ public class Login extends Activity {
                     public void onClick(View v)  {
                         String user = username.getText().toString();
                         String pass = password.getText().toString();
-                        String role = DatabaseInterface.getInstance(Login.this).login(user,pass);
+                        String role = DatabaseInterface.getInstance(sysuser_uc2_Login.this).login(user,pass);
 
                         if(role != null) {
                             Intent intent = null;
                             switch (role) {
                                 case "Admin":
-                                    intent = new Intent(Login.this, AdminHome.class);
+                                    intent = new Intent(sysuser_uc2_Login.this, admin_uc0_Home.class);
                                     break;
                                 case "User":
-                                    intent = new Intent(Login.this, user_uc0_Home.class);
+                                    intent = new Intent(sysuser_uc2_Login.this, user_uc0_Home.class);
                                     break;
                                 case "Caterer":
-                                    intent = new Intent(Login.this, cat_uc0_Home.class);
+                                    intent = new Intent(sysuser_uc2_Login.this, cat_uc0_Home.class);
                                     break;
                                 case "Caterer Staff":
                                     break;
 
                             }
-                            Toast.makeText(Login.this,"Welcome, "+ user + " {"+role+"}",
+                            Toast.makeText(sysuser_uc2_Login.this,"Welcome, "+ user + " {"+role+"}",
                                     Toast.LENGTH_SHORT).show();
 
                             if (intent != null)
@@ -82,7 +88,7 @@ public class Login extends Activity {
                                 startActivity(intent);
 
                         }else {
-                            Toast.makeText(Login.this,"Username and Password are not correct",
+                            Toast.makeText(sysuser_uc2_Login.this,"Username and Password are not correct",
                                     Toast.LENGTH_SHORT).show();
                             attemptMessage.setVisibility(View.VISIBLE);
                             ((ViewGroup.MarginLayoutParams)login_button.getLayoutParams()).topMargin = 0;

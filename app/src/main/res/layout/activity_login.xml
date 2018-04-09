@@ -9,7 +9,7 @@
     android:paddingRight="16dp"
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
-    tools:context=".Login"
+    tools:context="comcse5324projutacatering.httpsgithub.utacatering.sysuser_uc2_Login"
     android:clickable="true"
     android:focusable="true"
     android:onClick="hideKeyboard">

@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class SearchSystemUser extends Activity {
+public class admin_uc5_SearchSystemUser extends Activity {
 
     private ArrayList<String[]> resultsList;
     private ListView searchResultsView;
@@ -52,7 +52,7 @@ public class SearchSystemUser extends Activity {
 
     private void submitSearch(String s) {
         lastSearch = s;
-        Toast.makeText(SearchSystemUser.this, "Searching: "+s , Toast.LENGTH_LONG).show();
+        Toast.makeText(admin_uc5_SearchSystemUser.this, "Searching: "+s , Toast.LENGTH_LONG).show();
         searchView.clearFocus();
         resultsList = new ArrayList<>();
         Cursor resultCursor = DatabaseInterface.getInstance(this).searchUsername(s);
@@ -74,7 +74,7 @@ public class SearchSystemUser extends Activity {
 
     private class searchResultsListAdapter extends ArrayAdapter<String[]> {
 
-        public searchResultsListAdapter() {super(SearchSystemUser.this, R.layout.listview_item, resultsList);}
+        public searchResultsListAdapter() {super(admin_uc5_SearchSystemUser.this, R.layout.listview_item, resultsList);}
 
         @Override
         public View getView(int position,View view,ViewGroup parent) {
@@ -86,7 +86,7 @@ public class SearchSystemUser extends Activity {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(SearchSystemUser.this, ViewEditProfile.class);
+                    Intent intent = new Intent(admin_uc5_SearchSystemUser.this, admin_uc678_ViewEditProfile.class);
                     intent.putExtra("profile_id", profile_id);
                     startActivity(intent);
                 }
