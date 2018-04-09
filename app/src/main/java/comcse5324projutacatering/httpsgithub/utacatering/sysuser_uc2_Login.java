@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -38,9 +39,13 @@ public class sysuser_uc2_Login extends Activity {
         username = (EditText)findViewById(R.id.editText_user);
         password = (EditText)findViewById(R.id.editText_password);
         attemptMessage = (TextView)findViewById(R.id.textView_attempts);
+        attemptMessage.setText("Invalid login.");
+        //((ViewGroup.MarginLayoutParams)attemptMessage.getLayoutParams()).topMargin = 5;
+        attemptMessage.setVisibility(View.INVISIBLE);
         login_button = (Button)findViewById(R.id.button_login);
+        //((ViewGroup.MarginLayoutParams)login_button.getLayoutParams()).topMargin = 10;
         register_text = (TextView)findViewById(R.id.text_register);
-        attemptMessage.setVisibility(View.GONE);
+        //attemptMessage.setVisibility(View.GONE);
 
         //DatabaseInterface.getInstance(this).createProfile("k","k","Admin",1000555555,"555-555-5555","no allergies");
         setupListeners();
@@ -80,6 +85,7 @@ public class sysuser_uc2_Login extends Activity {
                                     break;
 
                             }
+                            attemptMessage.setVisibility(View.INVISIBLE);
                             Toast.makeText(sysuser_uc2_Login.this,"Welcome, "+ user + " {"+role+"}",
                                     Toast.LENGTH_SHORT).show();
 
@@ -88,11 +94,18 @@ public class sysuser_uc2_Login extends Activity {
                                 startActivity(intent);
 
                         }else {
-                            Toast.makeText(sysuser_uc2_Login.this,"Username and Password are not correct",
-                                    Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(sysuser_uc2_Login.this,"Username and Password are not correct", Toast.LENGTH_SHORT).show();
+
+                            //((ViewGroup.MarginLayoutParams)login_button.getLayoutParams()).topMargin = 0;
+
+
                             attemptMessage.setVisibility(View.VISIBLE);
-                            ((ViewGroup.MarginLayoutParams)login_button.getLayoutParams()).topMargin = 0;
-                            attemptMessage.setText("Invalid login.");
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                public void run() {
+                                    attemptMessage.setVisibility(View.INVISIBLE);
+                                }
+                            }, 1500);
                         }
                     }
 

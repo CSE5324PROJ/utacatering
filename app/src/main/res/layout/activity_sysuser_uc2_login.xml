@@ -16,18 +16,21 @@
 
 
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_width="96dp"
+        android:layout_height="85dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/uta_logo"
+        android:layout_marginTop="0dp"/>
 
     <TextView
+        android:id="@+id/textView20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Sign In"
-        android:id="@+id/textView20"
         android:layout_gravity="center_horizontal"
-        android:textColor="#4ccbff" />
+        android:text="Sign In"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#4ccbff"
+        android:layout_marginTop="0dp"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -58,7 +61,7 @@
         android:hint="password"
         android:background="@layout/rounded_border"
         android:padding="3dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:maxLength="32"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
@@ -72,7 +75,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="0dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="5dp"
         android:layout_toLeftOf="@+id/editText_password"
         android:layout_toStartOf="@+id/editText_password"
         android:text="Attempts Remaining"
@@ -97,7 +100,7 @@
         android:text="New User? Register here."
         android:id="@+id/text_register"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:textColor="#4ccbff" />
 
 
