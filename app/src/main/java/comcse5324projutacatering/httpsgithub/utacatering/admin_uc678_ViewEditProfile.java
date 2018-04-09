@@ -1,6 +1,7 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO implement top menu signout/home page  (implemented differently than on home page!)
 //TODO Does Robb want a user's events cancelled if that user is deleted? what if the caterer is deleted? or staff removed from assignment?
+//TODO !UCID shows to redline options from deleting user, should just be one?
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
