@@ -66,7 +66,7 @@ public class admin_uc1_RegistrationRequestList extends Activity {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(admin_uc1_RegistrationRequestList.this, admin_uc2_ViewRegistrationRequest.class);
+                    Intent intent = new Intent(admin_uc1_RegistrationRequestList.this, admin_uc2_34_ViewRegistrationRequest.class);
                     intent.putExtra("request_id", req_id);
                     startActivity(intent);
                 }

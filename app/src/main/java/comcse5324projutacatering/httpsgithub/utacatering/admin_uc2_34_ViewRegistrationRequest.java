@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class admin_uc2_ViewRegistrationRequest extends Activity {
+public class admin_uc2_34_ViewRegistrationRequest extends Activity {
 
     private Cursor   regCursor;
     private String   request_id;
@@ -27,7 +27,7 @@ public class admin_uc2_ViewRegistrationRequest extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_uc2_view_registration_request);
+        setContentView(R.layout.activity_admin_uc2_34_view_registration_request);
         request_id = getIntent().getStringExtra("request_id");
         regCursor = DatabaseInterface.getInstance(this).getRegistrationRequest(request_id);
 
@@ -56,16 +56,16 @@ public class admin_uc2_ViewRegistrationRequest extends Activity {
         approveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseInterface.getInstance(admin_uc2_ViewRegistrationRequest.this).convertRequestToProfile(request_id);
-                Toast.makeText(admin_uc2_ViewRegistrationRequest.this, "Request approved.", Toast.LENGTH_LONG).show();
+                DatabaseInterface.getInstance(admin_uc2_34_ViewRegistrationRequest.this).convertRequestToProfile(request_id);
+                Toast.makeText(admin_uc2_34_ViewRegistrationRequest.this, "Request approved.", Toast.LENGTH_LONG).show();
                 finish();
             }
         });
         rejectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseInterface.getInstance(admin_uc2_ViewRegistrationRequest.this).deleteRegistrationRequest(request_id);
-                Toast.makeText(admin_uc2_ViewRegistrationRequest.this, "Request rejected.", Toast.LENGTH_LONG).show();
+                DatabaseInterface.getInstance(admin_uc2_34_ViewRegistrationRequest.this).deleteRegistrationRequest(request_id);
+                Toast.makeText(admin_uc2_34_ViewRegistrationRequest.this, "Request rejected.", Toast.LENGTH_LONG).show();
                 finish();
             }
         });

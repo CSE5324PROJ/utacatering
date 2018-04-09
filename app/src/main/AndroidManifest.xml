@@ -37,14 +37,14 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".admin_uc2_ViewRegistrationRequest">
+        <activity android:name=".admin_uc2_34_ViewRegistrationRequest">
             <intent-filter>
                 <action android:name="com.example.appworthy.personalhealthmonitoringsystem.ViewRegistrationRequest" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".admin_uc678_ViewEditProfile">
+        <activity android:name=".admin_uc6_78_ViewEditProfile">
             <intent-filter>
                 <action android:name="com.example.appworthy.personalhealthmonitoringsystem.ViewEditProfile" />
 

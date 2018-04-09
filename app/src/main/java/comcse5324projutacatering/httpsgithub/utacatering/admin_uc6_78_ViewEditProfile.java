@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class admin_uc678_ViewEditProfile extends Activity {
+public class admin_uc6_78_ViewEditProfile extends Activity {
 
     private String   workingProfileID;
     private Cursor   profCursor;
@@ -35,7 +35,7 @@ public class admin_uc678_ViewEditProfile extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_uc678_view_edit_profile);
+        setContentView(R.layout.activity_admin_uc6_78_view_edit_profile);
         String profile_id = getIntent().getStringExtra("profile_id");
         profCursor = DatabaseInterface.getInstance(this).getProfileByID(profile_id);
 
@@ -83,9 +83,9 @@ public class admin_uc678_ViewEditProfile extends Activity {
                 }
                 else{
                     //Verify the new username doesnt conflict
-                    if(DatabaseInterface.getInstance(admin_uc678_ViewEditProfile.this).searchUsernameRegistrationConflictCheck(username)){
+                    if(DatabaseInterface.getInstance(admin_uc6_78_ViewEditProfile.this).searchUsernameRegistrationConflictCheck(username)){
                         //means conflict is found
-                        Toast.makeText(admin_uc678_ViewEditProfile.this, "Edit profile failed, there is a user or pending user request with this username already.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(admin_uc6_78_ViewEditProfile.this, "Edit profile failed, there is a user or pending user request with this username already.", Toast.LENGTH_LONG).show();
                     }
                     else{
                         executeSaveChanges(username, password, stu_id, contact, personal);
@@ -97,10 +97,10 @@ public class admin_uc678_ViewEditProfile extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO: Check if non-admin before removing
-                DatabaseInterface.getInstance(admin_uc678_ViewEditProfile.this).deleteProfile(workingProfileID);
-                Toast.makeText(admin_uc678_ViewEditProfile.this, "System user removed.", Toast.LENGTH_LONG).show();
+                DatabaseInterface.getInstance(admin_uc6_78_ViewEditProfile.this).deleteProfile(workingProfileID);
+                Toast.makeText(admin_uc6_78_ViewEditProfile.this, "System user removed.", Toast.LENGTH_LONG).show();
 
-                Intent intent1 = new Intent(admin_uc678_ViewEditProfile .this, admin_uc5_SearchSystemUser .class);
+                Intent intent1 = new Intent(admin_uc6_78_ViewEditProfile.this, admin_uc5_SearchSystemUser .class);
                 intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                         | Intent.FLAG_ACTIVITY_SINGLE_TOP
 
@@ -112,11 +112,11 @@ public class admin_uc678_ViewEditProfile extends Activity {
     }
 
     private void executeSaveChanges(String username, String  password, long stu_id, String  contact, String  personal){
-        DatabaseInterface.getInstance(admin_uc678_ViewEditProfile.this).updateProfile(
+        DatabaseInterface.getInstance(admin_uc6_78_ViewEditProfile.this).updateProfile(
                 workingProfileID, username, password, selectedRole, stu_id, contact, personal
         );
 
-        Toast.makeText(admin_uc678_ViewEditProfile.this, "Profile updated.", Toast.LENGTH_LONG).show();
+        Toast.makeText(admin_uc6_78_ViewEditProfile.this, "Profile updated.", Toast.LENGTH_LONG).show();
         //No transition to another page according to UCID.
     }
 

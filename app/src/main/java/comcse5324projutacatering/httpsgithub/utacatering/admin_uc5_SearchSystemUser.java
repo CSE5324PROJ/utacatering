@@ -86,7 +86,7 @@ public class admin_uc5_SearchSystemUser extends Activity {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(admin_uc5_SearchSystemUser.this, admin_uc678_ViewEditProfile.class);
+                    Intent intent = new Intent(admin_uc5_SearchSystemUser.this, admin_uc6_78_ViewEditProfile.class);
                     intent.putExtra("profile_id", profile_id);
                     startActivity(intent);
                 }
