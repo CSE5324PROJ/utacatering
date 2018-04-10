@@ -52,6 +52,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
     public String EVENT_REQ_USER_COL;
     public String EVENT_REQ_USER_ID_COL;
     public String EVENT_STIME_COL;
+    public String EVENT_STIME_EPOCH_COL;
     public String EVENT_DUR_COL;
     public String EVENT_ETIME_COL;
     public String EVENT_HALL_COL;
@@ -86,6 +87,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         EVENT_REQ_USER_COL = mContext.getString(R.string.EVENT_REQ_USER_COL);
         EVENT_REQ_USER_ID_COL = mContext.getString(R.string.EVENT_REQ_USER_ID_COL);
         EVENT_STIME_COL = mContext.getString(R.string.EVENT_STIME_COL);
+        EVENT_STIME_EPOCH_COL = mContext.getString(R.string.EVENT_STIME_EPOCH_COL);
         EVENT_DUR_COL = mContext.getString(R.string.EVENT_DUR_COL);
         EVENT_ETIME_COL=mContext.getString(R.string.EVENT_ETIME_COL);
         EVENT_HALL_COL = mContext.getString(R.string.EVENT_HALL_COL);
@@ -142,7 +144,11 @@ public class DatabaseInterface extends SQLiteOpenHelper {
                 1,"Dinner",1350.00,"Wedding","Play 50's Music");
         createBaseEvent(db, "u",null,"2018-05-13 12:00:00","6", "Liberty", "French",6,1,70,1,
                 1,"Dinner",3840.00,"Wedding","Play 40's Music");
+        createBaseEvent(db, "u",null,"2018-05-15 12:00:00","6", "Liberty", "Chinese",6,1,70,1,
+                1,"Dinner",3840.00,"Wedding","Play 40's Music");
         createBaseEvent(db, "u2",null,"2018-05-15 13:30:00","2", "Liberty", "Mexican",null,0,50,0,
+                0,"Lunch",900.00,"Fiesta","Mariachi band");
+        createBaseEvent(db, "u2",null,"2018-05-17 13:30:00","2", "Liberty", "Pizza",null,0,50,0,
                 0,"Lunch",900.00,"Fiesta","Mariachi band");
         createBaseEventAssignedCS(db,1,"cs",null); //username not necessary if profileID is known.
         createBaseEventAssignedCS(db,2,"cs",null);
@@ -658,6 +664,47 @@ public class DatabaseInterface extends SQLiteOpenHelper {
             return -1; //should error
         }
         return Integer.parseInt(profileIDs.get(0));
+    }
+
+    private Cursor searchProfileEvents(SQLiteDatabase db,String username) {
+        //SQLiteDatabase db = getReadableDatabase();
+        long tempID= getProfileID(db,username);
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                EVENT_STIME_EPOCH_COL,
+        };
+
+        // Filter results WHERE "title" = 'My Title'
+        String selection =
+                "req_user_id = ?";
+        String[] selectionArgs = {String.valueOf(tempID)};
+
+        // How you want the results sorted in the resulting Cursor
+        //String sortOrder = COLUMN_NAME_USERNAME + " DESC";
+
+        return db.query(
+                SQL_EVENT_TABLE_NAME,     // The table to query
+                null,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
+                null,          // don't group the rows
+                null,           // don't filter by row groups
+                null              // The sort order
+        );
+    }
+
+    public List<Long> getEpochs(String username){
+        List<Long> eventEpochs = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor resultCursor = searchProfileEvents(db,username);
+        if(resultCursor != null) {
+            while (resultCursor.moveToNext()) {
+                Long resultEpoch = (Long) (Math.round(Double.parseDouble(resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_STIME_EPOCH_COL)))*(double)1000));
+                eventEpochs.add(resultEpoch);
+            }
+        }
+        return eventEpochs;
     }
 
 }

@@ -4,7 +4,7 @@
     <!ENTITY EVENT_REQ_USER_COL "req_user">
     <!ENTITY EVENT_REQ_USER_ID_COL "req_user_id">
     <!ENTITY EVENT_STIME_COL "S_time">
-    <!ENTITY EVENT_STIME_JD_COL "S_time_julianday">
+    <!ENTITY EVENT_STIME_EPOCH_COL "S_time_epoch">
     <!ENTITY EVENT_DUR_COL "duration_hrs">
     <!ENTITY EVENT_ETIME_COL "E_time">
     <!ENTITY EVENT_HALL_COL "hall">
@@ -30,7 +30,7 @@
     <string name="EVENT_REQ_USER_COL">&EVENT_REQ_USER_COL;</string>
     <string name="EVENT_REQ_USER_ID_COL">&EVENT_REQ_USER_ID_COL;</string>
     <string name="EVENT_STIME_COL">&EVENT_STIME_COL;</string>
-    <string name="EVENT_STIME_JD_COL">&EVENT_STIME_JD_COL;</string>
+    <string name="EVENT_STIME_EPOCH_COL">&EVENT_STIME_EPOCH_COL;</string>
     <string name="EVENT_DUR_COL">&EVENT_DUR_COL;</string>
     <string name="EVENT_ETIME_COL">&EVENT_ETIME_COL;</string>
     <string name="EVENT_HALL_COL">&EVENT_HALL_COL;</string>
@@ -58,7 +58,7 @@
         &EVENT_REQ_USER_COL; STRING,
         &EVENT_REQ_USER_ID_COL; INTEGER,
         &EVENT_STIME_COL; STRING,
-        &EVENT_STIME_JD_COL; REAL,
+        &EVENT_STIME_EPOCH_COL; REAL,
         &EVENT_DUR_COL; STRING,
         &EVENT_ETIME_COL; STRING,
         &EVENT_HALL_COL; STRING,
@@ -95,7 +95,7 @@
 
             /*julian day column is made to make sorting events by time easier later*/
             UPDATE &EVENT_TABLE_NAME;
-            SET &EVENT_STIME_JD_COL; = CAST(julianday("&EVENT_STIME_COL;") AS REAL)
+            SET &EVENT_STIME_EPOCH_COL; = (CAST(julianday("&EVENT_STIME_COL;") AS REAL)-2440587.5)*86400.0
             WHERE &EVENT_ETIME_COL; IS NULL;
 
             UPDATE &EVENT_TABLE_NAME;

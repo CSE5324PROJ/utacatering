@@ -47,12 +47,19 @@ public class user_uc0_Home extends Activity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.main_menu_sign_out:
+                Intent intent = new Intent(user_uc0_Home.this, sysuser_uc2_Login .class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                );
+                startActivity(intent);
                 finish();
                 return true;
             case R.id.main_menu_go_home:
-                Intent intent = new Intent(user_uc0_Home.this, user_uc0_Home.class);
-                startActivity(intent);
-                finish();
+                Intent intent0 = new Intent(user_uc0_Home.this, user_uc0_Home.class);
+
+                startActivity(intent0);
+                //finish();
                 return true;
             default:
                 return false;
@@ -61,8 +68,9 @@ public class user_uc0_Home extends Activity {
 
     private void setupButtons() {
         final Button user_uc1_availHalls_btn = findViewById(R.id.button_user_uc1);
-        Button user_uc3_availHalls_btn = findViewById(R.id.button_user_uc3);
+        final Button user_uc3_ViewReservedEventsCalendar_btn = findViewById(R.id.button_user_uc3);
         user_uc1_availHalls_btn.setBackgroundColor(customBlue);
+        user_uc3_ViewReservedEventsCalendar_btn.setBackgroundColor(customBlue);
         user_uc1_availHalls_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
@@ -80,14 +88,20 @@ public class user_uc0_Home extends Activity {
                 //finish();
             }
         });
-        user_uc3_availHalls_btn.setOnClickListener(new View.OnClickListener() {
+        user_uc3_ViewReservedEventsCalendar_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
-                /*Intent intent =  new Intent(user_uc0_Home.this, user_uc2_ReqEvent.class); //TODO temporary!
+                user_uc3_ViewReservedEventsCalendar_btn.setBackgroundColor(customGreen);
+                Intent intent =  new Intent(user_uc0_Home.this, user_uc3_ViewReservedEventsCalendar.class);
+                intent.putExtra("username",username);
                 startActivity(intent);
-                finish();*/
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        user_uc3_ViewReservedEventsCalendar_btn.setBackgroundColor(customBlue);
+                    }}, 500);
+                //finish();
             }
         });
-
     }
 }

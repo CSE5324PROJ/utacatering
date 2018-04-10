@@ -27,6 +27,11 @@ public class cat_uc0_Home extends Activity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.main_menu_sign_out:
+                Intent intent0 = new Intent(cat_uc0_Home.this, sysuser_uc2_Login .class);
+                intent0.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                );
                 finish();
                 return true;
             case R.id.main_menu_go_home:
