@@ -1,5 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-//TODO
+//TODO... should be able to rip layout from user_uc2 more or less.
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
