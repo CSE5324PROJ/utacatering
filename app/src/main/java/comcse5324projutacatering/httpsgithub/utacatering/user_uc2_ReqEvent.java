@@ -1,6 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO alphabetical order the venues?
-//TODO find userID from the username prior to scheduling event (currently left hardcoded to ID=5)
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
