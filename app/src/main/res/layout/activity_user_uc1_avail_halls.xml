@@ -165,7 +165,7 @@
     <Button
         android:id="@+id/button_user_uc2"
         android:layout_width="353dp"
-        android:layout_height="73dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/user_uc1_proceed"
         app:layout_constraintEnd_toEndOf="parent"

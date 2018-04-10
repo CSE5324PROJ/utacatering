@@ -93,6 +93,11 @@
             SET &EVENT_STIME_COL; = datetime(julianday("&EVENT_STIME_COL;"))
             WHERE &EVENT_ETIME_COL; IS NULL;
 
+            /*julian day column is made to make sorting events by time easier later*/
+            UPDATE &EVENT_TABLE_NAME;
+            SET &EVENT_STIME_JD_COL; = CAST(julianday("&EVENT_STIME_COL;") AS REAL)
+            WHERE &EVENT_ETIME_COL; IS NULL;
+
             UPDATE &EVENT_TABLE_NAME;
             SET &EVENT_ETIME_COL; = (SELECT &EVENT_STIME_COL; FROM &EVENT_TABLE_NAME; WHERE &EVENT_ETIME_COL; IS NULL)
             WHERE &EVENT_ETIME_COL; IS NULL;
