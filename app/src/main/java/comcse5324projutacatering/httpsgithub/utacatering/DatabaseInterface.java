@@ -720,7 +720,6 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         String hall;
         String dur;
         String price;
-        String MinSec;
         Long epoch;
     }
 
@@ -753,7 +752,6 @@ public class DatabaseInterface extends SQLiteOpenHelper {
                     resultData[0].hall=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_HALL_COL));
                     resultData[0].price=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_PRC_COL));
                     resultData[0].dur=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_DUR_COL));
-                    resultData[0].MinSec=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_STIME_COL)).substring(11,16);
                     resultData[0].epoch=tempEpoch;
                     eventSummary.add(resultData[0]);
                 }

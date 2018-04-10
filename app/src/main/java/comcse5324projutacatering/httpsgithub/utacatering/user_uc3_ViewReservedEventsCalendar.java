@@ -67,7 +67,7 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
             actionbar.setTitle("MavCat  "+dateFormTitle.format(cal.getTime()));
         }
         cal.setTime(new Date());
-        populateList(cal.getTime()); //initialize for the day of.
+
         compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         compactCalendar.setUseThreeLetterAbbreviation(true);
 
@@ -82,7 +82,7 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
 
 
         eventDataListView = (ListView)findViewById(R.id.listViewEvents);
-
+        populateList(cal.getTime()); //initialize for the day of.
 
         compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
@@ -148,23 +148,11 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
         eventData =  DatabaseInterface.getInstance(this).getEventSummary(username,dateClicked);
         for(int i=0;i<eventData.size();i++){
             tempCal.clear();
-            tempCal.setTimeInMillis(eventData.get(i).epoch);//could be redone to not use epoch at all... this was made more complicate by epoch milliseconds not being perfectly accurate.
-            String temp1stThird=DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(tempCal.getTime()).substring(0,13);
-            String temp3stThird;
-            Integer hour = Integer.parseInt(eventData.get(i).MinSec.substring(0,2));
-            if(hour>=12 && hour!=24){
-                temp3stThird="PM";
-                if(hour!=12){
-                }
-            }
-            else{
-                temp3stThird="AM";
-                if(hour==24){
-                    hour=hour-12;
-                }
-            }
+            tempCal.setTimeInMillis(eventData.get(i).epoch);
+            String temp=DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(tempCal.getTime());
+
             eventDataStrings.add(new String[]{eventData.get(i).hall+" Hall"+System.lineSeparator()+
-                    "@ "+temp1stThird+String.format(Locale.US,"%02d",hour)+eventData.get(i).MinSec.substring(2,5)+temp3stThird,
+                    "@ "+temp,
                     "For "+eventData.get(i).dur+" hours"+" at the price of $"+eventData.get(i).price});
         }
         ArrayAdapter<String[]> adapter = new user_uc3_ViewReservedEventsCalendar.eventDataListAdapter();

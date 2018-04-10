@@ -95,7 +95,7 @@
 
             /*julian day column is made to make sorting events by time easier later*/
             UPDATE &EVENT_TABLE_NAME;
-            SET &EVENT_STIME_EPOCH_COL; = (CAST(julianday("&EVENT_STIME_COL;") AS REAL)-2440587.5)*86400.0
+            SET &EVENT_STIME_EPOCH_COL; = ROUND((CAST(julianday("&EVENT_STIME_COL;") AS NUMERIC)-2440587.5)*86400.0)
             WHERE &EVENT_ETIME_COL; IS NULL;
 
             UPDATE &EVENT_TABLE_NAME;
