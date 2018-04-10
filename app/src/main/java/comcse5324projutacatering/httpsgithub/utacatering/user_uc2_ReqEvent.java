@@ -4,8 +4,10 @@ package comcse5324projutacatering.httpsgithub.utacatering;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+//import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 //import android.graphics.Color;
+//import android.provider.BaseColumns;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,6 +22,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.EditText;
 import java.text.DateFormatSymbols;
+//import java.util.ArrayList;
+//import java.util.List;
 import java.util.Locale;
 
 
@@ -314,8 +318,9 @@ public class user_uc2_ReqEvent extends Activity {
         occasion = editOccasion.getText().toString();
         ent_items = editEntItems .getText().toString();
         SQLiteDatabase db = DatabaseInterface.getInstance(user_uc2_ReqEvent.this).getWritableDatabase();
-        DatabaseInterface.getInstance(user_uc2_ReqEvent.this).createBaseEvent(db, username,5,sqlFormattedDateTime,String.valueOf(selectedDuration),
-                selectedHall, selectedVenue,"",0,selectedAtdnc,selectedDrinkInt,
+        //if req_user_id is null, it will search for the ID itself based on the username.
+        DatabaseInterface.getInstance(user_uc2_ReqEvent.this).createBaseEvent(db, username,null,sqlFormattedDateTime,String.valueOf(selectedDuration),
+                selectedHall, selectedVenue,null,0,selectedAtdnc,selectedDrinkInt,
                 selectedFormality,selectedMealType[0],calcdPrice,occasion,ent_items);
     }
 

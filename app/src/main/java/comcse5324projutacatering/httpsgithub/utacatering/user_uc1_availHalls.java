@@ -10,6 +10,7 @@ import android.database.Cursor;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+//import android.provider.BaseColumns;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -66,6 +67,7 @@ public class user_uc1_availHalls extends Activity{
     String availHalls[];
     String availHallsFriendly[];
     List<String> conflictingHalls = new ArrayList<>();
+
     int i=0;
     int hours_mil[];
     int minutes[]=new int[12];
@@ -682,7 +684,6 @@ public class user_uc1_availHalls extends Activity{
             }
         }, 250);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

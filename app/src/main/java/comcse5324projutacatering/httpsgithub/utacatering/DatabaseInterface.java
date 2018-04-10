@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseInterface extends SQLiteOpenHelper {
 
@@ -55,7 +56,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
     public String EVENT_ETIME_COL;
     public String EVENT_HALL_COL;
     public String EVENT_VENUE_COL;
-    public String EVENT_AC_COL;
+    public String EVENT_AC_ID_COL;
     public String EVENT_APPROVAL_COL;
     public String EVENT_ATT_COL;
     public String EVENT_ALC_COL;
@@ -89,7 +90,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         EVENT_ETIME_COL=mContext.getString(R.string.EVENT_ETIME_COL);
         EVENT_HALL_COL = mContext.getString(R.string.EVENT_HALL_COL);
         EVENT_VENUE_COL = mContext.getString(R.string.EVENT_VENUE_COL);
-        EVENT_AC_COL = mContext.getString(R.string.EVENT_AC_COL);
+        EVENT_AC_ID_COL = mContext.getString(R.string.EVENT_AC_ID_COL);
         EVENT_APPROVAL_COL = mContext.getString(R.string.EVENT_APPROVAL_COL);
         EVENT_ATT_COL = mContext.getString(R.string.EVENT_ATT_COL);
         EVENT_ALC_COL = mContext.getString(R.string.EVENT_ALC_COL);
@@ -130,26 +131,28 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         createBaseProfile(db, "c2","c2","Caterer",1000555567,"555-556-5566","Base caterer2");
         createBaseProfile(db, "cs2","cs2","Caterer Staff",1000555568,"555-555-5568","Base caterer staff2");
 
-        createBaseEvent(db, "u",1,"2018-05-13 16:30:00","6", "Arlington", "Italian","c",1,40,1,
+        //if req_user_id is left null, it searches based on username.
+        createBaseEvent(db, "u",1,"2018-05-13 16:30:00","6", "Arlington", "Italian",3,1,40,1,
                 1,"Dinner",2280.00,"Wedding","Play 80's Music");
-        createBaseEvent(db, "u",1,"2018-05-13 15:30:00","6", "Maverick", "Indian","c",1,100,1,
+        createBaseEvent(db, "u",null,"2018-05-13 15:30:00","6", "Maverick", "Indian",3,1,100,1,
                 1,"Dinner",5400.00,"Wedding","Play 70's Music");
-        createBaseEvent(db, "u",1,"2018-05-13 14:30:00","6", "KC", "American","c",1,20,1,
+        createBaseEvent(db, "u",null,"2018-05-13 14:30:00","6", "KC", "American",3,1,20,1,
                 1,"Dinner",1140.00,"Wedding","Play 60's Music");
-        createBaseEvent(db, "u",1,"2018-05-13 13:30:00","6", "Shard", "Chinese","c",1,25,1,
+        createBaseEvent(db, "u",null,"2018-05-13 13:30:00","6", "Shard", "Chinese",6,1,25,1,
                 1,"Dinner",1350.00,"Wedding","Play 50's Music");
-        createBaseEvent(db, "u",1,"2018-05-13 12:00:00","6", "Liberty", "French","c",1,70,1,
+        createBaseEvent(db, "u",null,"2018-05-13 12:00:00","6", "Liberty", "French",6,1,70,1,
                 1,"Dinner",3840.00,"Wedding","Play 40's Music");
-        createBaseEvent(db, "u2",5,"2018-05-15 13:30:00","2", "Liberty", "Mexican","c2",0,50,0,
+        createBaseEvent(db, "u2",null,"2018-05-15 13:30:00","2", "Liberty", "Mexican",null,0,50,0,
                 0,"Lunch",900.00,"Fiesta","Mariachi band");
-        createBaseEventAssignedCS(db,1,4); //Manually added assigned caterer staff, eventID & profileID only known due to the order of the above functions.. based on row position in the DB.
-        createBaseEventAssignedCS(db,2,4);
-        createBaseEventAssignedCS(db,3,4);
-        createBaseEventAssignedCS(db,4,4);
-        createBaseEventAssignedCS(db,5,4);
-        createBaseEventAssignedCS(db,6,7);
+        createBaseEventAssignedCS(db,1,"cs",null); //username not necessary if profileID is known.
+        createBaseEventAssignedCS(db,2,"cs",null);
+        createBaseEventAssignedCS(db,3,"cs",null);
+        createBaseEventAssignedCS(db,4,"cs",null);
+        createBaseEventAssignedCS(db,5,"cs",null);
+        createBaseEventAssignedCS(db,6,"cs2",null);
         //Default "cs" caterer staff (profile table 4th db row) user is assigned the the default dummy event (event table 1st db row)
     }
+
 
     // Create system user profiles when the database is first created.
     private void createBaseProfile(SQLiteDatabase db, String username, String password, String role,
@@ -167,9 +170,13 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         long newRowId = db.insert(TABLE_NAME_PROFILE, null, values);
     }
 
-    public void createBaseEvent(SQLiteDatabase db, String req_user,int req_user_id, String Stime, String dur, String hall, String venue,
-                                   String assigned_caterer, int approval_flag, int attendance, int alco_flag, int formal_flag, String meal_type,
+    public void createBaseEvent(SQLiteDatabase db, String req_user,Integer req_user_id, String Stime, String dur, String hall, String venue,
+                                   Integer assigned_caterer, int approval_flag, int attendance, int alco_flag, int formal_flag, String meal_type,
                                     double price, String occ_type, String ent_items) {
+
+        if(req_user_id==null){
+            req_user_id=getProfileID(db, req_user);
+        }
 
         ContentValues values = new ContentValues();
         values.put(EVENT_REQ_USER_COL, req_user);
@@ -178,7 +185,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         values.put(EVENT_DUR_COL, dur);
         values.put(EVENT_HALL_COL,     hall);
         values.put(EVENT_VENUE_COL,     venue);
-        values.put(EVENT_AC_COL,    assigned_caterer);
+        values.put(EVENT_AC_ID_COL,    assigned_caterer);
         values.put(EVENT_APPROVAL_COL,  approval_flag);
         values.put(EVENT_ATT_COL, attendance);
         values.put(EVENT_ALC_COL, alco_flag);
@@ -192,7 +199,11 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         long newRowId = db.insert(SQL_EVENT_TABLE_NAME, null, values);
     }
 
-    private void createBaseEventAssignedCS(SQLiteDatabase db, int EventID, int profileID) {
+    private void createBaseEventAssignedCS(SQLiteDatabase db, int EventID, String username, Integer profileID) {
+
+        if(profileID==null){
+            profileID=getProfileID(db, username);
+        }
 
         ContentValues values = new ContentValues();
         values.put(EVENT_ID_COL, EventID);
@@ -604,6 +615,49 @@ public class DatabaseInterface extends SQLiteOpenHelper {
                 null,           // don't filter by row groups
                 null              // The sort order
         );
+    }
+
+    private Cursor searchProfileId(SQLiteDatabase db,String username) {
+        //SQLiteDatabase db = getReadableDatabase();
+
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                BaseColumns._ID,
+        };
+
+        // Filter results WHERE "title" = 'My Title'
+        String selection =
+                "username = ?";
+        String[] selectionArgs = {username};
+
+        // How you want the results sorted in the resulting Cursor
+        //String sortOrder = COLUMN_NAME_USERNAME + " DESC";
+
+        return db.query(
+                TABLE_NAME_PROFILE,     // The table to query
+                projection,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
+                null,          // don't group the rows
+                null,           // don't filter by row groups
+                null              // The sort order
+        );
+    }
+    private Integer getProfileID(SQLiteDatabase db,String username){
+        List<String> profileIDs = new ArrayList<>();
+        Cursor resultCursor = searchProfileId(db,username);
+        if(resultCursor != null) {
+            while (resultCursor.moveToNext()) {
+                String resultID = resultCursor.getString(resultCursor.getColumnIndexOrThrow(BaseColumns._ID));
+                profileIDs.add(resultID);
+            }
+        }
+        if(profileIDs.size()>1 || profileIDs.size()==0){
+            //should not occur
+            return -1; //should error
+        }
+        return Integer.parseInt(profileIDs.get(0));
     }
 
 }
