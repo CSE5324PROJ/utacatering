@@ -721,6 +721,16 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         String dur;
         String price;
         Long epoch;
+        int req_user_id;
+        int approval_flag;
+        int attendance;
+        String mealtype;
+        String venue;
+        int alco_flag;
+        int formal_flag;
+        String occ_type;
+        String ent_items;
+
     }
 
     public List<eventSummarySet> getEventSummary(String username, Date selectedDate){
@@ -745,14 +755,21 @@ public class DatabaseInterface extends SQLiteOpenHelper {
                 iteratingDateCal.clear();
                 long tempEpoch=(long) (resultCursor.getDouble(resultCursor.getColumnIndexOrThrow(EVENT_STIME_EPOCH_COL))*(double)1000);
                 iteratingDateCal.setTimeInMillis(tempEpoch);
-                String form1=ymd.format(selectedDate);
-                String form2=ymd.format(iteratingDateCal.getTime());
                 if(ymd.format(selectedDate).equals(ymd.format(iteratingDateCal.getTime()))){
                     resultData[0]=new eventSummarySet();
                     resultData[0].hall=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_HALL_COL));
-                    resultData[0].price=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_PRC_COL));
                     resultData[0].dur=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_DUR_COL));
+                    resultData[0].price=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_PRC_COL));
                     resultData[0].epoch=tempEpoch;
+                    resultData[0].req_user_id = resultCursor.getInt(resultCursor.getColumnIndexOrThrow(EVENT_REQ_USER_ID_COL));
+                    resultData[0].approval_flag = resultCursor.getInt(resultCursor.getColumnIndexOrThrow(EVENT_APPROVAL_COL));
+                    resultData[0].attendance = resultCursor.getInt(resultCursor.getColumnIndexOrThrow(EVENT_ATT_COL));
+                    resultData[0].mealtype=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_MT_COL));
+                    resultData[0].venue=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_VENUE_COL));
+                    resultData[0].alco_flag = resultCursor.getInt(resultCursor.getColumnIndexOrThrow(EVENT_ALC_COL));
+                    resultData[0].formal_flag = resultCursor.getInt(resultCursor.getColumnIndexOrThrow(EVENT_FORM_COL));
+                    resultData[0].occ_type=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_OCTYP_COL));
+                    resultData[0].ent_items=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_ENT_COL));
                     eventSummary.add(resultData[0]);
                 }
             }

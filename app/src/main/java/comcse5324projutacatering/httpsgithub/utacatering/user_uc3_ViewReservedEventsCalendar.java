@@ -41,6 +41,8 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
     List<DatabaseInterface.eventSummarySet> eventData;
     List<String[]> eventDataStrings;
 
+    Date importedDate;
+
     private Date test1;
 
     @Override
@@ -54,6 +56,7 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
         extras=mIntent.getExtras();
         if(extras!=null){
             username = (String) extras.get("username");
+            importedDate=(Date) extras.get("trackSelectedDate");
         }
         else{
             finish(); //activity not properly accessed
@@ -82,7 +85,12 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
 
 
         eventDataListView = (ListView)findViewById(R.id.listViewEvents);
-        populateList(cal.getTime()); //initialize for the day of.
+        if(importedDate==null){
+            populateList(cal.getTime()); //initialize for the day of.
+        }else{
+            populateList(importedDate);
+        }
+
 
         compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
@@ -146,14 +154,28 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
         eventDataStrings = new ArrayList<>();
         eventData = new ArrayList<>();
         eventData =  DatabaseInterface.getInstance(this).getEventSummary(username,dateClicked);
+        importedDate=dateClicked;
         for(int i=0;i<eventData.size();i++){
             tempCal.clear();
             tempCal.setTimeInMillis(eventData.get(i).epoch);
-            String temp=DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(tempCal.getTime());
+            String tempDate=DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(tempCal.getTime());
 
-            eventDataStrings.add(new String[]{eventData.get(i).hall+" Hall"+System.lineSeparator()+
-                    "@ "+temp,
-                    "For "+eventData.get(i).dur+" hours"+" at the price of $"+eventData.get(i).price});
+            eventDataStrings.add(new String[]{eventData.get(i).hall+" Hall"+System.lineSeparator()+"@ "+tempDate,
+                    "For "+eventData.get(i).dur+" hours"+" at the price of $"+eventData.get(i).price,
+                    String.valueOf(eventData.get(i).req_user_id),
+                    String.valueOf(eventData.get(i).approval_flag),
+                    tempDate,
+                    eventData.get(i).dur+" hours",
+                    eventData.get(i).hall,
+                    String.valueOf(eventData.get(i).attendance),
+                    eventData.get(i).price,
+                    eventData.get(i).mealtype,
+                    eventData.get(i).venue,
+                    String.valueOf(eventData.get(i).alco_flag),
+                    String.valueOf(eventData.get(i).formal_flag),
+                    eventData.get(i).occ_type,
+                    eventData.get(i).ent_items
+            });
         }
         ArrayAdapter<String[]> adapter = new user_uc3_ViewReservedEventsCalendar.eventDataListAdapter();
         eventDataListView.setAdapter(adapter);
@@ -165,28 +187,54 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
 
         @Override
         public View getView(int position, View view, ViewGroup parent) {
-            if(view == null)
+            if(view == null){
                 view = getLayoutInflater().inflate(R.layout.listview_item_events_listing,parent,false);
+            }
 
-            String[] out = eventDataStrings.get(position);
-            //final String req_id = req[2];
+            final String[] out = eventDataStrings.get(position);
+            final Date trackSelectedDate = importedDate;
+            final String trackUsername =username;
+            /*
+            * Array position translation:
+            * 0)Title String
+            * 1)Subtitle String (duration & price)
+            * 2)req_user_id
+            * 3)approval_flag
+            * 4)User friendly date string
+            * 5)User friendly hours string
+            * 6)hall
+            * 7)Attendance
+            * 8)price
+            * 9)meal type
+            * 10)venue
+            * 11)alco_flag
+            * 12)formal_flag
+            * 13)occ_type string
+            * 14)ent_items string
+            *
+            * */
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO TO GO TO UC_4_5
-                    //Intent intent = new Intent(user_uc3_ViewReservedEventsCalendar .this, admin_uc2_34_ViewRegistrationRequest.class);
-                    //intent.putExtra("request_id", req_id);
-                    //startActivity(intent);
+                    Intent intent = new Intent(user_uc3_ViewReservedEventsCalendar.this, user_uc4_5_ViewReservedEventAndCancel.class);
+                    intent.putExtra("event_data_string_array", out);
+                    intent.putExtra("trackSelectedDate", trackSelectedDate);
+                    intent.putExtra("username", trackUsername);
+                    startActivity(intent);
                 }
             });
 
             TextView summaryTitle = (TextView)view.findViewById(R.id.item_text_1);
             TextView summaryText = (TextView)view.findViewById(R.id.item_text_2);
-            if(summaryTitle != null)
+            if(summaryTitle != null){
                 summaryTitle.setText(out[0]);
+            }
 
-            if(summaryText != null)
+
+            if(summaryText != null){
                 summaryText.setText(out[1]);
+            }
+
             return view;
         }
     }

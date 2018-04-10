@@ -1,6 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO buffer time between events? Ask Robb.
-//TODO alphabetical order the halls? capacity order?
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -62,8 +61,8 @@ public class user_uc1_availHalls extends Activity{
     Set<Integer> uniqueDayValidSet = new LinkedHashSet<>();
     String uniqueDayArray[];
     //String uniqueDayArrayFriendly[];
-    String halls[]={"Maverick", "KC", "Arlington", "Shard", "Liberty"};
-    String capacityStringArray[]={" (capacity of 100)"," (capacity of 25)"," (capacity of 50)"," (capacity of 25)"," (capacity of 75)"};
+    String halls[]={"Maverick", "Liberty", "Arlington", "KC", "Shard"};
+    String capacityStringArray[]={" (capacity of 100)"," (capacity of 75)"," (capacity of 50)"," (capacity of 25)"," (capacity of 25)"};
     String availHalls[];
     String availHallsFriendly[];
     List<String> conflictingHalls = new ArrayList<>();

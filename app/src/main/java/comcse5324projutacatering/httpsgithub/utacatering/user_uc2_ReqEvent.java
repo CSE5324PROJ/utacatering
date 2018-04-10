@@ -1,5 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-//TODO alphabetical order the venues?
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -30,7 +30,7 @@ public class user_uc2_ReqEvent extends Activity {
 //implements AdapterView.OnItemSelectedListener
 
     //String[] durations={"2 hr","3 hr","4 hr","5 hr","6 hr"};
-    String[] venues={"American", "Chinese", "French", "Greek", "Indian", "Italian", "Japanese", "Mexican", "Pizza"};
+    String[] venues={"American","Chinese","French","Greek","Indian","Italian","Japanese","Mexican","Pizza"};
     String selectedVenue=venues[0];
     //Integer[] durationsInt={2,3,4,5,6};
     //Integer selectedDuration=2;
