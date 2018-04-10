@@ -34,4 +34,15 @@
         app:compactCalendarMultiEventIndicatorColor="#fff"
         />
 
+    <ListView
+        android:id="@+id/listViewEvents"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="250dp"
+        android:divider="@color/colorPrimaryDark"
+        android:dividerHeight="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

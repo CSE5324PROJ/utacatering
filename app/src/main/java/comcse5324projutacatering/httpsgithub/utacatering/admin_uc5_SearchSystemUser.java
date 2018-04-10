@@ -74,12 +74,12 @@ public class admin_uc5_SearchSystemUser extends Activity {
 
     private class searchResultsListAdapter extends ArrayAdapter<String[]> {
 
-        public searchResultsListAdapter() {super(admin_uc5_SearchSystemUser.this, R.layout.listview_item, resultsList);}
+        public searchResultsListAdapter() {super(admin_uc5_SearchSystemUser.this, R.layout.listview_item_profiles, resultsList);}
 
         @Override
         public View getView(int position,View view,ViewGroup parent) {
             if(view == null)
-                view = getLayoutInflater().inflate(R.layout.listview_item,parent,false);
+                view = getLayoutInflater().inflate(R.layout.listview_item_profiles,parent,false);
 
             String[] result = resultsList.get(position);
             final String profile_id = result[2];

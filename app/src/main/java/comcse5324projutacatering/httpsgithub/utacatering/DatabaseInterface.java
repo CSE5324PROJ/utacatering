@@ -8,7 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class DatabaseInterface extends SQLiteOpenHelper {
@@ -157,6 +160,10 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         createBaseEventAssignedCS(db,5,"cs",null);
         createBaseEventAssignedCS(db,6,"cs2",null);
         //Default "cs" caterer staff (profile table 4th db row) user is assigned the the default dummy event (event table 1st db row)
+
+
+
+
     }
 
 
@@ -673,6 +680,8 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         // you will actually use after this query.
         String[] projection = {
                 EVENT_STIME_EPOCH_COL,
+                EVENT_HALL_COL,
+                EVENT_DUR_COL
         };
 
         // Filter results WHERE "title" = 'My Title'
@@ -700,11 +709,58 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         Cursor resultCursor = searchProfileEvents(db,username);
         if(resultCursor != null) {
             while (resultCursor.moveToNext()) {
-                Long resultEpoch = (Long) (Math.round(Double.parseDouble(resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_STIME_EPOCH_COL)))*(double)1000));
+                Long resultEpoch = (long) (resultCursor.getDouble(resultCursor.getColumnIndexOrThrow(EVENT_STIME_EPOCH_COL))*(double)1000);
                 eventEpochs.add(resultEpoch);
             }
         }
         return eventEpochs;
+    }
+
+    public class eventSummarySet{
+        String hall;
+        String dur;
+        String price;
+        String MinSec;
+        Long epoch;
+    }
+
+    public List<eventSummarySet> getEventSummary(String username, Date selectedDate){
+
+
+
+        List<eventSummarySet> eventSummary = new ArrayList<>();
+        SimpleDateFormat ymd = new SimpleDateFormat("yyyyMMdd");
+        SQLiteDatabase db = getReadableDatabase();
+        //Calendar selectedDateCal = Calendar.getInstance();
+        //selectedDateCal.setTimeInMillis(selectedDate.getTime());
+        Calendar iteratingDateCal = Calendar.getInstance();
+
+
+        Cursor resultCursor = searchProfileEvents(db,username);
+        if(resultCursor != null) {
+
+            int i=0;
+
+            while (resultCursor.moveToNext()) {
+                eventSummarySet[] resultData = new eventSummarySet[1];
+                iteratingDateCal.clear();
+                long tempEpoch=(long) (resultCursor.getDouble(resultCursor.getColumnIndexOrThrow(EVENT_STIME_EPOCH_COL))*(double)1000);
+                iteratingDateCal.setTimeInMillis(tempEpoch);
+                String form1=ymd.format(selectedDate);
+                String form2=ymd.format(iteratingDateCal.getTime());
+                if(ymd.format(selectedDate).equals(ymd.format(iteratingDateCal.getTime()))){
+                    resultData[0]=new eventSummarySet();
+                    resultData[0].hall=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_HALL_COL));
+                    resultData[0].price=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_PRC_COL));
+                    resultData[0].dur=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_DUR_COL));
+                    resultData[0].MinSec=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_STIME_COL)).substring(11,16);
+                    resultData[0].epoch=tempEpoch;
+                    eventSummary.add(resultData[0]);
+                }
+            }
+
+        }
+        return eventSummary;
     }
 
 }

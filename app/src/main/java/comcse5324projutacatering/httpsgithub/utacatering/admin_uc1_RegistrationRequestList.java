@@ -1,5 +1,6 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO implement top menu signout/home page (implemented differently than on home page!)
+//TODO "Date/Time" ? implementing request time into db?
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -54,12 +55,12 @@ public class admin_uc1_RegistrationRequestList extends Activity {
 
     private class registrationRequestListAdapter extends ArrayAdapter<String[]> {
 
-        public registrationRequestListAdapter() {super(admin_uc1_RegistrationRequestList.this, R.layout.listview_item, registrationRequests);}
+        public registrationRequestListAdapter() {super(admin_uc1_RegistrationRequestList.this, R.layout.listview_item_profiles, registrationRequests);}
 
         @Override
         public View getView(int position,View view,ViewGroup parent) {
             if(view == null)
-                view = getLayoutInflater().inflate(R.layout.listview_item,parent,false);
+                view = getLayoutInflater().inflate(R.layout.listview_item_profiles,parent,false);
 
             String[] req = registrationRequests.get(position);
             final String req_id = req[2];
