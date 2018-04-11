@@ -6,13 +6,50 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 public class cat_uc0_Home extends Activity {
+
+    private Button viewEventReqQueue;
+    private Button viewEventCal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cat_uc0_home);
+
+        setupButtons();
+    }
+    private void setupButtons() {
+        viewEventReqQueue = (Button)findViewById(R.id.button_view_event_req_queue);
+        viewEventCal = (Button)findViewById(R.id.button_view_event_cal);
+
+        viewEventReqQueue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v)  {
+                Intent intent =  new Intent(cat_uc0_Home.this, cat_uc1_ViewEventReqQueue.class);
+                startActivity(intent);
+            }
+        });
+
+        viewEventCal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(cat_uc0_Home.this, cat_uc5_ViewEventCal.class);
+                startActivity(intent);
+            }
+        });
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        DatabaseInterface.getInstance(this).close();
+        super.onDestroy();
     }
 
     @Override
@@ -21,6 +58,7 @@ public class cat_uc0_Home extends Activity {
         inflater.inflate(R.menu.menu_main, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
