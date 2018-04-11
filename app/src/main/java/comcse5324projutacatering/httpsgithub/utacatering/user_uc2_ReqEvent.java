@@ -303,6 +303,7 @@ public class user_uc2_ReqEvent extends Activity {
                             | Intent.FLAG_ACTIVITY_SINGLE_TOP
 
                     );
+                    intent.putExtra("username",username);
                     startActivity(intent);
                     processSubmission();
                     finish();
