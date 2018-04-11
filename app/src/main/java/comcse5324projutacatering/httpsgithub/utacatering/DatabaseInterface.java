@@ -3,6 +3,7 @@ package comcse5324projutacatering.httpsgithub.utacatering;
 import android.content.ContentValues;
 import android.content.Context;
 //import android.content.res.Resources;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -17,6 +18,7 @@ import java.util.List;
 public class DatabaseInterface extends SQLiteOpenHelper {
 
     private static DatabaseInterface instance;
+    private Context mContext;
 
     private static final String TABLE_NAME_PROFILE      = "profile";
     private static final String TABLE_NAME_REGISTRATION = "registration_requests";
@@ -83,7 +85,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
 
     private DatabaseInterface(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        Context mContext;
+
         mContext = context;
         SQL_CREATE_EVENT_TABLE = mContext.getString(R.string.SQL_CREATE_EVENT_TABLE_STRING);
         SQL_EVENT_TABLE_NAME = mContext.getString(R.string.EVENT_TABLE_NAME);
@@ -363,7 +365,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
         String[] projection = {
-                //BaseColumns._ID,
+                BaseColumns._ID,
                 COLUMN_NAME_ROLE
         };
 
@@ -388,7 +390,18 @@ public class DatabaseInterface extends SQLiteOpenHelper {
 
         if((cursor != null) && (cursor.getCount() > 0)) {
             cursor.moveToFirst();
-            ret = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_ROLE));
+            String role = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_ROLE));
+            String id  = cursor.getString(cursor.getColumnIndexOrThrow(BaseColumns._ID));
+
+            final SharedPreferences sharedPref = mContext.getSharedPreferences(
+                    "MavCat.preferences", Context.MODE_PRIVATE
+            );
+            final SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("active_username", username);
+            editor.putString("active_id", id);
+            editor.commit();
+
+            ret = role;
             cursor.close();
         }
 
@@ -396,6 +409,18 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         return ret;
     }
 
+    public String getActiveUsername() {
+        final SharedPreferences sharedPref = mContext.getSharedPreferences(
+                "MavCat.preferences", Context.MODE_PRIVATE
+        );
+        return sharedPref.getString("active_username","null");
+    }
+    public String getActiveID() {
+        final SharedPreferences sharedPref = mContext.getSharedPreferences(
+                "MavCat.preferences", Context.MODE_PRIVATE
+        );
+        return sharedPref.getString("active_id","null");
+    }
     public Cursor searchUsername(String usernameQuery) {
         SQLiteDatabase db = getReadableDatabase();
 

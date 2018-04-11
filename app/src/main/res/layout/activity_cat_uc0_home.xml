@@ -10,7 +10,32 @@ android:paddingTop="16dp"
 android:paddingBottom="16dp"
 tools:context="comcse5324projutacatering.httpsgithub.utacatering.cat_uc0_Home">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Caterer Home"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:textSize="36dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="#4ccbff" />
 
+    <Button
+        android:id="@+id/button_view_event_req_queue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:text="View Event Request Queue" />
+
+    <Button
+        android:id="@+id/button_view_event_cal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:text="View Event Calendar" />
 
 </LinearLayout>
 
