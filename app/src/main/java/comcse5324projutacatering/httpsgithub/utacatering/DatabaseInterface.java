@@ -724,7 +724,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
                 selectionArgs,          // The values for the WHERE clause
                 null,          // don't group the rows
                 null,           // don't filter by row groups
-                null              // The sort order
+                EVENT_STIME_EPOCH_COL              // The sort order
         );
     }
 
