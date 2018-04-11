@@ -80,6 +80,7 @@ public class sysuser_uc2_Login extends Activity {
                                     intent = new Intent(sysuser_uc2_Login.this, cat_uc0_Home.class);
                                     break;
                                 case "Caterer Staff":
+                                    intent = new Intent(sysuser_uc2_Login.this, catstaff_uc0_Home.class);
                                     break;
 
                             }
