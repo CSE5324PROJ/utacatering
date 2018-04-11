@@ -57,9 +57,17 @@ public class sysuser_uc1_Register extends Activity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(editStudentID.getText().toString().equals("")){
-                    return;
+
+                boolean stopRegisterFlag = false;
+                EditText[] checkTexts = { editUsername, editPassword, editStudentID, editContactDetails, editPersonalDetails };
+                for(EditText et : checkTexts) {
+                    if (et.getText().toString().isEmpty()) {
+                        et.setError("Please supply a value.");
+                        stopRegisterFlag = true;
+                    }
                 }
+                if(stopRegisterFlag) return;
+
                 String username = editUsername.getText().toString();
                 String password = editPassword.getText().toString();
                 long    stu_id   = Long.parseLong(editStudentID.getText().toString());
