@@ -11,13 +11,21 @@
         android:layout_height="wrap_content"
         android:text="Title"
         android:id="@+id/item_text_1"
-        android:textSize="26sp" />
+        android:textSize="26sp"
+        android:textStyle="bold"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/item_text_2"
         android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/item_text_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textStyle="italic"/>
 
 
 </LinearLayout>

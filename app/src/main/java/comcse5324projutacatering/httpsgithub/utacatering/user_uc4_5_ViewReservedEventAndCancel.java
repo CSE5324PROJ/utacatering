@@ -1,9 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-//TODO... should be able to rip layout from user_uc2 more or less.
-
-//TODO make sure pass username on return to home
 //TODO make sure to pass username and trackSelectedDate if going back to calendar
-//TODO actually tracking selected day may not be needed.. calendar remembers position going backwards.
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,12 +7,20 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.Date;
 
 
 public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
     String username;
+    Button cancel_btn;
+    Button back_btn;
+
+    public int customRed;
+    public int customGreen;
+    public int customBlue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,9 +36,42 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
         else{
             finish(); //activity not properly accessed
         }
+
+        setupButtons();
     }
 
+    private void setupButtons() {
+        cancel_btn = findViewById(R.id.button_CancelEvent);
+        cancel_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v)  {
+                Intent intent =  new Intent(user_uc4_5_ViewReservedEventAndCancel .this, user_uc3_ViewReservedEventsCalendar .class);
+                    cancel_btn.setBackgroundColor(customGreen);
+                    intent.putExtra("username",username);
+                    startActivity(intent);
+                    finish();
+            }
+        });
+        back_btn= findViewById(R.id.button_goback);
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v)  {
+                Intent intent =  new Intent(user_uc4_5_ViewReservedEventAndCancel.this, user_uc3_ViewReservedEventsCalendar .class);
+                back_btn.setBackgroundColor(customGreen);
+                intent.putExtra("username",username);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(user_uc4_5_ViewReservedEventAndCancel .this, user_uc3_ViewReservedEventsCalendar .class);
+        intent.putExtra("username",username);
+        startActivity(intent);
+        finish();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
