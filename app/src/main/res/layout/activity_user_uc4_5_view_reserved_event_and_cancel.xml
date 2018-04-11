@@ -29,12 +29,13 @@
             android:layout_width="116dp"
             android:layout_height="72dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="15dp"
             android:focusable="false"
             android:text="Approval Status"
             android:textSize="25sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
+        <!--
         <TextView
             android:id="@+id/textView"
             android:layout_width="72dp"
@@ -46,12 +47,13 @@
             android:textSize="25sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView0" />
-
+        -->
         <EditText
             android:id="@+id/editTextTimeApproval"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:layout_marginTop="31dp"
             android:ems="10"
             android:focusable="false"
             android:inputType="time"
@@ -59,7 +61,7 @@
             android:textColor="#6f7275"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
+        <!--
         <EditText
             android:id="@+id/editTextTime"
             android:layout_width="wrap_content"
@@ -73,25 +75,25 @@
             android:textColor="#6f7275"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextTimeApproval" />
-
+            -->
         <TextView
             android:id="@+id/textView2"
             android:layout_width="72dp"
             android:layout_height="31dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="21dp"
+            android:layout_marginTop="24dp"
             android:focusable="false"
             android:text="Date"
             android:textSize="25sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/textView0" />
 
         <EditText
             android:id="@+id/editTextDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="40dp"
             android:ems="10"
             android:focusable="false"
             android:inputType="date"
@@ -99,7 +101,7 @@
             android:text="BLAH2"
             android:textColor="#6f7275"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTime" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextTimeApproval" />
 
         <TextView
             android:id="@+id/textView3"
@@ -305,6 +307,7 @@
             android:focusable="false"
             android:inputType="text"
             android:text="price"
+            android:textStyle="italic"
             android:textColor="#6f7275"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextAtt" />
@@ -331,6 +334,7 @@
             android:inputType="text"
             android:maxLength="20"
             android:text="occ"
+            android:textColor="#6f7275"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextPrice" />
 
@@ -362,8 +366,10 @@
             android:maxLength="140"
             android:minLines="5"
             android:scrollHorizontally="false"
+            android:focusable="false"
             android:scrollbars="vertical"
             android:text="ent-items"
+            android:textColor="#6f7275"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
