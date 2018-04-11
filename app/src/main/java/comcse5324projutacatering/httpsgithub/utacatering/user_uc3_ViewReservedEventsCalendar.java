@@ -1,11 +1,11 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-//TODO change list text color depending on if an event has been approved
 //implementation 'com.github.sundeepk:compact-calendar-view:2.0.2.3' needed in build.gradle (app)
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.provider.BaseColumns;
 import android.os.Bundle;
 import android.view.Menu;
@@ -43,12 +43,19 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
 
     Date importedDate;
 
+    public int customRed;
+    public int customGreen;
+    public int customBlue;
+    public int viewFlag=0;
     private Date test1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_uc3_view_reserved_events_calendar);
+        customRed = getResources().getColor(R.color.customRed);
+        customGreen = getResources().getColor(R.color.customGreen);
+        customBlue = getResources().getColor(R.color.customBlue);
 
         Intent mIntent;
         Bundle extras;
@@ -226,13 +233,39 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
 
             TextView summaryTitle = (TextView)view.findViewById(R.id.item_text_1);
             TextView summaryText = (TextView)view.findViewById(R.id.item_text_2);
+            TextView warnText = (TextView)view.findViewById(R.id.item_text_3);
             if(summaryTitle != null){
                 summaryTitle.setText(out[0]);
+                if(out[3].equals("0")){//check approval
+                    summaryTitle.setTextColor(customRed);
+                }
+                else{
+                    summaryTitle.setTextColor(Color.parseColor("#40446d"));
+                }
             }
 
 
             if(summaryText != null){
-                summaryText.setText(out[1]);
+
+                if(out[3].equals("0")){//check approval
+                    if(viewFlag==0){
+                        //out[1]=out[1]+"  (event pending approval)";
+                        viewFlag=1;
+                    }
+                    summaryText.setText(out[1]);
+                    summaryText.setTextColor(customRed);
+                }
+                else{
+                    summaryText.setText(out[1]);
+                    summaryText.setTextColor(Color.parseColor("#40446d"));
+                }
+            }
+            if(warnText!=null){
+                if(out[3].equals("0")) {
+                    warnText.setText("(event pending approval)");
+                    warnText.setTextColor(customRed);
+                }
+
             }
 
             return view;

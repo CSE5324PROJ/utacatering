@@ -139,7 +139,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         createBaseProfile(db, "cs2","cs2","Caterer Staff",1000555568,"555-555-5568","Base caterer staff2");
 
         //if req_user_id is left null, it searches based on username.
-        createBaseEvent(db, "u",1,"2018-05-13 16:30:00","6", "Arlington", "Italian",3,1,40,1,
+        createBaseEvent(db, "u",null,"2018-05-13 16:30:00","6", "Arlington", "Italian",3,1,40,1,
                 1,"Dinner",2280.00,"Wedding","Play 80's Music");
         createBaseEvent(db, "u",null,"2018-05-13 15:30:00","6", "Maverick", "Indian",3,1,100,1,
                 1,"Dinner",5400.00,"Wedding","Play 70's Music");

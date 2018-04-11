@@ -296,7 +296,7 @@ public class user_uc2_ReqEvent extends Activity {
         submitEvReq_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
-                Intent intent =  new Intent(user_uc2_ReqEvent.this, user_uc0_Home.class); //TODO eventually this should go to events list, not home.
+                Intent intent =  new Intent(user_uc2_ReqEvent.this, user_uc3_ViewReservedEventsCalendar .class);
                 if( selectedHall.length() > 0){
                     submitEvReq_btn.setBackgroundColor(customGreen);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
