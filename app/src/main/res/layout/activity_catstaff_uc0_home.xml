@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="comcse5324projutacatering.httpsgithub.utacatering.catstaff_uc0_Home">
+
+
+    <Button
+        android:id="@+id/button_catstaff_view_event_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="56dp"
+        android:layout_marginEnd="123dp"
+        android:layout_marginStart="123dp"
+        android:layout_marginTop="38dp"
+        android:text="View Event List"
+        app:layout_constraintBottom_toTopOf="@+id/button_catstaff_update_profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <Button
+        android:id="@+id/button_catstaff_update_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="255dp"
+        android:layout_marginEnd="123dp"
+        android:layout_marginStart="125dp"
+        android:layout_marginTop="56dp"
+        android:text="Update Profile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_catstaff_view_event_list" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="39dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginStart="89dp"
+        android:layout_marginTop="16dp"
+        android:text="Caterer Staff"
+        android:textSize="36dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_catstaff_view_event_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
