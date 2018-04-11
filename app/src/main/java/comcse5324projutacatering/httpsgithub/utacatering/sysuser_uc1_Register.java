@@ -1,6 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO registration with no pass is ok?
-//TODO no ID causes a crash
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
