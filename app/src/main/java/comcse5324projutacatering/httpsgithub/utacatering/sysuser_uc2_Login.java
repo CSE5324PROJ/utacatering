@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -68,9 +67,8 @@ public class sysuser_uc2_Login extends Activity {
                         String user = username.getText().toString();
                         String pass = password.getText().toString();
                         String role = DatabaseInterface.getInstance(sysuser_uc2_Login.this).login(user,pass);
-
+                        Intent intent = null;
                         if(role != null) {
-                            Intent intent = null;
                             switch (role) {
                                 case "Admin":
                                     intent = new Intent(sysuser_uc2_Login.this, admin_uc0_Home.class);
@@ -89,9 +87,10 @@ public class sysuser_uc2_Login extends Activity {
                             Toast.makeText(sysuser_uc2_Login.this,"Welcome, "+ user + " {"+role+"}",
                                     Toast.LENGTH_SHORT).show();
 
-                            if (intent != null)
-                                intent.putExtra("username",user);
+                            if (intent != null) {
+                                intent.putExtra("username", user);
                                 startActivity(intent);
+                            }
 
                         }else {
                             //Toast.makeText(sysuser_uc2_Login.this,"Username and Password are not correct", Toast.LENGTH_SHORT).show();
