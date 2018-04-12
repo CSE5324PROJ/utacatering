@@ -1,5 +1,6 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 ////TODO No transition to another page according to UCID after updating .... change to transition home?
+//TODO 2x for bug cases
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
