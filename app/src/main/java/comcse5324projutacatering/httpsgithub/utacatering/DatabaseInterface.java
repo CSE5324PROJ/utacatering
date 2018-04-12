@@ -460,6 +460,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         String selection =
                 COLUMN_NAME_USERNAME + " LIKE ?";
         String[] selectionArgs = { usernameQuery };
+        String orderBy = COLUMN_NAME_USERNAME + " ASC";
 
         // How you want the results sorted in the resulting Cursor
         //String sortOrder = COLUMN_NAME_USERNAME + " DESC";
@@ -471,7 +472,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
                 selectionArgs,          // The values for the WHERE clause
                 null,          // don't group the rows
                 null,           // don't filter by row groups
-                null              // The sort order
+                orderBy              // The sort order
         );
     }
 
