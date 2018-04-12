@@ -1,7 +1,9 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -98,6 +100,15 @@ public class admin_uc0_Home extends Activity {
                         | Intent.FLAG_ACTIVITY_CLEAR_TOP
                         | Intent.FLAG_ACTIVITY_CLEAR_TASK
                 );
+                //Makes sure shared preference is reset
+                Context mContext = getApplicationContext();
+                final SharedPreferences sharedPref = mContext.getSharedPreferences(
+                        "MavCat.preferences", Context.MODE_PRIVATE
+                );
+                final SharedPreferences.Editor editor = sharedPref.edit();
+                editor.remove("active_username");
+                editor.remove("active_id");
+                //------
                 startActivity(intent0);
                 finish();
                 return true;
@@ -110,5 +121,23 @@ public class admin_uc0_Home extends Activity {
                 return false;
         }
     }
-
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(admin_uc0_Home.this, sysuser_uc2_Login .class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_CLEAR_TASK
+        );
+        //Makes sure shared preference is reset
+        Context mContext = getApplicationContext();
+        final SharedPreferences sharedPref = mContext.getSharedPreferences(
+                "MavCat.preferences", Context.MODE_PRIVATE
+        );
+        final SharedPreferences.Editor editor = sharedPref.edit();
+        editor.remove("active_username");
+        editor.remove("active_id");
+        //------
+        startActivity(intent);
+        finish();
+    }
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 //import android.database.Cursor;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 //import android.graphics.Color;
 //import android.provider.BaseColumns;
@@ -348,6 +349,15 @@ public class user_uc2_ReqEvent extends Activity {
                         | Intent.FLAG_ACTIVITY_CLEAR_TOP
                         | Intent.FLAG_ACTIVITY_CLEAR_TASK
                 );
+                //Makes sure shared preference is reset
+                Context mContext = getApplicationContext();
+                final SharedPreferences sharedPref = mContext.getSharedPreferences(
+                        "MavCat.preferences", Context.MODE_PRIVATE
+                );
+                final SharedPreferences.Editor editor = sharedPref.edit();
+                editor.remove("active_username");
+                editor.remove("active_id");
+                //------
                 startActivity(intent0);
                 finish();
                 return true;
