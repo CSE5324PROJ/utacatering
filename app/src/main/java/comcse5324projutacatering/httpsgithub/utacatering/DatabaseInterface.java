@@ -79,6 +79,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
     public String EVENT_CS_PROFILE_ID_COL;
     public String EVENT_CS_ASSIGN_TABLE_NAME;
     public String SQL_EVENT_TRIGGER_PROFILE_USERNAME_CHANGE;
+    public String SQL_EVENT_TRIGGER_BECOMES_UNAPPROVED;
 
     private static final String SQL_DELETE_PROFILE_TABLE =
             "DROP TABLE IF EXISTS " + TABLE_NAME_PROFILE;
@@ -114,6 +115,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         SQL_EVENT_TRIGGER_PROFILE_DELETION = mContext.getString(R.string.SQL_EVENT_TRIGGER_PROFILE_DELETION);
         SQL_EVENT_TRIGGER_EVENT_DELETION = mContext.getString(R.string.SQL_EVENT_TRIGGER_EVENT_DELETION);
         SQL_EVENT_TRIGGER_PROFILE_USERNAME_CHANGE = mContext.getString(R.string.SQL_EVENT_TRIGGER_PROFILE_USERNAME_CHANGE);
+        SQL_EVENT_TRIGGER_BECOMES_UNAPPROVED = mContext.getString(R.string.SQL_EVENT_TRIGGER_BECOMES_UNAPPROVED);
         EVENT_ID_COL = mContext.getString(R.string.EVENT_ID_COL);
         EVENT_CS_PROFILE_ID_COL = mContext.getString(R.string.EVENT_CS_PROFILE_ID_COL);
         EVENT_CS_ASSIGN_TABLE_NAME = mContext.getString(R.string.EVENT_CS_ASSIGN_TABLE_NAME);
@@ -138,6 +140,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         db.execSQL(SQL_EVENT_TRIGGER_PROFILE_DELETION);
         db.execSQL(SQL_EVENT_TRIGGER_EVENT_DELETION);
         db.execSQL(SQL_EVENT_TRIGGER_PROFILE_USERNAME_CHANGE);
+        db.execSQL(SQL_EVENT_TRIGGER_BECOMES_UNAPPROVED);
 
         createBaseProfile(db, "u","u","User",1000555556,"555-555-5556","Base user");
         createBaseProfile(db, "a","a","Admin",1000555555,"555-555-5555","Base admin");
@@ -159,12 +162,12 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         createBaseEvent(db, "u",null,"2018-05-13 12:00:00","6", "Liberty", "French",6,1,70,1,
                 1,"Dinner",3840.00,"Wedding","Play 40's Music");
         createBaseEvent(db, "u",null,"2018-05-15 12:00:00","6", "Liberty", "Chinese",6,1,70,1,
-                1,"Dinner",3840.00,"Wedding","Play 40's Music");
+                1,"Dinner",3840.00,"Wedding","Play Chinese Music");
         createBaseEvent(db, "u2",null,"2018-05-15 13:30:00","2", "Liberty", "Mexican",null,0,50,0,
                 0,"Lunch",900.00,"Fiesta","Mariachi band");
         createBaseEvent(db, "u2",null,"2018-05-17 13:30:00","2", "Liberty", "Pizza",null,0,50,0,
                 0,"Lunch",900.00,"Fiesta","Mariachi band");
-        createBaseEvent(db, "u2",null,"2018-05-18 13:30:00","2", "Liberty", "Italian",null,1,50,0,
+        createBaseEvent(db, "u2",null,"2018-05-18 13:30:00","2", "Liberty", "Italian",6,1,50,0,
                 0,"Lunch",900.00,"Classy Gathering","Classical Music");
         createBaseEventAssignedCS(db,1,"cs",null); //username not necessary if profileID is known.
         createBaseEventAssignedCS(db,2,"cs",null);
