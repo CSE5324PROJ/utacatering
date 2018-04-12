@@ -74,8 +74,14 @@ public class sysuser_uc1_Register extends Activity {
                 String contact  = editContactDetails.getText().toString();
                 String personal = editPersonalDetails.getText().toString();
 
-                if(DatabaseInterface.getInstance(sysuser_uc1_Register.this).searchUsernameRegistrationConflictCheck(username)){
-                    //means conflict is found
+                if(username.length()==0){
+                    Toast.makeText(sysuser_uc1_Register.this, "Registration failed, username field is empty.", Toast.LENGTH_LONG).show();
+                }
+                else if(username.contains(" ")){
+                    Toast.makeText(sysuser_uc1_Register.this, "Registration failed, Username cannot contain spaces.", Toast.LENGTH_LONG).show();
+                }
+                else if(DatabaseInterface.getInstance(sysuser_uc1_Register.this).searchUsernameRegistrationConflictCheck(username)){
+                    //means duplicate is found
                     Toast.makeText(sysuser_uc1_Register.this, "Registration failed, there is a user or pending user request with this username already.", Toast.LENGTH_LONG).show();
                 }
                 else{

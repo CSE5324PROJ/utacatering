@@ -1,5 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-
+//TODO 2x if issues with changing roles with the db layout...
 import android.content.ContentValues;
 import android.content.Context;
 //import android.content.res.Resources;
@@ -73,9 +73,12 @@ public class DatabaseInterface extends SQLiteOpenHelper {
     public String EVENT_ENT_COL;
     public String SQL_CREATE_EVENT_CS_ASSIGN_TABLE_STRING;
     public String SQL_EVENT_TRIGGER_CALC_END_TIME;
+    public String SQL_EVENT_TRIGGER_PROFILE_DELETION;
+    public String SQL_EVENT_TRIGGER_EVENT_DELETION;
     public String EVENT_ID_COL;
     public String EVENT_CS_PROFILE_ID_COL;
     public String EVENT_CS_ASSIGN_TABLE_NAME;
+    public String SQL_EVENT_TRIGGER_PROFILE_USERNAME_CHANGE;
 
     private static final String SQL_DELETE_PROFILE_TABLE =
             "DROP TABLE IF EXISTS " + TABLE_NAME_PROFILE;
@@ -108,6 +111,9 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         EVENT_ENT_COL = mContext.getString(R.string.EVENT_ENT_COL);
         SQL_CREATE_EVENT_CS_ASSIGN_TABLE_STRING = mContext.getString(R.string.SQL_CREATE_EVENT_CS_ASSIGN_TABLE_STRING);
         SQL_EVENT_TRIGGER_CALC_END_TIME = mContext.getString(R.string.SQL_EVENT_TRIGGER_CALC_END_TIME);
+        SQL_EVENT_TRIGGER_PROFILE_DELETION = mContext.getString(R.string.SQL_EVENT_TRIGGER_PROFILE_DELETION);
+        SQL_EVENT_TRIGGER_EVENT_DELETION = mContext.getString(R.string.SQL_EVENT_TRIGGER_EVENT_DELETION);
+        SQL_EVENT_TRIGGER_PROFILE_USERNAME_CHANGE = mContext.getString(R.string.SQL_EVENT_TRIGGER_PROFILE_USERNAME_CHANGE);
         EVENT_ID_COL = mContext.getString(R.string.EVENT_ID_COL);
         EVENT_CS_PROFILE_ID_COL = mContext.getString(R.string.EVENT_CS_PROFILE_ID_COL);
         EVENT_CS_ASSIGN_TABLE_NAME = mContext.getString(R.string.EVENT_CS_ASSIGN_TABLE_NAME);
@@ -129,6 +135,9 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_EVENT_TABLE);
         db.execSQL(SQL_CREATE_EVENT_CS_ASSIGN_TABLE_STRING);
         db.execSQL(SQL_EVENT_TRIGGER_CALC_END_TIME);
+        db.execSQL(SQL_EVENT_TRIGGER_PROFILE_DELETION);
+        db.execSQL(SQL_EVENT_TRIGGER_EVENT_DELETION);
+        db.execSQL(SQL_EVENT_TRIGGER_PROFILE_USERNAME_CHANGE);
 
         createBaseProfile(db, "u","u","User",1000555556,"555-555-5556","Base user");
         createBaseProfile(db, "a","a","Admin",1000555555,"555-555-5555","Base admin");
@@ -155,12 +164,15 @@ public class DatabaseInterface extends SQLiteOpenHelper {
                 0,"Lunch",900.00,"Fiesta","Mariachi band");
         createBaseEvent(db, "u2",null,"2018-05-17 13:30:00","2", "Liberty", "Pizza",null,0,50,0,
                 0,"Lunch",900.00,"Fiesta","Mariachi band");
+        createBaseEvent(db, "u2",null,"2018-05-18 13:30:00","2", "Liberty", "Italian",null,1,50,0,
+                0,"Lunch",900.00,"Classy Gathering","Classical Music");
         createBaseEventAssignedCS(db,1,"cs",null); //username not necessary if profileID is known.
         createBaseEventAssignedCS(db,2,"cs",null);
         createBaseEventAssignedCS(db,3,"cs",null);
         createBaseEventAssignedCS(db,4,"cs",null);
         createBaseEventAssignedCS(db,5,"cs",null);
         createBaseEventAssignedCS(db,6,"cs2",null);
+        createBaseEventAssignedCS(db,9,"cs2",null);
         //Default "cs" caterer staff (profile table 4th db row) user is assigned the the default dummy event (event table 1st db row)
 
 

@@ -45,7 +45,6 @@ public class admin_uc6_78_ViewEditProfile extends Activity {
         }
 
         editUsername        = (EditText) findViewById(R.id.edit_username);
-        usernameInitial = editUsername.getText().toString();
         editPassword        = (EditText) findViewById(R.id.edit_password);
         editRole            = (Spinner)  findViewById(R.id.edit_role);
         editStudentID       = (EditText) findViewById(R.id.edit_student_id);
@@ -57,6 +56,7 @@ public class admin_uc6_78_ViewEditProfile extends Activity {
 
         addListeners();
         populateFields();
+        usernameInitial = editUsername.getText().toString();
     }
 
     private void addListeners() {
@@ -77,13 +77,19 @@ public class admin_uc6_78_ViewEditProfile extends Activity {
                 String contact  = editContactDetails.getText().toString();
                 String personal = editPersonalDetails.getText().toString();
 
-                if(username.equals(usernameInitial)){
+                if(usernameInitial.equals(username)){
                     executeSaveChanges(username, password, stu_id, contact, personal);
                 }
                 else{
                     //Verify the new username doesnt conflict
-                    if(DatabaseInterface.getInstance(admin_uc6_78_ViewEditProfile.this).searchUsernameRegistrationConflictCheck(username)){
-                        //means conflict is found
+                    if(username.length()==0){
+                        Toast.makeText(admin_uc6_78_ViewEditProfile.this, "Cannot change to a blank username.", Toast.LENGTH_LONG).show();
+                    }
+                    else if(username.contains(" ")){
+                        Toast.makeText(admin_uc6_78_ViewEditProfile.this, "Username cannot contain spaces.", Toast.LENGTH_LONG).show();
+                    }
+                    else if(DatabaseInterface.getInstance(admin_uc6_78_ViewEditProfile.this).searchUsernameRegistrationConflictCheck(username)){
+                        //means duplicate is found
                         Toast.makeText(admin_uc6_78_ViewEditProfile.this, "Edit profile failed, there is a user or pending user request with this username already.", Toast.LENGTH_LONG).show();
                     }
                     else{
