@@ -357,6 +357,7 @@ public class user_uc2_ReqEvent extends Activity {
                 final SharedPreferences.Editor editor = sharedPref.edit();
                 editor.remove("active_username");
                 editor.remove("active_id");
+                editor.commit();
                 //------
                 startActivity(intent0);
                 finish();

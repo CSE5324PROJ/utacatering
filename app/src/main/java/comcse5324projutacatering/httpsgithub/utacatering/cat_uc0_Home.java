@@ -80,6 +80,7 @@ public class cat_uc0_Home extends Activity {
                 final SharedPreferences.Editor editor = sharedPref.edit();
                 editor.remove("active_username");
                 editor.remove("active_id");
+                editor.commit();
                 //------
                 startActivity(intent0);
                 finish();
@@ -108,6 +109,7 @@ public class cat_uc0_Home extends Activity {
         final SharedPreferences.Editor editor = sharedPref.edit();
         editor.remove("active_username");
         editor.remove("active_id");
+        editor.commit();
         //------
         startActivity(intent);
         finish();

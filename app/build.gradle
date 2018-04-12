@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 
+// apply plugin: 'kotlin' (source 78)
+
+
 android {
     compileSdkVersion 26
     defaultConfig {
@@ -27,4 +30,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.github.sundeepk:compact-calendar-view:2.0.2.3'
+
+    // compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

@@ -181,6 +181,7 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
                 final SharedPreferences.Editor editor = sharedPref.edit();
                 editor.remove("active_username");
                 editor.remove("active_id");
+                editor.commit();
                 //------
                 startActivity(intent0);
                 finish();
@@ -203,4 +204,6 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
             }
         }
     }
+
+
 }

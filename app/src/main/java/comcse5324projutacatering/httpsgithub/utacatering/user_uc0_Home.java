@@ -62,6 +62,7 @@ public class user_uc0_Home extends Activity {
                 final SharedPreferences.Editor editor = sharedPref.edit();
                 editor.remove("active_username");
                 editor.remove("active_id");
+                editor.commit();
                 //------
                 startActivity(intent);
                 finish();
@@ -80,8 +81,10 @@ public class user_uc0_Home extends Activity {
     private void setupButtons() {
         final Button user_uc1_availHalls_btn = findViewById(R.id.button_user_uc1);
         final Button user_uc3_ViewReservedEventsCalendar_btn = findViewById(R.id.button_user_uc3);
+        final Button sysuser_uc4_nonadmin_UpdateProfile_btn = findViewById(R.id.button_user_upd_profile);
         user_uc1_availHalls_btn.setBackgroundColor(customBlue);
         user_uc3_ViewReservedEventsCalendar_btn.setBackgroundColor(customBlue);
+        sysuser_uc4_nonadmin_UpdateProfile_btn.setBackgroundColor(customBlue);
         user_uc1_availHalls_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
@@ -114,6 +117,21 @@ public class user_uc0_Home extends Activity {
                 //finish();
             }
         });
+        sysuser_uc4_nonadmin_UpdateProfile_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v)  {
+                sysuser_uc4_nonadmin_UpdateProfile_btn.setBackgroundColor(customGreen);
+                Intent intent =  new Intent(user_uc0_Home.this, sysuser_uc4_nonadmin_UpdateProfile.class);
+                intent.putExtra("username",username);
+                startActivity(intent);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        sysuser_uc4_nonadmin_UpdateProfile_btn.setBackgroundColor(customBlue);
+                    }}, 500);
+                //finish();
+            }
+        });
     }
 
     @Override
@@ -131,6 +149,7 @@ public class user_uc0_Home extends Activity {
         final SharedPreferences.Editor editor = sharedPref.edit();
         editor.remove("active_username");
         editor.remove("active_id");
+        editor.commit();
         //------
         startActivity(intent);
         finish();
