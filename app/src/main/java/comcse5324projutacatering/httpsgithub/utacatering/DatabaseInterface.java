@@ -445,6 +445,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         return sharedPref.getString("active_id","null");
     }
     public Cursor searchUsername(String usernameQuery) {
+        usernameQuery = "%" + usernameQuery + "%";
         SQLiteDatabase db = getReadableDatabase();
 
         // Define a projection that specifies which columns from the database
