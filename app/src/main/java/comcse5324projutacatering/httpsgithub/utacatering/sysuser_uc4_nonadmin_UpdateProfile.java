@@ -55,7 +55,7 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
 
         android.app.ActionBar actionBar = getActionBar();
         if(actionBar != null) {
-            actionBar.setTitle("View Profile");
+            actionBar.setTitle("Update Profile");
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         
