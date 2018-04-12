@@ -710,6 +710,23 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         return Integer.parseInt(profileIDs.get(0));
     }
 
+    public String getProfileRole(String profileID){
+        //SQLiteDatabase db,
+        List<String> results = new ArrayList<>();
+        Cursor resultCursor = getProfileByID(profileID);
+        if(resultCursor != null) {
+            while (resultCursor.moveToNext()) {
+                String result = resultCursor.getString(resultCursor.getColumnIndexOrThrow(COLUMN_NAME_ROLE));
+                results.add(result);
+            }
+        }
+        if(results.size()>1 || results.size()==0){
+            //should not occur
+            return "null"; //should error
+        }
+        return results.get(0);
+    }
+
     private Cursor searchProfileEvents(SQLiteDatabase db,String username) {
         //SQLiteDatabase db = getReadableDatabase();
         long tempID= getProfileID(db,username);

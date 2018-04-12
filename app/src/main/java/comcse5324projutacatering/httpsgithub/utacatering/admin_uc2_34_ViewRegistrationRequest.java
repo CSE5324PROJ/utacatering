@@ -81,7 +81,7 @@ public class admin_uc2_34_ViewRegistrationRequest extends Activity {
         String contact  = regCursor.getString(regCursor.getColumnIndexOrThrow(DatabaseInterface.COLUMN_NAME_CONTACT));
         String personal = regCursor.getString(regCursor.getColumnIndexOrThrow(DatabaseInterface.COLUMN_NAME_PERSONAL));
         
-        // TODO: Get from database to fill in fields.
+        // TODO: Get from database to fill in fields. (this does? consider removing the todo?
         viewUsername.setText(username);
         viewPassword.setText(password);
         viewRole.setText(role);

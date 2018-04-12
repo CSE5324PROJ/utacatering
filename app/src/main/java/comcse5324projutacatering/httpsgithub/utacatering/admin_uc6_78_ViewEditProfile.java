@@ -102,17 +102,26 @@ public class admin_uc6_78_ViewEditProfile extends Activity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: Check if non-admin before removing
-                DatabaseInterface.getInstance(admin_uc6_78_ViewEditProfile.this).deleteProfile(workingProfileID);
-                Toast.makeText(admin_uc6_78_ViewEditProfile.this, "System user removed.", Toast.LENGTH_LONG).show();
+                // TODO: Check if non-admin before removing (DONE by James, no admin can remove themselves or another
+                //admin... can be easily altered for more complex mechanism if needed
+                //TODO but an admin can change themselves to non-admin then delete themselves... lock the spinner?
+                if(DatabaseInterface.getInstance(admin_uc6_78_ViewEditProfile.this).getProfileRole(workingProfileID).equals("Admin")){
+                    Toast.makeText(admin_uc6_78_ViewEditProfile.this, "Cannot remove an admin account.", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    DatabaseInterface.getInstance(admin_uc6_78_ViewEditProfile.this).getProfileRole(workingProfileID);
+                    DatabaseInterface.getInstance(admin_uc6_78_ViewEditProfile.this).deleteProfile(workingProfileID);
+                    Toast.makeText(admin_uc6_78_ViewEditProfile.this, "System user removed.", Toast.LENGTH_LONG).show();
 
-                Intent intent1 = new Intent(admin_uc6_78_ViewEditProfile.this, admin_uc5_SearchSystemUser .class);
-                intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                        | Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    Intent intent1 = new Intent(admin_uc6_78_ViewEditProfile.this, admin_uc5_SearchSystemUser .class);
+                    intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                            | Intent.FLAG_ACTIVITY_SINGLE_TOP
 
-                );
-                startActivity(intent1);
-                finish();
+                    );
+                    startActivity(intent1);
+                    finish();
+                }
+
             }
         });
     }
