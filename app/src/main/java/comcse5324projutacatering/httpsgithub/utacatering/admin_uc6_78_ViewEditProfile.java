@@ -109,7 +109,6 @@ public class admin_uc6_78_ViewEditProfile extends Activity {
                     Toast.makeText(admin_uc6_78_ViewEditProfile.this, "Cannot remove an admin account.", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    DatabaseInterface.getInstance(admin_uc6_78_ViewEditProfile.this).getProfileRole(workingProfileID);
                     DatabaseInterface.getInstance(admin_uc6_78_ViewEditProfile.this).deleteProfile(workingProfileID);
                     Toast.makeText(admin_uc6_78_ViewEditProfile.this, "System user removed.", Toast.LENGTH_LONG).show();
 

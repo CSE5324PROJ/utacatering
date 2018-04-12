@@ -362,6 +362,14 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         int deletedRows = db.delete(TABLE_NAME_PROFILE, selection, selectionArgs);
     }
 
+    public void deleteEvent(String eventID) {
+        SQLiteDatabase db = getWritableDatabase();
+        String selection = BaseColumns._ID + " = ?";
+        String[] selectionArgs = {eventID};
+
+        int deletedRows = db.delete(SQL_EVENT_TABLE_NAME, selection, selectionArgs);
+    }
+
     public void deleteRegistrationRequest(String requestID) {
         SQLiteDatabase db = getWritableDatabase();
         String selection = BaseColumns._ID + " = ?";
@@ -784,6 +792,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         int formal_flag;
         String occ_type;
         String ent_items;
+        String eventID;
 
     }
 
@@ -824,6 +833,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
                     resultData[0].formal_flag = resultCursor.getInt(resultCursor.getColumnIndexOrThrow(EVENT_FORM_COL));
                     resultData[0].occ_type=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_OCTYP_COL));
                     resultData[0].ent_items=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_ENT_COL));
+                    resultData[0].eventID=resultCursor.getString(resultCursor.getColumnIndexOrThrow(BaseColumns._ID));
                     eventSummary.add(resultData[0]);
                 }
             }

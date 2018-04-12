@@ -181,7 +181,8 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
                     String.valueOf(eventData.get(i).alco_flag),
                     String.valueOf(eventData.get(i).formal_flag),
                     eventData.get(i).occ_type,
-                    eventData.get(i).ent_items
+                    eventData.get(i).ent_items,
+                    eventData.get(i).eventID
             });
         }
         ArrayAdapter<String[]> adapter = new user_uc3_ViewReservedEventsCalendar.eventDataListAdapter();
@@ -218,7 +219,7 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
             * 12)formal_flag
             * 13)occ_type string
             * 14)ent_items string
-            *
+            * 15)eventID
             * */
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
