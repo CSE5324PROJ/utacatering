@@ -28,6 +28,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
     public static final String COLUMN_NAME_UTAID       = "uta_id";
     public static final String COLUMN_NAME_PERSONAL    = "personal_details";
     public static final String COLUMN_NAME_CONTACT     = "contact_details";
+    public static final String COLUMN_NAME_DATETIME    = "datetime";
     private ArrayList<String> resultsList;
 
     private static final String SQL_CREATE_PROFILE_TABLE =
@@ -48,7 +49,8 @@ public class DatabaseInterface extends SQLiteOpenHelper {
                     COLUMN_NAME_ROLE     + " TEXT,"    +
                     COLUMN_NAME_UTAID    + " INTEGER," +
                     COLUMN_NAME_PERSONAL + " TEXT,"    +
-                    COLUMN_NAME_CONTACT  + " TEXT)"   ;
+                    COLUMN_NAME_CONTACT  + " TEXT,"    +
+                    COLUMN_NAME_DATETIME + " INTEGER)" ;
             //Made username unique, so that caterer's profileID isnt needed in some function.. can just use the username.
 
 
@@ -280,6 +282,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         values.put(COLUMN_NAME_UTAID,    uta_id);
         values.put(COLUMN_NAME_CONTACT,  contactDetails);
         values.put(COLUMN_NAME_PERSONAL, personalDetails);
+        values.put(COLUMN_NAME_DATETIME,  new Date().getTime());
 
         // Insert the new row, returning the primary key value of the new row
         long newRowId = db.insert(TABLE_NAME_REGISTRATION, null, values);
@@ -292,11 +295,11 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         // you will actually use after this query.
         String[] projection = {
                 COLUMN_NAME_USERNAME,
+                COLUMN_NAME_DATETIME,
                 BaseColumns._ID
         };
 
-        // TODO: Sort on date/time
-        //String sortOrder = COLUMN_NAME_USERNAME + " DESC";
+        String sortOrder = COLUMN_NAME_DATETIME + " ASC";
 
         return db.query(
                 TABLE_NAME_REGISTRATION,     // The table to query
