@@ -1,6 +1,7 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO implement top menu signout/home page  (implemented differently than on home page!)
-//TODO Does Robb want a user's events cancelled if that user is deleted? what if the caterer is deleted? or staff removed from assignment?
+//TODO Does Robb want a user's events cancelled if that user is deleted (IMPLEMENTED NOW)?
+// TODO continued ^ what if the caterer is deleted (IMPLEMENTED, changes event to unapproved if previously approved)? or staff deleted from (IMPLEMENTED)?
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
