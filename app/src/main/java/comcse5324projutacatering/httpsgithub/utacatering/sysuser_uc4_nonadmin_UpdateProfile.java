@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.Handler;
 import android.provider.BaseColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -148,14 +149,30 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
                 }
                 else{
                     DatabaseInterface.getInstance(sysuser_uc4_nonadmin_UpdateProfile.this).deleteProfile(workingProfileID);
-                    Toast.makeText(sysuser_uc4_nonadmin_UpdateProfile.this, "System user removed.", Toast.LENGTH_LONG).show();
 
-                    Intent intent1 = new Intent(sysuser_uc4_nonadmin_UpdateProfile.this, admin_uc5_SearchSystemUser .class);
-                    intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                            | Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            Toast.makeText(sysuser_uc4_nonadmin_UpdateProfile.this, "System user removed.", Toast.LENGTH_LONG).show();
+                            }
+                    }, 250);
 
+                    Intent intent0 = new Intent(sysuser_uc4_nonadmin_UpdateProfile.this, sysuser_uc2_Login.class);
+                    intent0.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                            | Intent.FLAG_ACTIVITY_CLEAR_TOP
+                            | Intent.FLAG_ACTIVITY_CLEAR_TASK
                     );
-                    startActivity(intent1);
+                    //Makes sure shared preference is reset
+                    Context mContext = getApplicationContext();
+                    final SharedPreferences sharedPref = mContext.getSharedPreferences(
+                            "MavCat.preferences", Context.MODE_PRIVATE
+                    );
+                    final SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.remove("active_username");
+                    editor.remove("active_id");
+                    editor.commit();
+                    //------
+                    startActivity(intent0);
                     finish();
                 }
 
