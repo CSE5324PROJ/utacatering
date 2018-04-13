@@ -746,6 +746,16 @@ public class DatabaseInterface extends SQLiteOpenHelper {
     private Cursor searchProfileEvents(SQLiteDatabase db,String username) {
         //SQLiteDatabase db = getReadableDatabase();
         long tempID= getProfileID(db,username);
+        String selection;
+        if(getProfileRole(String.valueOf(tempID)).equals("User")){
+            selection =
+                    EVENT_REQ_USER_ID_COL+" = ?";
+        }
+        else{
+            selection =
+                    EVENT_AC_ID_COL+" = ?";
+        }
+
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
         String[] projection = {
@@ -755,8 +765,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         };
 
         // Filter results WHERE "title" = 'My Title'
-        String selection =
-                "req_user_id = ?";
+
         String[] selectionArgs = {String.valueOf(tempID)};
 
         // How you want the results sorted in the resulting Cursor

@@ -30,7 +30,10 @@ import java.util.List;
 import java.util.Locale;
 import java.text.DateFormat;
 
-public class user_uc3_ViewReservedEventsCalendar extends Activity {
+public class cat_uc5_ViewEventCal extends Activity {
+    private String active_username;
+    private String active_id;
+    private Context mContext;
 
     //CalendarView calendar;
     CompactCalendarView compactCalendar;
@@ -53,7 +56,9 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_uc3_view_reserved_events_calendar);
+        setContentView(R.layout.activity_cat_uc5_view_event_cal);
+        mContext = getApplicationContext();
+
         customRed = getResources().getColor(R.color.customRed);
         customGreen = getResources().getColor(R.color.customGreen);
         customBlue = getResources().getColor(R.color.customBlue);
@@ -67,14 +72,14 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
             importedDate=(Date) extras.get("trackSelectedDate");
         }
         else{
-            finish(); //activity not properly accessed
+            //finish(); //activity not properly accessed
         }
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         cal.set(Calendar.DAY_OF_MONTH, 1);
         final ActionBar actionbar = getActionBar();
         if(actionbar!=null){
-            actionbar.setDisplayHomeAsUpEnabled(false);
+            actionbar.setDisplayHomeAsUpEnabled(true);
             actionbar.setTitle("MavCat  "+dateFormTitle.format(cal.getTime()));
         }
         cal.setTime(new Date());
@@ -82,8 +87,25 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
         compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         compactCalendar.setUseThreeLetterAbbreviation(true);
 
+        //Shared pref stuff
+        final SharedPreferences sharedPref = mContext.getSharedPreferences(
+                "MavCat.preferences", Context.MODE_PRIVATE
+        );
+        try{
+            active_username = sharedPref.getString("active_username"," ");
+            active_id = sharedPref.getString("active_id"," ");
+            if(active_username.equals(" ") || active_id.equals(" ")){
+                throw new Exception("No valid username/id in shared preferences", null);
+            }
+        }
+        catch(Exception e) {
+            if(e.getMessage().equals("No valid username/id in shared preferences")) {
+                finish();
+            }
+        }
 
-        epochs=DatabaseInterface.getInstance(user_uc3_ViewReservedEventsCalendar .this).getEpochs(username);
+        username = active_username;
+        epochs=DatabaseInterface.getInstance(cat_uc5_ViewEventCal.this).getEpochs(username);
         for(int i=0;i<epochs.size();i++){
             compactCalendar.addEvent(new Event(R.color.customCalEventDot,epochs.get(i), "no data"));
         }
@@ -152,13 +174,13 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
                     eventData.get(i).eventID
             });
         }
-        ArrayAdapter<String[]> adapter = new user_uc3_ViewReservedEventsCalendar.eventDataListAdapter();
+        ArrayAdapter<String[]> adapter = new cat_uc5_ViewEventCal.eventDataListAdapter();
         eventDataListView.setAdapter(adapter);
     }
 
     private class eventDataListAdapter extends ArrayAdapter<String[]> {
 
-        public eventDataListAdapter() {super(user_uc3_ViewReservedEventsCalendar.this, R.layout.listview_item_events_listing, eventDataStrings);}
+        public eventDataListAdapter() {super(cat_uc5_ViewEventCal.this, R.layout.listview_item_events_listing, eventDataStrings);}
 
         @Override
         public View getView(int position, View view, ViewGroup parent) {
@@ -170,28 +192,28 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
             final Date trackSelectedDate = importedDate;
             final String trackUsername =username;
             /*
-            * Array position translation:
-            * 0)Title String
-            * 1)Subtitle String (duration & price)
-            * 2)req_user_id
-            * 3)approval_flag
-            * 4)User friendly date string
-            * 5)User friendly hours string
-            * 6)hall
-            * 7)Attendance
-            * 8)price
-            * 9)meal type
-            * 10)venue
-            * 11)alco_flag
-            * 12)formal_flag
-            * 13)occ_type string
-            * 14)ent_items string
-            * 15)eventID
-            * */
+             * Array position translation:
+             * 0)Title String
+             * 1)Subtitle String (duration & price)
+             * 2)req_user_id
+             * 3)approval_flag
+             * 4)User friendly date string
+             * 5)User friendly hours string
+             * 6)hall
+             * 7)Attendance
+             * 8)price
+             * 9)meal type
+             * 10)venue
+             * 11)alco_flag
+             * 12)formal_flag
+             * 13)occ_type string
+             * 14)ent_items string
+             * 15)eventID
+             * */
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(user_uc3_ViewReservedEventsCalendar.this, user_uc4_5_ViewReservedEventAndCancel.class);
+                    Intent intent = new Intent(cat_uc5_ViewEventCal.this, cat_uc6_78_ViewEventDetails.class);
                     intent.putExtra("event_data_string_array", out);
                     intent.putExtra("trackSelectedDate", trackSelectedDate);
                     intent.putExtra("username", trackUsername);
@@ -252,7 +274,7 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.main_menu_sign_out:
-                Intent intent0 = new Intent(user_uc3_ViewReservedEventsCalendar.this, sysuser_uc2_Login.class);
+                Intent intent0 = new Intent(cat_uc5_ViewEventCal.this, sysuser_uc2_Login.class);
                 intent0.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                         | Intent.FLAG_ACTIVITY_CLEAR_TOP
                         | Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -271,9 +293,12 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
                 finish();
                 return true;
             case R.id.main_menu_go_home:
-                Intent intent = new Intent(user_uc3_ViewReservedEventsCalendar.this, user_uc0_Home.class);
+                Intent intent = new Intent(cat_uc5_ViewEventCal.this, cat_uc0_Home.class);
                 intent.putExtra("username",username);
                 startActivity(intent);
+                finish();
+                return true;
+            case android.R.id.home:
                 finish();
                 return true;
             default:
