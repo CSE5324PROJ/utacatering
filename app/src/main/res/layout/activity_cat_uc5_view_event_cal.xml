@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="comcse5324projutacatering.httpsgithub.utacatering.cat_uc5_ViewEventCal">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="368dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Approved Events"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</android.support.constraint.ConstraintLayout>
+
+<LinearLayout android:id="@+id/add_new"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+</LinearLayout>
+
+
+<View
+    android:layout_width="match_parent"
+    android:layout_height="2dp"
+    android:background="#4ccbff"/>
+<ListView
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/listView"
+    android:dividerHeight="2dp"
+    android:divider="#4ccbff">
+</ListView>
+
+</LinearLayout>
