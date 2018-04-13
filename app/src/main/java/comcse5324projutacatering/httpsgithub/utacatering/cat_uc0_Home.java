@@ -56,7 +56,7 @@ public class cat_uc0_Home extends Activity {
         viewEventCal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =  new Intent(cat_uc0_Home.this, cat_uc4_ViewEventCal.class);
+                Intent intent =  new Intent(cat_uc0_Home.this, cat_uc5_ViewEventCal.class);
                 startActivity(intent);
             }
         });
