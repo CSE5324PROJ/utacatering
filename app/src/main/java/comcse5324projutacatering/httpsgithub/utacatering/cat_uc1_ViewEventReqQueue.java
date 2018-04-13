@@ -73,7 +73,7 @@ public class cat_uc1_ViewEventReqQueue extends Activity {
                 finish();
                 return true;
             case android.R.id.home:
-                finish();
+                onBackPressed();
                 return true;
             default:
                 return false;

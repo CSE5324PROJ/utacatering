@@ -214,7 +214,7 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
                 finish();
                 return true;
             case android.R.id.home:
-                finish();
+                onBackPressed();
                 return true;
             default:
                 return false;
@@ -228,6 +228,4 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
             }
         }
     }
-
-
 }

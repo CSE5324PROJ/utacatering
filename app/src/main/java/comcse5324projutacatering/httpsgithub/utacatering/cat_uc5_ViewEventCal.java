@@ -299,7 +299,7 @@ public class cat_uc5_ViewEventCal extends Activity {
                 finish();
                 return true;
             case android.R.id.home:
-                finish();
+                onBackPressed();
                 return true;
             default:
                 return false;
