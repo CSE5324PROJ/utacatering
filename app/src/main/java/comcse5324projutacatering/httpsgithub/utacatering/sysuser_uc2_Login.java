@@ -30,7 +30,6 @@ public class sysuser_uc2_Login extends Activity {
         android.app.ActionBar actionBar = getActionBar();
         if(actionBar != null) {
             actionBar.setTitle("MavCat Login");
-            actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
         super.onCreate(savedInstanceState);

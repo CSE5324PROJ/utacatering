@@ -118,42 +118,8 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
                 }
             }
         });
-        /* OLD traditional calendar.
-
-                Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
-        long time_at_run=cal.getTimeInMillis();
-        cal.add(Calendar.YEAR, 1);
-        cal.add(Calendar.DATE, 1);
-        long year_and_day_future_epoch=cal.getTimeInMillis();
-        cal.setTime(new Date());
-        cal.add(Calendar.YEAR, -1);
-        cal.add(Calendar.DATE, -1);
-        long year_and_day_past_epoch=cal.getTimeInMillis();
-        cal.setTime(new Date());
-
-
-
-        calendar = findViewById(R.id.calendar);
-        calendar.setDate(time_at_run,true,true);
-        calendar.setMaxDate(year_and_day_future_epoch);
-        calendar.setMinDate(year_and_day_past_epoch);
-        calendar.setShowWeekNumber(false);
-        calendar.setSelectedDateVerticalBar(R.drawable.spinner_greenbg);
-        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                //action when different day is selected
-            }
-        });*/
-
-
     }
-    /*public class eventSummarySet extends eventSummarySet{
-        String hall;
-        String dur;
-        Long epoch;
-    }*/
+
 
     private void populateList(Date dateClicked) {
 

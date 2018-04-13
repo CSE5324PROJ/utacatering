@@ -1,7 +1,6 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO implement top menu signout/home page  (implemented differently than on home page!)
-//TODO Does Robb want a user's events cancelled if that user is deleted (IMPLEMENTED NOW)?
-// TODO continued ^ what if the caterer is deleted (IMPLEMENTED, changes event to unapproved if previously approved)? or staff deleted from (IMPLEMENTED)?
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -65,6 +64,9 @@ public class admin_uc6_78_ViewEditProfile extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedRole = String.valueOf(editRole.getSelectedItem());
+                if(selectedRole.equals("Admin")){
+                    editRole.setEnabled(false); //lock down if admin. admins cannot delete or change admin roles.
+                }
             }
             @Override public void onNothingSelected(AdapterView<?> adapterView) {}
         });
@@ -102,9 +104,7 @@ public class admin_uc6_78_ViewEditProfile extends Activity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: Check if non-admin before removing (DONE by James, no admin can remove themselves or another
-                //admin... can be easily altered for more complex mechanism if needed
-                //TODO but an admin can change themselves to non-admin then delete themselves... lock the spinner?
+
                 if(DatabaseInterface.getInstance(admin_uc6_78_ViewEditProfile.this).getProfileRole(workingProfileID).equals("Admin")){
                     Toast.makeText(admin_uc6_78_ViewEditProfile.this, "Cannot remove an admin account.", Toast.LENGTH_LONG).show();
                 }
