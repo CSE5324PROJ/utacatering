@@ -1,6 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO confirmation popup??
-//TODO look into action bar back button?
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
