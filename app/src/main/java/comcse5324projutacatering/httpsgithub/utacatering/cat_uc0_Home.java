@@ -10,16 +10,34 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class cat_uc0_Home extends Activity {
 
     private Button viewEventReqQueue;
     private Button viewEventCal;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cat_uc0_home);
+
+        Intent mIntent = getIntent();
+        Bundle extras = mIntent.getExtras();
+
+        if (extras != null) {
+            Context mContext = getApplicationContext();
+            final SharedPreferences sharedPref = mContext.getSharedPreferences(
+                    "MavCat.preferences", Context.MODE_PRIVATE
+            );
+            final SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("username", (String)extras.get("username"));
+            editor.commit();
+        }
+        else{
+            finish();
+        }
 
         setupButtons();
     }
@@ -38,7 +56,7 @@ public class cat_uc0_Home extends Activity {
         viewEventCal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =  new Intent(cat_uc0_Home.this, cat_uc5_ViewEventCal.class);
+                Intent intent =  new Intent(cat_uc0_Home.this, cat_uc4_ViewEventCal.class);
                 startActivity(intent);
             }
         });

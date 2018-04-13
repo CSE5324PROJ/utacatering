@@ -17,6 +17,7 @@ public class catstaff_uc0_Home extends Activity {
 
     private Button viewEventList;
     private Button updateProfile;
+    public String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +32,8 @@ public class catstaff_uc0_Home extends Activity {
         viewEventList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
-                //Intent intent =  new Intent(catstaff_uc0_Home.this, .class);
-                //startActivity(intent);
+                Intent intent =  new Intent(catstaff_uc0_Home.this, cat_uc3_ViewEventsCal.class);
+                startActivity(intent);
             }
         });
 
