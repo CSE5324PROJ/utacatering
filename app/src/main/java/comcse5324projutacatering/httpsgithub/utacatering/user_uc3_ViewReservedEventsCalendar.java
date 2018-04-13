@@ -73,12 +73,15 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         cal.set(Calendar.DAY_OF_MONTH, 1);
-        final ActionBar actionbar = getActionBar();
-        if(actionbar!=null){
-            actionbar.setDisplayHomeAsUpEnabled(false);
-            actionbar.setTitle("MavCat  "+dateFormTitle.format(cal.getTime()));
-        }
+
         cal.setTime(new Date());
+
+        final ActionBar actionbar = getActionBar();
+        if(actionbar != null) {
+            actionbar.setDisplayHomeAsUpEnabled(true);
+            actionbar.setTitle("MavCat "+dateFormTitle.format(cal.getTime()));
+        }
+
 
         compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         compactCalendar.setUseThreeLetterAbbreviation(true);
@@ -276,6 +279,9 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
                 intent.putExtra("username",username);
                 startActivity(intent);
                 finish();
+                return true;
+            case android.R.id.home:
+                onBackPressed();
                 return true;
             default:
                 return false;

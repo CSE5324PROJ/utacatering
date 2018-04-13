@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -28,6 +30,7 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
     public int customRed;
     public int customGreen;
     public int customBlue;
+    public int customGrey;
     String[] event_data_string_array;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,7 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
         customRed = getResources().getColor(R.color.customRed);
         customGreen = getResources().getColor(R.color.customGreen);
         customBlue = getResources().getColor(R.color.customBlue);
+        customGrey = getResources().getColor(R.color.customGrey);
         Intent mIntent;
         Bundle extras;
         mIntent = getIntent();
@@ -122,11 +126,29 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
         editTextOccasion.setEnabled(false);
         editTextEntItems.setEnabled(false);
         setupButtons();
-
+        past_event_check();
         final ActionBar actionbar = getActionBar();
         if(actionbar!=null){
             actionbar.setDisplayHomeAsUpEnabled(true);
             actionbar.setTitle(event_data_string_array[6]+" @ "+event_data_string_array[4]);
+        }
+
+
+    }
+    private void past_event_check(){
+        long current_time = (System.currentTimeMillis() % 1000);
+        final String current_date = event_data_string_array[4];
+        long millis=0;
+        try {
+            millis = new SimpleDateFormat("MMM d yyyy hh:mm aaa").parse(current_date).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(current_time>=millis){
+            cancel_btn.setBackgroundColor(customGrey);
+            cancel_btn.setEnabled(false);
+            assign_cs_btn.setBackgroundColor(customGrey);
+            assign_cs_btn.setEnabled(false);
         }
     }
 

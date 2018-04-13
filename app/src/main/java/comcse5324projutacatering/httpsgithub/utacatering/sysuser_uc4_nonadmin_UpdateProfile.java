@@ -1,6 +1,7 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 ////TODO No transition to another page according to UCID after updating .... change to transition home?
 //TODO 2x for bug cases
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -52,13 +53,13 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sysuser_uc4_nonadmin_update_profile);
         mContext = getApplicationContext();
-        
 
 
-        android.app.ActionBar actionBar = getActionBar();
-        if(actionBar != null) {
-            actionBar.setTitle("Update Profile");
-            actionBar.setDisplayHomeAsUpEnabled(true);
+
+        final ActionBar actionbar = getActionBar();
+        if(actionbar != null) {
+            actionbar.setDisplayHomeAsUpEnabled(true);
+            actionbar.setTitle("MavCat - Update profile");
         }
         
         final SharedPreferences sharedPref = mContext.getSharedPreferences(
@@ -290,6 +291,9 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
                 intent.putExtra("username",active_username);
                 startActivity(intent);
                 finish();
+                return true;
+            case android.R.id.home:
+                onBackPressed();
                 return true;
             default:
                 return false;

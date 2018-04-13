@@ -153,6 +153,8 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         createBaseProfile(db, "cs2","cs2","Caterer Staff",1000555568,"555-555-5568","Base caterer staff2");
 
         //if req_user_id is left null, it searches based on username.
+        createBaseEvent(db, "u",null,"2018-04-01 13:30:00","2", "Liberty", "Italian",3,1,50,0,
+                0,"Lunch",900.00,"Classy Gathering","Classical Music");
         createBaseEvent(db, "u",null,"2018-05-13 16:30:00","6", "Arlington", "Italian",3,1,40,1,
                 1,"Dinner",2280.00,"Wedding","Play 80's Music");
         createBaseEvent(db, "u",null,"2018-05-13 15:30:00","6", "Maverick", "Indian",3,1,100,1,
@@ -171,13 +173,14 @@ public class DatabaseInterface extends SQLiteOpenHelper {
                 0,"Lunch",900.00,"Fiesta","Mariachi band");
         createBaseEvent(db, "u2",null,"2018-05-18 13:30:00","2", "Liberty", "Italian",6,1,50,0,
                 0,"Lunch",900.00,"Classy Gathering","Classical Music");
-        createBaseEventAssignedCS(db,1,"cs",null); //username not necessary if profileID is known.
-        createBaseEventAssignedCS(db,2,"cs",null);
+
+        createBaseEventAssignedCS(db,2,"cs",null); //username not necessary if profileID is known.
         createBaseEventAssignedCS(db,3,"cs",null);
         createBaseEventAssignedCS(db,4,"cs",null);
         createBaseEventAssignedCS(db,5,"cs",null);
-        createBaseEventAssignedCS(db,6,"cs2",null);
-        createBaseEventAssignedCS(db,9,"cs2",null);
+        createBaseEventAssignedCS(db,6,"cs",null);
+        createBaseEventAssignedCS(db,7,"cs2",null);
+        createBaseEventAssignedCS(db,10,"cs2",null);
         //Default "cs" caterer staff (profile table 4th db row) user is assigned the the default dummy event (event table 1st db row)
 
 

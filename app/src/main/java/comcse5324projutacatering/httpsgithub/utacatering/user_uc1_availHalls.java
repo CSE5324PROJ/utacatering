@@ -1,5 +1,6 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO look into action bar back button?
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -108,7 +109,11 @@ public class user_uc1_availHalls extends Activity{
         customBlue = getResources().getColor(R.color.customBlue);
         user_uc1_btn_proceed = getString(R.string.user_uc1_proceed);
         user_uc1_btn_noHalls = getString(R.string.user_uc1_noHalls);
-
+        final ActionBar actionbar = getActionBar();
+        if(actionbar != null) {
+            actionbar.setDisplayHomeAsUpEnabled(true);
+            actionbar.setTitle("MavCat - View available halls");
+        }
         Intent mIntent;
         Bundle extras;
         mIntent = getIntent();
@@ -719,6 +724,9 @@ public class user_uc1_availHalls extends Activity{
                 Intent intent1 = new Intent(user_uc1_availHalls.this, user_uc0_Home.class);
                 startActivity(intent1);
                 finish();
+                return true;
+            case android.R.id.home:
+                onBackPressed();
                 return true;
             default:
                 return false;

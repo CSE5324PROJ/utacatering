@@ -1,5 +1,6 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO look into action bar back button?
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -82,7 +83,11 @@ public class user_uc2_ReqEvent extends Activity {
         setContentView(R.layout.activity_user_uc2_req_event);
         //Context mContext;
         //mContext = getApplicationContext();
-
+        final ActionBar actionbar = getActionBar();
+        if(actionbar != null) {
+            actionbar.setDisplayHomeAsUpEnabled(true);
+            actionbar.setTitle("MavCat - Request event");
+        }
         editOccasion = findViewById(R.id.editTextOccasion);
         editEntItems = findViewById(R.id.editTextEntItems);
 
@@ -370,6 +375,9 @@ public class user_uc2_ReqEvent extends Activity {
                 );
                 startActivity(intent1);
                 finish();
+                return true;
+            case android.R.id.home:
+                onBackPressed();
                 return true;
             default:
                 return false;

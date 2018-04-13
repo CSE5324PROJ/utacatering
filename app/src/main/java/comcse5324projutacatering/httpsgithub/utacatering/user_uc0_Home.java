@@ -22,11 +22,13 @@ public class user_uc0_Home extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_uc0_home);
+        /*
         final ActionBar actionbar = getActionBar();
         if(actionbar != null) {
             actionbar.setDisplayHomeAsUpEnabled(true);
             actionbar.setTitle("User Home");
         }
+        */
 
 
         Intent mIntent;

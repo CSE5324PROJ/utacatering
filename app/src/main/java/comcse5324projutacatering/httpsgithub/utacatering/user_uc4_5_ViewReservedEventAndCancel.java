@@ -1,6 +1,7 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO confirmation popup??
 //TODO look into action bar back button?
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -27,6 +30,7 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
     public int customRed;
     public int customGreen;
     public int customBlue;
+    public int customGrey;
     String[] event_data_string_array;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +39,11 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
         customRed = getResources().getColor(R.color.customRed);
         customGreen = getResources().getColor(R.color.customGreen);
         customBlue = getResources().getColor(R.color.customBlue);
-        final android.app.ActionBar actionBar = getActionBar();
-        if(actionBar != null) {
-            actionBar.setTitle("View event details");
-            actionBar.setDisplayHomeAsUpEnabled(true);
+        customGrey = getResources().getColor(R.color.customGrey);
+        final ActionBar actionbar = getActionBar();
+        if(actionbar != null) {
+            actionbar.setDisplayHomeAsUpEnabled(true);
+            actionbar.setTitle("MavCat - View and cancel reserved event");
         }
         Intent mIntent;
         Bundle extras;
@@ -125,6 +130,22 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
         editTextOccasion.setEnabled(false);
         editTextEntItems.setEnabled(false);
         setupButtons();
+        past_event_check();
+    }
+
+    private void past_event_check(){
+        long current_time = (System.currentTimeMillis() % 1000);
+        final String current_date = event_data_string_array[4];
+        long millis=0;
+        try {
+            millis = new SimpleDateFormat("MMM d yyyy hh:mm aaa").parse(current_date).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(current_time>=millis){
+            cancel_btn.setBackgroundColor(customGrey);
+            cancel_btn.setEnabled(false);
+        }
     }
 
     private void setupButtons() {
@@ -198,8 +219,8 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
                 startActivity(intent);
                 finish();
                 return true;
-            case R.id.home:
-                finish();
+            case android.R.id.home:
+                onBackPressed();
                 return true;
             default:
                 return false;
