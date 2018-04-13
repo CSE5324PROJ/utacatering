@@ -9,18 +9,20 @@
     <!-- Below is android:focusable="true" necessary to hide keyboard also-->
     <!-- Below android:onClick="hideKeyboard" function allowing keyboard  when clicking background-->
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/eventUserDetailsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/eventUserDetailsLayout"
-        android:descendantFocusability="beforeDescendants"
         android:clickable="true"
+        android:descendantFocusability="beforeDescendants"
         android:focusable="true"
         android:onClick="hideKeyboard">
         <!-- Below is used instead of android:focusableInTouchMode="true" because it makes ONE click remove the keyboard, otherwise would take two clicks-->
-        <LinearLayout android:focusable="true"
-            android:focusableInTouchMode="true"
+        <LinearLayout
             android:layout_width="0px"
-            android:layout_height="0px" >
+            android:layout_height="0px"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
             <requestFocus />
         </LinearLayout>
         <!--
@@ -127,8 +129,8 @@
             android:ems="10"
             android:focusable="false"
             android:inputType="text"
-            android:textColor="#6f7275"
             android:text="BLAH3"
+            android:textColor="#6f7275"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
 
@@ -190,8 +192,8 @@
             android:layout_height="37dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="18dp"
-            android:text="Meal Type"
             android:focusable="false"
+            android:text="Meal Type"
             android:textSize="25sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4b" />
@@ -216,8 +218,8 @@
             android:layout_height="37dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Formality"
             android:focusable="false"
+            android:text="Formality"
             android:textSize="25sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -242,8 +244,8 @@
             android:layout_height="37dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="18dp"
-            android:text="Drinks"
             android:focusable="false"
+            android:text="Drinks"
             android:textSize="25sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -268,8 +270,8 @@
             android:layout_height="39dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="18dp"
-            android:text="Attendance"
             android:focusable="false"
+            android:text="Attendance"
             android:textSize="25sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
@@ -294,8 +296,8 @@
             android:layout_height="44dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
-            android:text="Price"
             android:focusable="false"
+            android:text="Price"
             android:textSize="25sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -310,8 +312,8 @@
             android:focusable="false"
             android:inputType="text"
             android:text="price"
-            android:textStyle="italic"
             android:textColor="#6f7275"
+            android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextAtt" />
 
@@ -321,8 +323,8 @@
             android:layout_height="44dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="Occasion"
             android:focusable="false"
+            android:text="Occasion"
             android:textSize="25sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewPrice" />
@@ -348,8 +350,8 @@
             android:layout_marginEnd="136dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="15dp"
-            android:text="Entertainment Items"
             android:focusable="false"
+            android:text="Entertainment Items"
             android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -363,13 +365,13 @@
             android:layout_marginStart="27dp"
             android:layout_marginTop="20dp"
             android:ems="10"
+            android:focusable="false"
             android:gravity="top|left"
             android:inputType="textMultiLine"
             android:lines="6"
             android:maxLength="140"
             android:minLines="5"
             android:scrollHorizontally="false"
-            android:focusable="false"
             android:scrollbars="vertical"
             android:text="ent-items"
             android:textColor="#6f7275"
@@ -378,14 +380,14 @@
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
         <Button
-            android:id="@+id/button_assign_cs"
-            android:layout_width="260dp"
+            android:id="@+id/button_goback"
+            android:layout_width="94dp"
             android:layout_height="85dp"
             android:layout_marginBottom="6dp"
             android:layout_marginStart="6dp"
             android:layout_marginTop="40dp"
             android:background="@color/customBlue"
-            android:text="Assign Caterer Staff"
+            android:text="Back to calendar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextEntItems" />
@@ -402,6 +404,22 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextEntItems" />
+
+        <Button
+            android:id="@+id/button_assign_cs"
+            android:layout_width="94dp"
+            android:layout_height="85dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/customBlue"
+            android:text="Assign Staff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button_CancelEvent"
+            app:layout_constraintStart_toEndOf="@+id/button_goback"
+            app:layout_constraintTop_toBottomOf="@+id/editTextEntItems"
+            app:layout_constraintVertical_bias="0.0" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

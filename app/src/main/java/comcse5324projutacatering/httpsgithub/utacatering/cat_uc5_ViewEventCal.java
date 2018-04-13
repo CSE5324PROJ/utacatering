@@ -31,6 +31,9 @@ import java.util.Locale;
 import java.text.DateFormat;
 
 public class cat_uc5_ViewEventCal extends Activity {
+    private String active_username;
+    private String active_id;
+    private Context mContext;
 
     //CalendarView calendar;
     CompactCalendarView compactCalendar;
@@ -54,6 +57,8 @@ public class cat_uc5_ViewEventCal extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cat_uc5_view_event_cal);
+        mContext = getApplicationContext();
+
         customRed = getResources().getColor(R.color.customRed);
         customGreen = getResources().getColor(R.color.customGreen);
         customBlue = getResources().getColor(R.color.customBlue);
@@ -67,14 +72,14 @@ public class cat_uc5_ViewEventCal extends Activity {
             importedDate=(Date) extras.get("trackSelectedDate");
         }
         else{
-            finish(); //activity not properly accessed
+            //finish(); //activity not properly accessed
         }
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         cal.set(Calendar.DAY_OF_MONTH, 1);
         final ActionBar actionbar = getActionBar();
         if(actionbar!=null){
-            actionbar.setDisplayHomeAsUpEnabled(false);
+            actionbar.setDisplayHomeAsUpEnabled(true);
             actionbar.setTitle("MavCat  "+dateFormTitle.format(cal.getTime()));
         }
         cal.setTime(new Date());
@@ -82,7 +87,24 @@ public class cat_uc5_ViewEventCal extends Activity {
         compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         compactCalendar.setUseThreeLetterAbbreviation(true);
 
+        //Shared pref stuff
+        final SharedPreferences sharedPref = mContext.getSharedPreferences(
+                "MavCat.preferences", Context.MODE_PRIVATE
+        );
+        try{
+            active_username = sharedPref.getString("active_username"," ");
+            active_id = sharedPref.getString("active_id"," ");
+            if(active_username.equals(" ") || active_id.equals(" ")){
+                throw new Exception("No valid username/id in shared preferences", null);
+            }
+        }
+        catch(Exception e) {
+            if(e.getMessage().equals("No valid username/id in shared preferences")) {
+                finish();
+            }
+        }
 
+        username = active_username;
         epochs=DatabaseInterface.getInstance(cat_uc5_ViewEventCal.this).getEpochs(username);
         for(int i=0;i<epochs.size();i++){
             compactCalendar.addEvent(new Event(R.color.customCalEventDot,epochs.get(i), "no data"));
@@ -118,42 +140,8 @@ public class cat_uc5_ViewEventCal extends Activity {
                 }
             }
         });
-        /* OLD traditional calendar.
-
-                Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
-        long time_at_run=cal.getTimeInMillis();
-        cal.add(Calendar.YEAR, 1);
-        cal.add(Calendar.DATE, 1);
-        long year_and_day_future_epoch=cal.getTimeInMillis();
-        cal.setTime(new Date());
-        cal.add(Calendar.YEAR, -1);
-        cal.add(Calendar.DATE, -1);
-        long year_and_day_past_epoch=cal.getTimeInMillis();
-        cal.setTime(new Date());
-
-
-
-        calendar = findViewById(R.id.calendar);
-        calendar.setDate(time_at_run,true,true);
-        calendar.setMaxDate(year_and_day_future_epoch);
-        calendar.setMinDate(year_and_day_past_epoch);
-        calendar.setShowWeekNumber(false);
-        calendar.setSelectedDateVerticalBar(R.drawable.spinner_greenbg);
-        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                //action when different day is selected
-            }
-        });*/
-
-
     }
-    /*public class eventSummarySet extends eventSummarySet{
-        String hall;
-        String dur;
-        Long epoch;
-    }*/
+
 
     private void populateList(Date dateClicked) {
 
@@ -308,6 +296,9 @@ public class cat_uc5_ViewEventCal extends Activity {
                 Intent intent = new Intent(cat_uc5_ViewEventCal.this, cat_uc0_Home.class);
                 intent.putExtra("username",username);
                 startActivity(intent);
+                finish();
+                return true;
+            case android.R.id.home:
                 finish();
                 return true;
             default:

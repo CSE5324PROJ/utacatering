@@ -72,6 +72,9 @@ public class cat_uc1_ViewEventReqQueue extends Activity {
                 startActivity(intent1);
                 finish();
                 return true;
+            case android.R.id.home:
+                finish();
+                return true;
             default:
                 return false;
         }
