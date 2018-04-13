@@ -1,5 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-
+//TODO confirmation popup??
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +34,11 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
         customRed = getResources().getColor(R.color.customRed);
         customGreen = getResources().getColor(R.color.customGreen);
         customBlue = getResources().getColor(R.color.customBlue);
+        final android.app.ActionBar actionBar = getActionBar();
+        if(actionBar != null) {
+            actionBar.setTitle("View event details");
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         Intent mIntent;
         Bundle extras;
         mIntent = getIntent();
@@ -190,6 +195,9 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
                 Intent intent = new Intent(user_uc4_5_ViewReservedEventAndCancel.this, user_uc0_Home.class);
                 intent.putExtra("username",username);
                 startActivity(intent);
+                finish();
+                return true;
+            case R.id.home:
                 finish();
                 return true;
             default:

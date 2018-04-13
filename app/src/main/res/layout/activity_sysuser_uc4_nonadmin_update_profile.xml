@@ -23,7 +23,11 @@ android:label="View Registration Request">
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            android:descendantFocusability="beforeDescendants"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="hideKeyboard">
 
             <TextView
                 android:layout_width="wrap_content"
