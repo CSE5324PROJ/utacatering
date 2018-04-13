@@ -13,7 +13,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class admin_uc1_RegistrationRequestList extends Activity {
 
@@ -45,7 +49,10 @@ public class admin_uc1_RegistrationRequestList extends Activity {
             while (resultCursor.moveToNext()) {
                 String username = resultCursor.getString(resultCursor.getColumnIndexOrThrow(DatabaseInterface.COLUMN_NAME_USERNAME));
                 String req_id   = resultCursor.getString(resultCursor.getColumnIndexOrThrow(BaseColumns._ID));
-                registrationRequests.add(new String[]{username, "Date/Time", req_id});
+                long datetime = resultCursor.getLong(resultCursor.getColumnIndexOrThrow(DatabaseInterface.COLUMN_NAME_DATETIME));
+                Date date = new Date(datetime);
+                SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy @ hh:mm");
+                registrationRequests.add(new String[]{username, sdf.format(date), req_id});
             }
         }
 
