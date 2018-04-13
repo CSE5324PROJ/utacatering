@@ -103,7 +103,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".catstaff_uc0_Home"></activity>
+        <activity android:name=".catstaff_uc0_Home" />
+        <activity android:name=".cat_uc6_78_ViewEventDetails"></activity>
     </application>
 
 </manifest>
