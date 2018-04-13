@@ -1,7 +1,6 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO implement top menu signout/home page  (implemented differently than on home page!)
-//TODO Does Robb want a user's events cancelled if that user is deleted (IMPLEMENTED NOW)?
-// TODO continued ^ what if the caterer is deleted (IMPLEMENTED, changes event to unapproved if previously approved)? or staff deleted from (IMPLEMENTED)?
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -65,6 +64,9 @@ public class admin_uc6_78_ViewEditProfile extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedRole = String.valueOf(editRole.getSelectedItem());
+                if(selectedRole.equals("Admin")){
+                    editRole.setEnabled(false); //lock down if admin. admins cannot delete or change admin roles.
+                }
             }
             @Override public void onNothingSelected(AdapterView<?> adapterView) {}
         });

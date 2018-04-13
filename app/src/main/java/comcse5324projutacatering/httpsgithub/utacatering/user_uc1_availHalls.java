@@ -1,6 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-//TODO buffer time between events? Ask Robb.
-//TODO currently set to where someone can only schedule an event a week+ in advance, is this ok?
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

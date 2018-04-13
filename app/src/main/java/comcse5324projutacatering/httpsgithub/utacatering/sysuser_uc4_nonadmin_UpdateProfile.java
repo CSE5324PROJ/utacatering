@@ -141,9 +141,6 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: Check if non-admin before removing (DONE by James, no admin can remove themselves or another
-                //admin... can be easily altered for more complex mechanism if needed
-                //TODO but an admin can change themselves to non-admin then delete themselves... lock the spinner?
                 if(DatabaseInterface.getInstance(sysuser_uc4_nonadmin_UpdateProfile.this).getProfileRole(workingProfileID).equals("Admin")){
                     Toast.makeText(sysuser_uc4_nonadmin_UpdateProfile.this, "Cannot remove an admin account.", Toast.LENGTH_LONG).show();
                 }
