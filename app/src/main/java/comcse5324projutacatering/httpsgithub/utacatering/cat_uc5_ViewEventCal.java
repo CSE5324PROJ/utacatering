@@ -86,6 +86,7 @@ public class cat_uc5_ViewEventCal extends Activity {
 
         compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         compactCalendar.setUseThreeLetterAbbreviation(true);
+        compactCalendar.setCurrentDate(new Date());
 
         //Shared pref stuff
         final SharedPreferences sharedPref = mContext.getSharedPreferences(

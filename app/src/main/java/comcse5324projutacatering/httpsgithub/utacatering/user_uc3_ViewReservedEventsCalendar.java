@@ -107,7 +107,7 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
 
         compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         compactCalendar.setUseThreeLetterAbbreviation(true);
-
+        compactCalendar.setCurrentDate(new Date());
 
 
         refreshEvents();
