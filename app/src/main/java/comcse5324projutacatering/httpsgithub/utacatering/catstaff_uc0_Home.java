@@ -1,6 +1,6 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO viewEventList
-
+//TODO connect to update profile page
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
