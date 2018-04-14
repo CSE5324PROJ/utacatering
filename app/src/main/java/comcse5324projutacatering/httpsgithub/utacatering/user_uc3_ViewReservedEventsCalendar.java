@@ -51,10 +51,17 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
     public int viewFlag=0;
     private Date test1;
 
+    private String active_username;
+    private String active_id;
+    private Context mContext;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_uc3_view_reserved_events_calendar);
+        mContext = getApplicationContext();
+
         customRed = getResources().getColor(R.color.customRed);
         customGreen = getResources().getColor(R.color.customGreen);
         customBlue = getResources().getColor(R.color.customBlue);
@@ -81,17 +88,29 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
             actionbar.setDisplayHomeAsUpEnabled(true);
             actionbar.setTitle("MavCat "+dateFormTitle.format(cal.getTime()));
         }
-
+        final SharedPreferences sharedPref = mContext.getSharedPreferences(
+                "MavCat.preferences", Context.MODE_PRIVATE
+        );
+        try{
+            active_username = sharedPref.getString("active_username"," ");
+            active_id = sharedPref.getString("active_id"," ");
+            if(active_username.equals(" ") || active_id.equals(" ")){
+                throw new Exception("No valid username/id in shared preferences", null);
+            }
+        }
+        catch(Exception e) {
+            if(e.getMessage().equals("No valid username/id in shared preferences")) {
+                finish();
+            }
+        }
+        username=active_username;
 
         compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         compactCalendar.setUseThreeLetterAbbreviation(true);
 
 
-        epochs=DatabaseInterface.getInstance(user_uc3_ViewReservedEventsCalendar .this).getEpochs(username);
-        for(int i=0;i<epochs.size();i++){
-            compactCalendar.addEvent(new Event(R.color.customCalEventDot,epochs.get(i), "no data"));
-        }
 
+        refreshEvents();
 
 
 
@@ -108,6 +127,7 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
             @Override
             public void onDayClick(Date dateClicked) {
                 populateList(dateClicked);
+                importedDate=dateClicked;
                 //Left incase a toast is desired
                 //Context context = getApplicationContext();
                 /*if(ymd.format(test1).equals(ymd.format(dateClicked))){
@@ -122,6 +142,22 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        refreshEvents();
+        populateList(importedDate);
+
+    }
+
+    private void refreshEvents(){
+        compactCalendar.removeAllEvents();
+        epochs=DatabaseInterface.getInstance(user_uc3_ViewReservedEventsCalendar .this).getEpochs(username);
+        for(int i=0;i<epochs.size();i++){
+            compactCalendar.addEvent(new Event(R.color.customCalEventDot,epochs.get(i), "no data"));
+        }
     }
 
 
@@ -262,7 +298,7 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
                         | Intent.FLAG_ACTIVITY_CLEAR_TASK
                 );
                 //Makes sure shared preference is reset
-                Context mContext = getApplicationContext();
+                //Context mContext = getApplicationContext();
                 final SharedPreferences sharedPref = mContext.getSharedPreferences(
                         "MavCat.preferences", Context.MODE_PRIVATE
                 );

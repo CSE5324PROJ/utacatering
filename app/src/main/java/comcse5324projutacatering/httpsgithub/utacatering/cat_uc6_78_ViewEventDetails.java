@@ -152,12 +152,12 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         Toast.makeText(cat_uc6_78_ViewEventDetails.this, "Event cancelled", Toast.LENGTH_SHORT).show();
 
-                        Intent intent =  new Intent(cat_uc6_78_ViewEventDetails.this, cat_uc5_ViewEventCal.class);
+                        //Intent intent =  new Intent(cat_uc6_78_ViewEventDetails.this, cat_uc5_ViewEventCal.class);
                         //cancel_btn.setBackgroundColor(customGreen);
                         DatabaseInterface.getInstance(cat_uc6_78_ViewEventDetails.this).deleteEvent(event_data_string_array[15]);
 
-                        intent.putExtra("username",username);
-                        startActivity(intent);
+                        /*intent.putExtra("username",username);
+                        startActivity(intent);*/
                         finish();
                     }})
                 .setNegativeButton("No, go back.", null).show();
@@ -195,10 +195,10 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
-                Intent intent =  new Intent(cat_uc6_78_ViewEventDetails.this, cat_uc5_ViewEventCal.class);
+                //Intent intent =  new Intent(cat_uc6_78_ViewEventDetails.this, cat_uc5_ViewEventCal.class);
                 back_btn.setBackgroundColor(customGreen);
-                intent.putExtra("username",username);
-                startActivity(intent);
+                /*intent.putExtra("username",username);
+                startActivity(intent);*/
                 finish();
             }
         });
@@ -207,10 +207,10 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
         assign_cs_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
-                Intent intent =  new Intent(cat_uc6_78_ViewEventDetails.this, cat_uc5_ViewEventCal.class);
+                //Intent intent =  new Intent(cat_uc6_78_ViewEventDetails.this, cat_uc5_ViewEventCal.class);
                 assign_cs_btn.setBackgroundColor(customGreen);
-                intent.putExtra("username",username);
-                startActivity(intent);
+                /*intent.putExtra("username",username);
+                startActivity(intent);*/
                 finish();
             }
         });
@@ -218,9 +218,9 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(cat_uc6_78_ViewEventDetails .this, cat_uc5_ViewEventCal.class);
-        intent.putExtra("username",username);
-        startActivity(intent);
+        //Intent intent = new Intent(cat_uc6_78_ViewEventDetails .this, cat_uc5_ViewEventCal.class);
+        /*intent.putExtra("username",username);
+        startActivity(intent);*/
         finish();
     }
     @Override

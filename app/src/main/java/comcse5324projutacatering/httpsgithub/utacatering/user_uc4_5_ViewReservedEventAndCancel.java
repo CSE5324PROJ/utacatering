@@ -150,13 +150,13 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         Toast.makeText(user_uc4_5_ViewReservedEventAndCancel.this, "Event cancelled", Toast.LENGTH_SHORT).show();
 
-                        Intent intent =  new Intent(user_uc4_5_ViewReservedEventAndCancel .this, user_uc3_ViewReservedEventsCalendar .class);
+                        //Intent intent =  new Intent(user_uc4_5_ViewReservedEventAndCancel .this, user_uc3_ViewReservedEventsCalendar .class);
                         //cancel_btn.setBackgroundColor(customGreen);
 
                         DatabaseInterface.getInstance(user_uc4_5_ViewReservedEventAndCancel.this).deleteEvent(event_data_string_array[15]);
 
-                        intent.putExtra("username",username);
-                        startActivity(intent);
+                        /*intent.putExtra("username",username);
+                        startActivity(intent);*/
                         finish();
                     }})
                 .setNegativeButton("No, go back.", null).show();
@@ -192,10 +192,10 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
-                Intent intent =  new Intent(user_uc4_5_ViewReservedEventAndCancel.this, user_uc3_ViewReservedEventsCalendar .class);
+                //Intent intent =  new Intent(user_uc4_5_ViewReservedEventAndCancel.this, user_uc3_ViewReservedEventsCalendar .class);
                 back_btn.setBackgroundColor(customGreen);
-                intent.putExtra("username",username);
-                startActivity(intent);
+                /*intent.putExtra("username",username);
+                startActivity(intent);*/
                 finish();
             }
         });
@@ -203,9 +203,9 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(user_uc4_5_ViewReservedEventAndCancel .this, user_uc3_ViewReservedEventsCalendar .class);
-        intent.putExtra("username",username);
-        startActivity(intent);
+        //Intent intent = new Intent(user_uc4_5_ViewReservedEventAndCancel .this, user_uc3_ViewReservedEventsCalendar .class);
+        /*intent.putExtra("username",username);
+        startActivity(intent);*/
         finish();
     }
     @Override
