@@ -6,5 +6,6 @@
     <color name="customRed">#a86060</color>
     <color name="customBlue">#7e84cc</color>
     <color name="customGreen">#61a868</color>
+    <color name="customGrey">#CFCFCF</color>
     <color name="customCalEventDot">#a8aef7</color>
 </resources>

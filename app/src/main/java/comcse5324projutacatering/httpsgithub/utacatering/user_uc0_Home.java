@@ -1,5 +1,6 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-//TODO look into action bar back button?
+
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -21,11 +22,15 @@ public class user_uc0_Home extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_uc0_home);
-        android.app.ActionBar actionBar = getActionBar();
-        /*if(actionBar != null) {
-            actionBar.setTitle("User Home");
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }*/
+        /*
+        final ActionBar actionbar = getActionBar();
+        if(actionbar != null) {
+            actionbar.setDisplayHomeAsUpEnabled(true);
+            actionbar.setTitle("User Home");
+        }
+        */
+
+
         Intent mIntent;
         Bundle extras;
         mIntent = getIntent();
@@ -74,11 +79,10 @@ public class user_uc0_Home extends Activity {
                 return true;
             case R.id.main_menu_go_home:
                 Intent intent0 = new Intent(user_uc0_Home.this, user_uc0_Home.class);
-
                 startActivity(intent0);
                 //finish();
                 return true;
-            case R.id.home:
+            case android.R.id.home:
                 onBackPressed();
                 return true;
             default:

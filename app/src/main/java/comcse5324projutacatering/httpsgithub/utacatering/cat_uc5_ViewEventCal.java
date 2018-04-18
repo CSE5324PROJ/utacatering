@@ -86,6 +86,7 @@ public class cat_uc5_ViewEventCal extends Activity {
 
         compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         compactCalendar.setUseThreeLetterAbbreviation(true);
+        compactCalendar.setCurrentDate(new Date());
 
         //Shared pref stuff
         final SharedPreferences sharedPref = mContext.getSharedPreferences(
@@ -105,10 +106,7 @@ public class cat_uc5_ViewEventCal extends Activity {
         }
 
         username = active_username;
-        epochs=DatabaseInterface.getInstance(cat_uc5_ViewEventCal.this).getEpochs(username);
-        for(int i=0;i<epochs.size();i++){
-            compactCalendar.addEvent(new Event(R.color.customCalEventDot,epochs.get(i), "no data"));
-        }
+        refreshEvents();
 
 
 
@@ -125,6 +123,7 @@ public class cat_uc5_ViewEventCal extends Activity {
         compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
             public void onDayClick(Date dateClicked) {
+                importedDate=dateClicked;
                 populateList(dateClicked);
                 //Left incase a toast is desired
                 //Context context = getApplicationContext();
@@ -140,6 +139,23 @@ public class cat_uc5_ViewEventCal extends Activity {
                 }
             }
         });
+
+
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        refreshEvents();
+        populateList(importedDate);
+
+    }
+
+    private void refreshEvents(){
+        compactCalendar.removeAllEvents();
+        epochs=DatabaseInterface.getInstance(cat_uc5_ViewEventCal.this).getEpochs(username);
+        for(int i=0;i<epochs.size();i++){
+            compactCalendar.addEvent(new Event(R.color.customCalEventDot,epochs.get(i), "no data"));
+        }
     }
 
 
@@ -299,7 +315,7 @@ public class cat_uc5_ViewEventCal extends Activity {
                 finish();
                 return true;
             case android.R.id.home:
-                finish();
+                onBackPressed();
                 return true;
             default:
                 return false;

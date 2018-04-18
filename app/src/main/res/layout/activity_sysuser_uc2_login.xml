@@ -14,12 +14,11 @@
     android:focusable="true"
     android:onClick="hideKeyboard">
 
-
     <ImageView
-        android:layout_width="96dp"
+        android:layout_width="300dp"
         android:layout_height="85dp"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/uta_logo"
+        android:src="@drawable/uta_logo_styled"
         android:layout_marginTop="0dp"/>
 
     <TextView

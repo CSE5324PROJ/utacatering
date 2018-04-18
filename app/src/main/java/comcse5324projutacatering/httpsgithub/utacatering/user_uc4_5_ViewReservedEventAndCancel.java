@@ -1,7 +1,10 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO confirmation popup??
+import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -13,8 +16,13 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -26,6 +34,8 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
     public int customRed;
     public int customGreen;
     public int customBlue;
+    public int customGrey;
+    AlertDialog cancel_alert;
     String[] event_data_string_array;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +44,11 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
         customRed = getResources().getColor(R.color.customRed);
         customGreen = getResources().getColor(R.color.customGreen);
         customBlue = getResources().getColor(R.color.customBlue);
-        final android.app.ActionBar actionBar = getActionBar();
-        if(actionBar != null) {
-            actionBar.setTitle("View event details");
-            actionBar.setDisplayHomeAsUpEnabled(true);
+        customGrey = getResources().getColor(R.color.customGrey);
+        final ActionBar actionbar = getActionBar();
+        if(actionbar != null) {
+            actionbar.setDisplayHomeAsUpEnabled(true);
+            actionbar.setTitle("MavCat - View and cancel reserved event");
         }
         Intent mIntent;
         Bundle extras;
@@ -123,7 +134,50 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
         editTextEntItems.setText(event_data_string_array[14]);
         editTextOccasion.setEnabled(false);
         editTextEntItems.setEnabled(false);
+
+
         setupButtons();
+        past_event_check();
+        set_alert_dialogs();
+    }
+
+    private void set_alert_dialogs(){
+        cancel_alert = new AlertDialog.Builder(this)
+                .setTitle("Confirm event cancellation")
+                .setMessage("Do you really want to cancel this event?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("Yes.", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        Toast.makeText(user_uc4_5_ViewReservedEventAndCancel.this, "Event cancelled", Toast.LENGTH_SHORT).show();
+
+                        //Intent intent =  new Intent(user_uc4_5_ViewReservedEventAndCancel .this, user_uc3_ViewReservedEventsCalendar .class);
+                        //cancel_btn.setBackgroundColor(customGreen);
+
+                        DatabaseInterface.getInstance(user_uc4_5_ViewReservedEventAndCancel.this).deleteEvent(event_data_string_array[15]);
+
+                        /*intent.putExtra("username",username);
+                        startActivity(intent);*/
+                        finish();
+                    }})
+                .setNegativeButton("No, go back.", null).show();
+        cancel_alert.setIcon(R.drawable.uta_logo_alert);
+        cancel_alert.hide();
+    }
+
+    private void past_event_check(){
+        Calendar cal = Calendar.getInstance();
+        long current_time = cal.getTimeInMillis();
+        final String selected_date = event_data_string_array[4];
+        long millis=0;
+        try {
+            millis = new SimpleDateFormat("MMM d, yyyy hh:mm aaa").parse(selected_date).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(current_time>=millis && millis!=0){
+            cancel_btn.setBackgroundColor(customGrey);
+            cancel_btn.setEnabled(false);
+        }
     }
 
     private void setupButtons() {
@@ -131,24 +185,17 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
         cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
-                Intent intent =  new Intent(user_uc4_5_ViewReservedEventAndCancel .this, user_uc3_ViewReservedEventsCalendar .class);
-                    cancel_btn.setBackgroundColor(customGreen);
-
-                    DatabaseInterface.getInstance(user_uc4_5_ViewReservedEventAndCancel.this).deleteEvent(event_data_string_array[15]);
-
-                    intent.putExtra("username",username);
-                    startActivity(intent);
-                    finish();
+                cancel_alert.show();
             }
         });
         back_btn= findViewById(R.id.button_goback);
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
-                Intent intent =  new Intent(user_uc4_5_ViewReservedEventAndCancel.this, user_uc3_ViewReservedEventsCalendar .class);
+                //Intent intent =  new Intent(user_uc4_5_ViewReservedEventAndCancel.this, user_uc3_ViewReservedEventsCalendar .class);
                 back_btn.setBackgroundColor(customGreen);
-                intent.putExtra("username",username);
-                startActivity(intent);
+                /*intent.putExtra("username",username);
+                startActivity(intent);*/
                 finish();
             }
         });
@@ -156,9 +203,9 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(user_uc4_5_ViewReservedEventAndCancel .this, user_uc3_ViewReservedEventsCalendar .class);
-        intent.putExtra("username",username);
-        startActivity(intent);
+        //Intent intent = new Intent(user_uc4_5_ViewReservedEventAndCancel .this, user_uc3_ViewReservedEventsCalendar .class);
+        /*intent.putExtra("username",username);
+        startActivity(intent);*/
         finish();
     }
     @Override
@@ -197,8 +244,8 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
                 startActivity(intent);
                 finish();
                 return true;
-            case R.id.home:
-                finish();
+            case android.R.id.home:
+                onBackPressed();
                 return true;
             default:
                 return false;

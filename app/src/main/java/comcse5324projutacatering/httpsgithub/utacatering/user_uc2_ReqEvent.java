@@ -1,7 +1,10 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-
+//TODO add alert popup to confirm
+import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 //import android.database.Cursor;
 import android.content.SharedPreferences;
@@ -21,6 +24,8 @@ import android.widget.ArrayAdapter;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import java.text.DateFormatSymbols;
 //import java.util.ArrayList;
 //import java.util.List;
@@ -76,13 +81,19 @@ public class user_uc2_ReqEvent extends Activity {
     EditText editOccasion;
     EditText editEntItems;
 
+    AlertDialog confirm_request_alert;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_uc2_req_event);
         //Context mContext;
         //mContext = getApplicationContext();
-
+        final ActionBar actionbar = getActionBar();
+        if(actionbar != null) {
+            actionbar.setDisplayHomeAsUpEnabled(true);
+            actionbar.setTitle("MavCat - Request event");
+        }
         editOccasion = findViewById(R.id.editTextOccasion);
         editEntItems = findViewById(R.id.editTextEntItems);
 
@@ -111,7 +122,34 @@ public class user_uc2_ReqEvent extends Activity {
         customBlue = getResources().getColor(R.color.customBlue);
         submitEvReq_btn.setBackgroundColor(customBlue);
 
+        set_alert_dialogs();
+    }
 
+    private void set_alert_dialogs(){
+        confirm_request_alert = new AlertDialog.Builder(this)
+                .setTitle("Confirm event request")
+                .setMessage("Do you really want to request this event?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("Yes.", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        Toast.makeText(user_uc2_ReqEvent.this, "Event scheduled", Toast.LENGTH_SHORT).show();
+
+                        Intent intent =  new Intent(user_uc2_ReqEvent.this, user_uc3_ViewReservedEventsCalendar .class);
+                        if( selectedHall.length() > 0){
+                            submitEvReq_btn.setBackgroundColor(customGreen);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                    | Intent.FLAG_ACTIVITY_SINGLE_TOP
+
+                            );
+                            intent.putExtra("username",username);
+                            startActivity(intent);
+                            processSubmission();
+                            finish();
+                        }
+                    }})
+                .setNegativeButton("No, go back.", null).show();
+        confirm_request_alert.setIcon(R.drawable.uta_logo_alert);
+        confirm_request_alert.hide();
     }
 
 
@@ -297,18 +335,7 @@ public class user_uc2_ReqEvent extends Activity {
         submitEvReq_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
-                Intent intent =  new Intent(user_uc2_ReqEvent.this, user_uc3_ViewReservedEventsCalendar .class);
-                if( selectedHall.length() > 0){
-                    submitEvReq_btn.setBackgroundColor(customGreen);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                            | Intent.FLAG_ACTIVITY_SINGLE_TOP
-
-                    );
-                    intent.putExtra("username",username);
-                    startActivity(intent);
-                    processSubmission();
-                    finish();
-                }
+                confirm_request_alert.show();
             }
         });
     }
@@ -370,6 +397,9 @@ public class user_uc2_ReqEvent extends Activity {
                 );
                 startActivity(intent1);
                 finish();
+                return true;
+            case android.R.id.home:
+                onBackPressed();
                 return true;
             default:
                 return false;

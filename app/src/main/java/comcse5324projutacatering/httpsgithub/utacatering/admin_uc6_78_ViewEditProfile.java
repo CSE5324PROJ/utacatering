@@ -2,12 +2,15 @@ package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO implement top menu signout/home page  (implemented differently than on home page!)
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -158,6 +161,7 @@ public class admin_uc6_78_ViewEditProfile extends Activity {
         editStudentID.setText(uta_id);
         editContactDetails.setText(contact);
         editPersonalDetails.setText(personal);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
     @Override
@@ -168,6 +172,14 @@ public class admin_uc6_78_ViewEditProfile extends Activity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+    public void hideKeyboard(View view){
+        if(view!=null){
+            InputMethodManager inMethMan = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            if(inMethMan!=null){
+                inMethMan.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
         }
     }
 }
