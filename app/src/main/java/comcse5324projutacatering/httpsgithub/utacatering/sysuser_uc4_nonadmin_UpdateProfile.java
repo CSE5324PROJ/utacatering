@@ -215,9 +215,9 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
                         }
 
                     }})
-                .setNegativeButton("No, go back.", null).show();
+                .setNegativeButton("No, go back.", null)
+                .create();
         delete_alert.setIcon(R.drawable.uta_logo_alert);
-        delete_alert.hide();
 
         save_alert = new AlertDialog.Builder(this)
                 .setTitle("Confirm profile changes")
@@ -252,9 +252,9 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
                             }
                         }
                     }})
-                .setNegativeButton("No, go back.", null).show();
+                .setNegativeButton("No, go back.", null)
+                .create();
         save_alert.setIcon(R.drawable.uta_logo_alert);
-        save_alert.hide();
     }
 
     private void executeSaveChanges(String username, String  password, long stu_id, String  contact, String  personal){
@@ -312,6 +312,8 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
+        save_alert.dismiss();
+        delete_alert.dismiss();
         switch (item.getItemId()) {
             case R.id.main_menu_sign_out:
                 Intent intent0 = new Intent(sysuser_uc4_nonadmin_UpdateProfile.this, sysuser_uc2_Login.class);
@@ -333,6 +335,7 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
                 finish();
                 return true;
             case R.id.main_menu_go_home:
+
                 Intent intent;
                 switch (role) {
                     case "Admin":
@@ -368,6 +371,7 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
                 }
                 intent.putExtra("username",active_username);
                 startActivity(intent);
+
                 finish();
                 return true;
             case android.R.id.home:
@@ -379,6 +383,7 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
     }
     @Override
     public void onBackPressed() {
+        /*
         Intent intent;
         switch (role) {
             case "Admin":
@@ -405,6 +410,8 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
         }
         intent.putExtra("username",active_username);
         startActivity(intent);
+
+        */
         finish();
     }
     public void hideKeyboard(View view){
