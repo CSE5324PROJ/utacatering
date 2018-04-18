@@ -77,21 +77,14 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
             actionbar.setDisplayHomeAsUpEnabled(true);
             actionbar.setTitle("MavCat - Update profile");
         }
-        
-        final SharedPreferences sharedPref = mContext.getSharedPreferences(
-                "MavCat.preferences", Context.MODE_PRIVATE
-        );
+
         try{
-            active_username = sharedPref.getString("active_username"," ");
-            active_id = sharedPref.getString("active_id"," ");
-            if(active_username.equals(" ") || active_id.equals(" ")){
-                throw new Exception("No valid username/id in shared preferences", null);
-            }
+            active_username = DatabaseInterface.getInstance(this).getActiveUsername();
+            active_id = DatabaseInterface.getInstance(this).getActiveID();
         }
         catch(Exception e) {
-            if(e.getMessage().equals("No valid username/id in shared preferences")) {
-                finish();
-            }
+            System.out.println(e.getMessage());
+            finish();
         }
 
         String profile_id = active_id;
@@ -104,9 +97,6 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
         editStudentID       = (EditText) findViewById(R.id.edit_student_id);
         editContactDetails  = (EditText) findViewById(R.id.edit_contact_details);
         editPersonalDetails = (EditText) findViewById(R.id.edit_personal_details);
-
-
-
 
         saveButton   = (Button) findViewById(R.id.button_save_profile);
         deleteButton = (Button) findViewById(R.id.button_delete_profile);

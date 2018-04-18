@@ -438,17 +438,26 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         return ret;
     }
 
-    public String getActiveUsername() {
+    public String getActiveUsername() throws Exception {
         final SharedPreferences sharedPref = mContext.getSharedPreferences(
                 "MavCat.preferences", Context.MODE_PRIVATE
         );
-        return sharedPref.getString("active_username","null");
+
+        String user = sharedPref.getString("active_username"," ");
+        if(user.equals(" ")){
+            throw new Exception("No valid username in shared preferences", null);
+        }
+        return user;
     }
-    public String getActiveID() {
+    public String getActiveID() throws Exception {
         final SharedPreferences sharedPref = mContext.getSharedPreferences(
                 "MavCat.preferences", Context.MODE_PRIVATE
         );
-        return sharedPref.getString("active_id","null");
+        String id = sharedPref.getString("active_id"," ");
+        if(id.equals(" ")){
+            throw new Exception("No valid id in shared preferences", null);
+        }
+        return id;
     }
     public Cursor searchUsername(String usernameQuery) {
         usernameQuery = "%" + usernameQuery + "%";
