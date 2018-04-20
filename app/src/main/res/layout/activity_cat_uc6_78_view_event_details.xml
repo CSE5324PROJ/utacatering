@@ -393,7 +393,7 @@
             app:layout_constraintTop_toBottomOf="@+id/editTextEntItems" />
 
         <Button
-            android:id="@+id/button_CancelEvent"
+            android:id="@+id/button_rejectEventRequest"
             android:layout_width="94dp"
             android:layout_height="85dp"
             android:layout_marginBottom="6dp"
@@ -416,7 +416,7 @@
             android:background="@color/customBlue"
             android:text="Assign Staff"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button_CancelEvent"
+            app:layout_constraintEnd_toStartOf="@+id/button_rejectEventRequest"
             app:layout_constraintStart_toEndOf="@+id/button_goback"
             app:layout_constraintTop_toBottomOf="@+id/editTextEntItems"
             app:layout_constraintVertical_bias="0.0" />

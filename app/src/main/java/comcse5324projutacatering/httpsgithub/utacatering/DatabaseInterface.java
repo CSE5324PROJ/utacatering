@@ -813,6 +813,37 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         );
     }
 
+//    public void updateProfile(String profID, String username, String password, String role,
+//                              long uta_id, String contactDetails, String personalDetails) {
+//
+//        SQLiteDatabase db = getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put(COLUMN_NAME_USERNAME, username);
+//        values.put(COLUMN_NAME_PASSWORD, password);
+//        values.put(COLUMN_NAME_ROLE,     role);
+//        values.put(COLUMN_NAME_UTAID,    uta_id);
+//        values.put(COLUMN_NAME_CONTACT,  contactDetails);
+//        values.put(COLUMN_NAME_PERSONAL, personalDetails);
+//
+//        String selection =
+//                BaseColumns._ID + " = ?";
+//        String[] selectionArgs = { profID };
+//
+//        db.update(TABLE_NAME_PROFILE, values, selection, selectionArgs);
+//    }
+
+    public void updateEventApproval(SQLiteDatabase db, String eventID) {
+
+        ContentValues values = new ContentValues();
+        values.put(EVENT_APPROVAL_COL, String.valueOf(1));
+
+        String selection =
+                BaseColumns._ID + " = ?";
+        String[] selectionArgs = { eventID };
+
+        db.update(TABLE_NAME_PROFILE, values, selection, selectionArgs);
+    }
+
     public List<Long> getEpochs(String username){
         List<Long> eventEpochs = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();

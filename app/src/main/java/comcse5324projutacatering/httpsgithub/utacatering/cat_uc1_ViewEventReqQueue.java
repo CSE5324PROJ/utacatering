@@ -63,7 +63,22 @@ public class cat_uc1_ViewEventReqQueue extends Activity {
             tempCal.clear();
             tempCal.setTimeInMillis((eventRequestSummaryData.get(i).epoch));
             String tempDate=DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(tempCal.getTime());
-            /* 0) eventRequestSummaryData.
+            /* 0) eventRequestSummaryData.get(i).hall+" Hall"+System.lineSeparator()+"@ "+tempDate
+            *  1) "For "+eventRequestSummaryData.get(i).dur+" hours"+" at the price of $"+eventRequestSummaryData.get(i).price
+            *  2) String.valueOf(eventRequestSummaryData.get(i).req_user_id)
+            *  3) String.valueOf(eventRequestSummaryData.get(i).approval_flag)
+            *  4) tempDate
+            *  5) eventRequestSummaryData.get(i).dur+" hours"
+            *  6) eventRequestSummaryData.get(i).hall
+            *  7) String.valueOf(eventRequestSummaryData.get(i).attendance)
+            *  8) eventRequestSummaryData.get(i).price
+            *  9) eventRequestSummaryData.get(i).mealtype
+            *  10) eventRequestSummaryData.get(i).venue
+            *  11) String.valueOf(eventRequestSummaryData.get(i).alco_flag)
+            *  12) String.valueOf(eventRequestSummaryData.get(i).formal_flag)
+            *  13) eventRequestSummaryData.get(i).occ_type
+            *  14) eventRequestSummaryData.get(i).ent_items
+            *  15) eventRequestSummaryData.get(i).eventID
             * */
             eventRequestSummaryStrings.add(new String[]{eventRequestSummaryData.get(i).hall+" Hall"+System.lineSeparator()+"@ "+tempDate,
                     "For "+eventRequestSummaryData.get(i).dur+" hours"+" at the price of $"+eventRequestSummaryData.get(i).price,

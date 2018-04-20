@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,14 +15,11 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 
 public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
@@ -151,7 +147,7 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
                         Toast.makeText(user_uc4_5_ViewReservedEventAndCancel.this, "Event cancelled", Toast.LENGTH_SHORT).show();
 
                         //Intent intent =  new Intent(user_uc4_5_ViewReservedEventAndCancel .this, user_uc3_ViewReservedEventsCalendar .class);
-                        //cancel_btn.setBackgroundColor(customGreen);
+                        //reject_btn.setBackgroundColor(customGreen);
 
                         DatabaseInterface.getInstance(user_uc4_5_ViewReservedEventAndCancel.this).deleteEvent(event_data_string_array[15]);
 
@@ -181,7 +177,7 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
     }
 
     private void setupButtons() {
-        cancel_btn = findViewById(R.id.button_CancelEvent);
+        cancel_btn = findViewById(R.id.button_rejectEventRequest);
         cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
