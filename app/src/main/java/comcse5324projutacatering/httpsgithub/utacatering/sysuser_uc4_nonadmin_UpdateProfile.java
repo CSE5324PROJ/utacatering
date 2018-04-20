@@ -77,21 +77,14 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
             actionbar.setDisplayHomeAsUpEnabled(true);
             actionbar.setTitle("MavCat - Update profile");
         }
-        
-        final SharedPreferences sharedPref = mContext.getSharedPreferences(
-                "MavCat.preferences", Context.MODE_PRIVATE
-        );
+
         try{
-            active_username = sharedPref.getString("active_username"," ");
-            active_id = sharedPref.getString("active_id"," ");
-            if(active_username.equals(" ") || active_id.equals(" ")){
-                throw new Exception("No valid username/id in shared preferences", null);
-            }
+            active_username = DatabaseInterface.getInstance(this).getActiveUsername();
+            active_id = DatabaseInterface.getInstance(this).getActiveID();
         }
         catch(Exception e) {
-            if(e.getMessage().equals("No valid username/id in shared preferences")) {
-                finish();
-            }
+            System.out.println(e.getMessage());
+            finish();
         }
 
         String profile_id = active_id;
@@ -104,9 +97,6 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
         editStudentID       = (EditText) findViewById(R.id.edit_student_id);
         editContactDetails  = (EditText) findViewById(R.id.edit_contact_details);
         editPersonalDetails = (EditText) findViewById(R.id.edit_personal_details);
-
-
-
 
         saveButton   = (Button) findViewById(R.id.button_save_profile);
         deleteButton = (Button) findViewById(R.id.button_delete_profile);
@@ -215,9 +205,9 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
                         }
 
                     }})
-                .setNegativeButton("No, go back.", null).show();
+                .setNegativeButton("No, go back.", null)
+                .create();
         delete_alert.setIcon(R.drawable.uta_logo_alert);
-        delete_alert.hide();
 
         save_alert = new AlertDialog.Builder(this)
                 .setTitle("Confirm profile changes")
@@ -252,9 +242,9 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
                             }
                         }
                     }})
-                .setNegativeButton("No, go back.", null).show();
+                .setNegativeButton("No, go back.", null)
+                .create();
         save_alert.setIcon(R.drawable.uta_logo_alert);
-        save_alert.hide();
     }
 
     private void executeSaveChanges(String username, String  password, long stu_id, String  contact, String  personal){
@@ -312,6 +302,8 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
+        save_alert.dismiss();
+        delete_alert.dismiss();
         switch (item.getItemId()) {
             case R.id.main_menu_sign_out:
                 Intent intent0 = new Intent(sysuser_uc4_nonadmin_UpdateProfile.this, sysuser_uc2_Login.class);
@@ -333,6 +325,7 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
                 finish();
                 return true;
             case R.id.main_menu_go_home:
+
                 Intent intent;
                 switch (role) {
                     case "Admin":
@@ -368,6 +361,7 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
                 }
                 intent.putExtra("username",active_username);
                 startActivity(intent);
+
                 finish();
                 return true;
             case android.R.id.home:
@@ -379,6 +373,7 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
     }
     @Override
     public void onBackPressed() {
+        /*
         Intent intent;
         switch (role) {
             case "Admin":
@@ -405,6 +400,8 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
         }
         intent.putExtra("username",active_username);
         startActivity(intent);
+
+        */
         finish();
     }
     public void hideKeyboard(View view){
