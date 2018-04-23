@@ -147,7 +147,7 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
                         Toast.makeText(user_uc4_5_ViewReservedEventAndCancel.this, "Event cancelled", Toast.LENGTH_SHORT).show();
 
                         //Intent intent =  new Intent(user_uc4_5_ViewReservedEventAndCancel .this, user_uc3_ViewReservedEventsCalendar .class);
-                        //reject_btn.setBackgroundColor(customGreen);
+                        //cancel_btn.setBackgroundColor(customGreen);
 
                         DatabaseInterface.getInstance(user_uc4_5_ViewReservedEventAndCancel.this).deleteEvent(event_data_string_array[15]);
 
@@ -177,7 +177,8 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
     }
 
     private void setupButtons() {
-        cancel_btn = findViewById(R.id.button_rejectEventRequest);
+        //TODO "cancel_btn = findViewById(R.id.button_rejectEventRequest);" misplaced by Neelim
+        cancel_btn = findViewById(R.id.button_CancelEvent);
         cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
