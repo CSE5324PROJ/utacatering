@@ -36,6 +36,7 @@ public class cat_uc1_ViewEventReqQueue extends Activity {
         Intent mIntent = getIntent();
         Bundle extras = mIntent.getExtras();
 
+
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         cal.set(Calendar.DAY_OF_MONTH, 1);
@@ -48,15 +49,15 @@ public class cat_uc1_ViewEventReqQueue extends Activity {
         }
 
         eventRequestListView = (ListView) findViewById(R.id.listView);
+        populateList();
     }
 
-    private void populateList(Date dateClicked) {
+    private void populateList() {
 
         Calendar tempCal = Calendar.getInstance();
 
         eventRequestSummaryStrings = new ArrayList<>();
         eventRequestSummaryData = DatabaseInterface.getInstance(this).getEventRequestSummaries();
-        importedDate = dateClicked;
 
         for (int i = 0; i < eventRequestSummaryData.size(); i++)
         {

@@ -832,7 +832,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
 //        db.update(TABLE_NAME_PROFILE, values, selection, selectionArgs);
 //    }
 
-    public void updateEventApproval(SQLiteDatabase db, String eventID) {
+    public int updateEventApproval(String eventID) {
 
         ContentValues values = new ContentValues();
         values.put(EVENT_APPROVAL_COL, String.valueOf(1));
@@ -841,7 +841,8 @@ public class DatabaseInterface extends SQLiteOpenHelper {
                 BaseColumns._ID + " = ?";
         String[] selectionArgs = { eventID };
 
-        db.update(TABLE_NAME_PROFILE, values, selection, selectionArgs);
+        SQLiteDatabase db = getWritableDatabase();
+        return db.update(SQL_EVENT_TABLE_NAME, values, selection, selectionArgs);
     }
 
     public List<Long> getEpochs(String username){
@@ -941,6 +942,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
 
             while (resultCursor.moveToNext()) {
                 eventSummarySet[] resultData = new eventSummarySet[1];
+                resultData[0] = new eventSummarySet();
 
                 resultData[0].hall=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_HALL_COL));
                 resultData[0].dur=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_DUR_COL));

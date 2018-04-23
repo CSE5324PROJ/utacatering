@@ -200,7 +200,7 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
             }
         });
 
-        assign_cs_btn= findViewById(R.id.button_assign_cs);
+        assign_cs_btn= findViewById(R.id.button_approve_event);
         assign_cs_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {

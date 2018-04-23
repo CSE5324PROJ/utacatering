@@ -103,8 +103,30 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".catstaff_uc0_Home" />
-        <activity android:name=".cat_uc6_78_ViewEventDetails"></activity>
+
+        <activity android:name=".catstaff_uc0_Home" >
+            <intent-filter>
+                <action android:name="comcse5324projutacatering.httpsgithub.utacatering.cat_uc0_Home" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".cat_uc6_78_ViewEventDetails">
+            <intent-filter>
+                <action android:name="comcse5324projutacatering.httpsgithub.utacatering.cat_uc6_78_ViewEventDetails" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".cat_uc34_ApproveOrRejectEventReq">
+            <intent-filter>
+                <action android:name="comcse5324projutacatering.httpsgithub.utacatering.cat_uc34_ApproveOrRejectEventReq" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
