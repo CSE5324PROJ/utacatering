@@ -104,7 +104,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".catstaff_uc0_Home" />
-        <activity android:name=".cat_uc6_78_ViewEventDetails"></activity>
+        <activity android:name=".cat_uc6_78_ViewEventDetails" />
+        <activity android:name=".catstaff_uc1_ViewAssisgnedEvevntsList"></activity>
     </application>
 
 </manifest>

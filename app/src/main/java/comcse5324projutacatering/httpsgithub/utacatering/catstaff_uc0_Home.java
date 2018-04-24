@@ -31,7 +31,7 @@ public class catstaff_uc0_Home extends Activity {
         viewEventList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
-                //Intent intent =  new Intent(catstaff_uc0_Home.this, .class);
+                //Intent intent =  new Intent(catstaff_uc0_Home.this, catstaff_uc1_ViewAssignedEventsList.class);
                 //startActivity(intent);
             }
         });
