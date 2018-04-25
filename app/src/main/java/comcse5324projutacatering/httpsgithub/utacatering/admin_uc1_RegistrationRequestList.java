@@ -1,11 +1,12 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-//TODO implement top menu signout/home page (implemented differently than on home page!)
-//TODO "Date/Time" ? implementing request time into db?
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.BaseColumns;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +24,12 @@ public class admin_uc1_RegistrationRequestList extends Activity {
 
     private ArrayList<String[]> registrationRequests;
     private ListView regRequestListView;
+    private DatabaseInterface db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        db = DatabaseInterface.getInstance(this);
         setContentView(R.layout.activity_admin_uc1_registration_request_list);
         android.app.ActionBar actionBar = getActionBar();
         if(actionBar != null) {
@@ -43,7 +46,7 @@ public class admin_uc1_RegistrationRequestList extends Activity {
 
         registrationRequests = new ArrayList<>();
 
-        Cursor resultCursor = DatabaseInterface.getInstance(this).getRegistrationRequests();
+        Cursor resultCursor = db.getRegistrationRequests();
 
         if(resultCursor != null) {
             while (resultCursor.moveToNext()) {
@@ -92,19 +95,40 @@ public class admin_uc1_RegistrationRequestList extends Activity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+    public void onBackPressed() {
+        finish();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         populateList();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            case R.id.main_menu_go_home:
+                finish();
+                return true;
+            case R.id.main_menu_sign_out:
+                startActivity(db.logout(this));
+                finish();
+                return true;
+            default:
+                return false;
+        }
     }
 }

@@ -1,10 +1,12 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-//TODO implement top menu signout/home page  (implemented differently than on home page!)
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.BaseColumns;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +24,12 @@ public class admin_uc5_SearchSystemUser extends Activity {
     private SearchView searchView;
     private String lastSearch;
 
+    private DatabaseInterface db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        db = DatabaseInterface.getInstance(this);
         setContentView(R.layout.activity_admin_uc5_search_sys_user);
         android.app.ActionBar actionBar = getActionBar();
         if(actionBar != null) {
@@ -53,7 +58,7 @@ public class admin_uc5_SearchSystemUser extends Activity {
         lastSearch = s;
         searchView.clearFocus();
         resultsList = new ArrayList<>();
-        Cursor resultCursor = DatabaseInterface.getInstance(this).searchUsername(s);
+        Cursor resultCursor = db.searchUsername(s);
         if(resultCursor != null) {
             while (resultCursor.moveToNext()) {
                 String username = resultCursor.getString(resultCursor.getColumnIndexOrThrow(DatabaseInterface.COLUMN_NAME_USERNAME));
@@ -102,13 +107,28 @@ public class admin_uc5_SearchSystemUser extends Activity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;
+            case R.id.main_menu_go_home:
+                finish();
+                return true;
+            case R.id.main_menu_sign_out:
+                startActivity(db.logout(this));
+                finish();
+                return true;
             default:
-                return super.onOptionsItemSelected(item);
+                return false;
         }
     }
 
