@@ -146,7 +146,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         db.execSQL(SQL_EVENT_TRIGGER_EVENT_DELETION);
         db.execSQL(SQL_EVENT_TRIGGER_PROFILE_USERNAME_CHANGE);
         db.execSQL(SQL_EVENT_TRIGGER_BECOMES_UNAPPROVED);
-        db.execSQL(SQL_EVENT_TRIGGER_BECOMES_APPROVED);
+//        db.execSQL(SQL_EVENT_TRIGGER_BECOMES_APPROVED);
 
         createBaseProfile(db, "u","u","User",1000555556,"555-555-5556","Base user");
         createBaseProfile(db, "a","a","Admin",1000555555,"555-555-5555","Base admin");
@@ -855,14 +855,15 @@ public class DatabaseInterface extends SQLiteOpenHelper {
 //        db.update(TABLE_NAME_PROFILE, values, selection, selectionArgs);
 //    }
 
-    public void updateEventCaterer(String catererID) {
+    public void updateEventCaterer(String eventID, String catererID) {
 
         ContentValues values = new ContentValues();
         values.put(EVENT_AC_ID_COL, catererID);
+        values.put(EVENT_APPROVAL_COL, 1);
 
         String selection =
                 BaseColumns._ID + " = ?";
-        String[] selectionArgs = { catererID };
+        String[] selectionArgs = { eventID };
 
         SQLiteDatabase db = getWritableDatabase();
         int retVal =  db.update(SQL_EVENT_TABLE_NAME, values, selection, selectionArgs);

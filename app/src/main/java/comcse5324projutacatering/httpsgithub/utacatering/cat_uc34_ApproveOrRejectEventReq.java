@@ -223,7 +223,7 @@ public class cat_uc34_ApproveOrRejectEventReq extends Activity {
             @Override
             public void onClick (View v)  {
                 approve_btn.setBackgroundColor(customGreen);
-                DatabaseInterface.getInstance(cat_uc34_ApproveOrRejectEventReq.this).updateEventCaterer(username);
+                DatabaseInterface.getInstance(cat_uc34_ApproveOrRejectEventReq.this).updateEventCaterer(event_data_string_array[15], username);
                 }
         });
     }
