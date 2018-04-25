@@ -19,10 +19,13 @@ public class admin_uc0_Home extends Activity {
     private TextView textProfileName;
     private TextView textSignOut;
 
+    private DatabaseInterface db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        db = DatabaseInterface.getInstance(this);
         setContentView(R.layout.activity_admin_uc0_home);
 
         setupButtons();
@@ -32,7 +35,7 @@ public class admin_uc0_Home extends Activity {
         textSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                onBackPressed();
             }
         });
 
@@ -95,28 +98,7 @@ public class admin_uc0_Home extends Activity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.main_menu_sign_out:
-                Intent intent0 = new Intent(admin_uc0_Home .this, sysuser_uc2_Login .class);
-                intent0.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                        | Intent.FLAG_ACTIVITY_CLEAR_TOP
-                        | Intent.FLAG_ACTIVITY_CLEAR_TASK
-                );
-                //Makes sure shared preference is reset
-                Context mContext = getApplicationContext();
-                final SharedPreferences sharedPref = mContext.getSharedPreferences(
-                        "MavCat.preferences", Context.MODE_PRIVATE
-                );
-                final SharedPreferences.Editor editor = sharedPref.edit();
-                editor.remove("active_username");
-                editor.remove("active_id");
-                editor.commit();
-                //------
-                startActivity(intent0);
-                finish();
-                return true;
-            case R.id.main_menu_go_home:
-                Intent intent = new Intent(admin_uc0_Home.this, admin_uc0_Home.class);
-                startActivity(intent);
-                finish();
+                onBackPressed();
                 return true;
             default:
                 return false;
@@ -124,22 +106,8 @@ public class admin_uc0_Home extends Activity {
     }
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(admin_uc0_Home.this, sysuser_uc2_Login .class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                | Intent.FLAG_ACTIVITY_CLEAR_TOP
-                | Intent.FLAG_ACTIVITY_CLEAR_TASK
-        );
-        //Makes sure shared preference is reset
-        Context mContext = getApplicationContext();
-        final SharedPreferences sharedPref = mContext.getSharedPreferences(
-                "MavCat.preferences", Context.MODE_PRIVATE
-        );
-        final SharedPreferences.Editor editor = sharedPref.edit();
-        editor.remove("active_username");
-        editor.remove("active_id");
-        editor.commit();
-        //------
-        startActivity(intent);
+        startActivity(db.logout(this));
         finish();
     }
+
 }
