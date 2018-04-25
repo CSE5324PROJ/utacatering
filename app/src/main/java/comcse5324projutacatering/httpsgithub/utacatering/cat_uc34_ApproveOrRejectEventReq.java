@@ -24,6 +24,8 @@ import java.util.Calendar;
 
 public class cat_uc34_ApproveOrRejectEventReq extends Activity {
     String username;
+    String active_username;
+    String active_id;
     Button reject_btn;
     Button back_btn;
     Button approve_btn;
@@ -64,7 +66,6 @@ public class cat_uc34_ApproveOrRejectEventReq extends Activity {
 
 
         if(extras!=null){
-            username = (String) extras.get("username");
             /* event_data_string_array
              * Array position translation:
              * 0)Title String (Hall, date)
@@ -91,6 +92,25 @@ public class cat_uc34_ApproveOrRejectEventReq extends Activity {
         else{
             finish(); //activity not properly accessed
         }
+
+        Context mContext = getApplicationContext();
+        final SharedPreferences sharedPref = mContext.getSharedPreferences(
+                "MavCat.preferences", Context.MODE_PRIVATE
+        );
+        try{
+            active_username = sharedPref.getString("active_username"," ");
+            active_id = sharedPref.getString("active_id"," ");
+            if(active_username.equals(" ") || active_id.equals(" ")){
+                throw new Exception("No valid username/id in shared preferences", null);
+            }
+        }
+        catch(Exception e) {
+            if(e.getMessage().equals("No valid username/id in shared preferences")) {
+                finish();
+            }
+        }
+        username = active_username;
+
         /*
         if(event_data_string_array[3].equals("0")){
             editTextTimeApproval.setText("Unapproved");
@@ -203,7 +223,7 @@ public class cat_uc34_ApproveOrRejectEventReq extends Activity {
             @Override
             public void onClick (View v)  {
                 approve_btn.setBackgroundColor(customGreen);
-                DatabaseInterface.getInstance(cat_uc34_ApproveOrRejectEventReq.this).updateEventApproval(event_data_string_array[15]);
+                DatabaseInterface.getInstance(cat_uc34_ApproveOrRejectEventReq.this).updateEventCaterer(username);
                 }
         });
     }
