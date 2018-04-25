@@ -1,8 +1,12 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO implement top menu signout/home page  (implemented differently than on home page!)
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -23,12 +27,15 @@ public class admin_uc2_34_ViewRegistrationRequest extends Activity {
     private Button   approveButton;
     private Button   rejectButton;
 
+    private DatabaseInterface db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        db = DatabaseInterface.getInstance(this);
         setContentView(R.layout.activity_admin_uc2_34_view_registration_request);
         request_id = getIntent().getStringExtra("request_id");
-        regCursor = DatabaseInterface.getInstance(this).getRegistrationRequest(request_id);
+        regCursor = db.getRegistrationRequest(request_id);
 
         android.app.ActionBar actionBar = getActionBar();
         if(actionBar != null) {
@@ -91,13 +98,31 @@ public class admin_uc2_34_ViewRegistrationRequest extends Activity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
         switch (item.getItemId()) {
-            case android.R.id.home:
+            case R.id.main_menu_go_home:
+                Intent intent = new Intent(this, admin_uc0_Home.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                );
+                startActivity(intent);
+                finish();
+                return true;
+            case R.id.main_menu_sign_out:
+                startActivity(db.logout(this));
                 finish();
                 return true;
             default:
-                return super.onOptionsItemSelected(item);
+                return false;
         }
     }
 }
