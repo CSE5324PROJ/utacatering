@@ -1,6 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-//TODO implement top menu signout/home page (implemented differently than on home page!)
-//TODO "Date/Time" ? implementing request time into db?
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -47,7 +46,7 @@ public class admin_uc1_RegistrationRequestList extends Activity {
 
         registrationRequests = new ArrayList<>();
 
-        Cursor resultCursor = DatabaseInterface.getInstance(this).getRegistrationRequests();
+        Cursor resultCursor = db.getRegistrationRequests();
 
         if(resultCursor != null) {
             while (resultCursor.moveToNext()) {
@@ -96,6 +95,11 @@ public class admin_uc1_RegistrationRequestList extends Activity {
     }
 
     @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         populateList();
@@ -103,6 +107,7 @@ public class admin_uc1_RegistrationRequestList extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
         return true;
@@ -112,6 +117,9 @@ public class admin_uc1_RegistrationRequestList extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
             case R.id.main_menu_go_home:
                 finish();
                 return true;

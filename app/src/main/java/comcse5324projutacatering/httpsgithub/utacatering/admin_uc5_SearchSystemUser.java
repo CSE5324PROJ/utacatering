@@ -1,5 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-//TODO implement top menu signout/home page  (implemented differently than on home page!)
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -58,7 +58,7 @@ public class admin_uc5_SearchSystemUser extends Activity {
         lastSearch = s;
         searchView.clearFocus();
         resultsList = new ArrayList<>();
-        Cursor resultCursor = DatabaseInterface.getInstance(this).searchUsername(s);
+        Cursor resultCursor = db.searchUsername(s);
         if(resultCursor != null) {
             while (resultCursor.moveToNext()) {
                 String username = resultCursor.getString(resultCursor.getColumnIndexOrThrow(DatabaseInterface.COLUMN_NAME_USERNAME));
@@ -117,6 +117,9 @@ public class admin_uc5_SearchSystemUser extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
             case R.id.main_menu_go_home:
                 finish();
                 return true;

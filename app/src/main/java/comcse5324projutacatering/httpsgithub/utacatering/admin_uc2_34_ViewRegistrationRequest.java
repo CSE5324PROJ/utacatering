@@ -1,5 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-//TODO implement top menu signout/home page  (implemented differently than on home page!)
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -62,7 +62,7 @@ public class admin_uc2_34_ViewRegistrationRequest extends Activity {
         approveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseInterface.getInstance(admin_uc2_34_ViewRegistrationRequest.this).convertRequestToProfile(request_id);
+                db.convertRequestToProfile(request_id);
                 Toast.makeText(admin_uc2_34_ViewRegistrationRequest.this, "Request approved.", Toast.LENGTH_LONG).show();
                 finish();
             }
@@ -70,7 +70,7 @@ public class admin_uc2_34_ViewRegistrationRequest extends Activity {
         rejectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseInterface.getInstance(admin_uc2_34_ViewRegistrationRequest.this).deleteRegistrationRequest(request_id);
+                db.deleteRegistrationRequest(request_id);
                 Toast.makeText(admin_uc2_34_ViewRegistrationRequest.this, "Request rejected.", Toast.LENGTH_LONG).show();
                 finish();
             }
@@ -108,6 +108,9 @@ public class admin_uc2_34_ViewRegistrationRequest extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
             case R.id.main_menu_go_home:
                 Intent intent = new Intent(this, admin_uc0_Home.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK

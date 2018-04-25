@@ -1,5 +1,4 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-//TODO implement top menu signout/home page  (implemented differently than on home page!)
 
 import android.app.Activity;
 import android.content.Context;
@@ -44,7 +43,7 @@ public class admin_uc6_78_ViewEditProfile extends Activity {
         db = DatabaseInterface.getInstance(this);
         setContentView(R.layout.activity_admin_uc6_78_view_edit_profile);
         String profile_id = getIntent().getStringExtra("profile_id");
-        profCursor = DatabaseInterface.getInstance(this).getProfileByID(profile_id);
+        profCursor = db.getProfileByID(profile_id);
 
         android.app.ActionBar actionBar = getActionBar();
         if(actionBar != null) {
@@ -99,7 +98,7 @@ public class admin_uc6_78_ViewEditProfile extends Activity {
                     else if(username.contains(" ")){
                         Toast.makeText(admin_uc6_78_ViewEditProfile.this, "Username cannot contain spaces.", Toast.LENGTH_LONG).show();
                     }
-                    else if(DatabaseInterface.getInstance(admin_uc6_78_ViewEditProfile.this).searchUsernameRegistrationConflictCheck(username)){
+                    else if(db.searchUsernameRegistrationConflictCheck(username)){
                         //means duplicate is found
                         Toast.makeText(admin_uc6_78_ViewEditProfile.this, "Edit profile failed, there is a user or pending user request with this username already.", Toast.LENGTH_LONG).show();
                     }
@@ -113,11 +112,11 @@ public class admin_uc6_78_ViewEditProfile extends Activity {
             @Override
             public void onClick(View v) {
 
-                if(DatabaseInterface.getInstance(admin_uc6_78_ViewEditProfile.this).getProfileRole(workingProfileID).equals("Admin")){
+                if(db.getProfileRole(workingProfileID).equals("Admin")){
                     Toast.makeText(admin_uc6_78_ViewEditProfile.this, "Cannot remove an admin account.", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    DatabaseInterface.getInstance(admin_uc6_78_ViewEditProfile.this).deleteProfile(workingProfileID);
+                    db.deleteProfile(workingProfileID);
                     Toast.makeText(admin_uc6_78_ViewEditProfile.this, "System user removed.", Toast.LENGTH_LONG).show();
 
                     Intent intent1 = new Intent(admin_uc6_78_ViewEditProfile.this, admin_uc5_SearchSystemUser .class);
@@ -134,7 +133,7 @@ public class admin_uc6_78_ViewEditProfile extends Activity {
     }
 
     private void executeSaveChanges(String username, String  password, long stu_id, String  contact, String  personal){
-        DatabaseInterface.getInstance(admin_uc6_78_ViewEditProfile.this).updateProfile(
+        db.updateProfile(
                 workingProfileID, username, password, selectedRole, stu_id, contact, personal
         );
 
@@ -180,6 +179,9 @@ public class admin_uc6_78_ViewEditProfile extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
             case R.id.main_menu_go_home:
                 Intent intent = new Intent(this, admin_uc0_Home.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK

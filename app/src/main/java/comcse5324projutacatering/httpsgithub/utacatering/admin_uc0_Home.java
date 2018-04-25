@@ -59,13 +59,6 @@ public class admin_uc0_Home extends Activity {
     }
 
     @Override
-    protected void onDestroy() {
-        DatabaseInterface.getInstance(this).close();
-        super.onDestroy();
-    }
-
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
