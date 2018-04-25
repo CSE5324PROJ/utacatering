@@ -153,6 +153,7 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
 
                         /*intent.putExtra("username",username);
                         startActivity(intent);*/
+                        cancel_alert.dismiss();
                         finish();
                     }})
                 .setNegativeButton("No, go back.", null).show();
