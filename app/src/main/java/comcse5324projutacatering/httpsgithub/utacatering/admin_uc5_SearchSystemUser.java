@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -52,7 +51,6 @@ public class admin_uc5_SearchSystemUser extends Activity {
 
     private void submitSearch(String s) {
         lastSearch = s;
-        Toast.makeText(admin_uc5_SearchSystemUser.this, "Searching: "+s , Toast.LENGTH_LONG).show();
         searchView.clearFocus();
         resultsList = new ArrayList<>();
         Cursor resultCursor = DatabaseInterface.getInstance(this).searchUsername(s);
