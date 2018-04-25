@@ -147,9 +147,9 @@ public class cat_uc34_ApproveOrRejectEventReq extends Activity {
         editTextEntItems.setText(event_data_string_array[14]);
         editTextOccasion.setEnabled(false);
         editTextEntItems.setEnabled(false);
+        set_alert_dialogs();
         setupButtons();
         past_event_check();
-        set_alert_dialogs();
 
         final ActionBar actionbar = getActionBar();
         if(actionbar!=null){
@@ -173,11 +173,12 @@ public class cat_uc34_ApproveOrRejectEventReq extends Activity {
                         Toast.makeText(cat_uc34_ApproveOrRejectEventReq.this, "Event cancelled", Toast.LENGTH_SHORT).show();
                         /*intent.putExtra("username",username);
                         startActivity(intent);*/
+                        reject_alert.dismiss();
+                        finish();
                     }})
                 .setNegativeButton("No, go back.", null).show();
         reject_alert.setIcon(R.drawable.uta_logo_alert);
-        reject_alert.dismiss();
-        finish();
+        reject_alert.hide();
     }
 
     private void past_event_check(){
@@ -212,6 +213,7 @@ public class cat_uc34_ApproveOrRejectEventReq extends Activity {
             public void onClick (View v)  {
                 //Intent intent =  new Intent(cat_uc6_78_ViewEventDetails.this, cat_uc5_ViewEventCal.class);
                 back_btn.setBackgroundColor(customGreen);
+                reject_alert.dismiss();
                 /*intent.putExtra("username",username);
                 startActivity(intent);*/
                 finish();
@@ -224,6 +226,7 @@ public class cat_uc34_ApproveOrRejectEventReq extends Activity {
             public void onClick (View v)  {
                 approve_btn.setBackgroundColor(customGreen);
                 DatabaseInterface.getInstance(cat_uc34_ApproveOrRejectEventReq.this).updateEventCaterer(event_data_string_array[15], active_id);
+                reject_alert.dismiss();
                 finish();
                 }
         });
@@ -234,6 +237,7 @@ public class cat_uc34_ApproveOrRejectEventReq extends Activity {
         //Intent intent = new Intent(cat_uc6_78_ViewEventDetails .this, cat_uc5_ViewEventCal.class);
         /*intent.putExtra("username",username);
         startActivity(intent);*/
+        reject_alert.dismiss();
         finish();
     }
     @Override
@@ -264,12 +268,14 @@ public class cat_uc34_ApproveOrRejectEventReq extends Activity {
                 editor.commit();
                 //------
                 startActivity(intent0);
+                reject_alert.dismiss();
                 finish();
                 return true;
             case R.id.main_menu_go_home:
                 Intent intent = new Intent(cat_uc34_ApproveOrRejectEventReq.this, user_uc0_Home.class);
                 intent.putExtra("username",username);
                 startActivity(intent);
+                reject_alert.dismiss();
                 finish();
                 return true;
             case android.R.id.home:
