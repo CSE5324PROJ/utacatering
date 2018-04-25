@@ -1,9 +1,7 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,7 +14,6 @@ public class admin_uc0_Home extends Activity {
 
     private Button viewRegReqButton;
     private Button searchUserButton;
-    private TextView textProfileName;
     private TextView textSignOut;
 
     private DatabaseInterface db;
@@ -30,8 +27,7 @@ public class admin_uc0_Home extends Activity {
 
         setupButtons();
 
-        setupTextViews();
-
+        textSignOut = findViewById(R.id.text_signout);
         textSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,17 +37,9 @@ public class admin_uc0_Home extends Activity {
 
     }
 
-    private void setupTextViews() {
-        textSignOut = (TextView)findViewById(R.id.text_signout);
-        //textProfileName = (TextView)findViewById(R.id.text_profile_name);
-        //textProfileName.setText("Name");
-
-    }
-
-
     private void setupButtons() {
-        searchUserButton = (Button)findViewById(R.id.button_search_user);
-        viewRegReqButton = (Button)findViewById(R.id.button_view_reg_req);
+        searchUserButton = findViewById(R.id.button_search_user);
+        viewRegReqButton = findViewById(R.id.button_view_reg_req);
 
         viewRegReqButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -69,15 +57,6 @@ public class admin_uc0_Home extends Activity {
             }
         });
     }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setupTextViews();
-    }
-
-
 
     @Override
     protected void onDestroy() {
