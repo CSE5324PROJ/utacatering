@@ -835,7 +835,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
     public int updateEventApproval(String eventID) {
 
         ContentValues values = new ContentValues();
-        values.put(EVENT_APPROVAL_COL, 1);
+        values.put(EVENT_APPROVAL_COL, "1");
 
         String selection =
                 BaseColumns._ID + " = ?";
