@@ -173,11 +173,11 @@ public class cat_uc34_ApproveOrRejectEventReq extends Activity {
                         Toast.makeText(cat_uc34_ApproveOrRejectEventReq.this, "Event cancelled", Toast.LENGTH_SHORT).show();
                         /*intent.putExtra("username",username);
                         startActivity(intent);*/
-//                        finish();
                     }})
                 .setNegativeButton("No, go back.", null).show();
         reject_alert.setIcon(R.drawable.uta_logo_alert);
         reject_alert.dismiss();
+        finish();
     }
 
     private void past_event_check(){
@@ -223,7 +223,8 @@ public class cat_uc34_ApproveOrRejectEventReq extends Activity {
             @Override
             public void onClick (View v)  {
                 approve_btn.setBackgroundColor(customGreen);
-                DatabaseInterface.getInstance(cat_uc34_ApproveOrRejectEventReq.this).updateEventCaterer(event_data_string_array[15], username);
+                DatabaseInterface.getInstance(cat_uc34_ApproveOrRejectEventReq.this).updateEventCaterer(event_data_string_array[15], active_id);
+                finish();
                 }
         });
     }

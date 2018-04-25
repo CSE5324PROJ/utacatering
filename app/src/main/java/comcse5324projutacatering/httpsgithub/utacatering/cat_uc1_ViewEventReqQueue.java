@@ -148,6 +148,13 @@ public class cat_uc1_ViewEventReqQueue extends Activity {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        populateList();
+    }
+
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
