@@ -194,6 +194,7 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
                 back_btn.setBackgroundColor(customGreen);
                 /*intent.putExtra("username",username);
                 startActivity(intent);*/
+                cancel_alert.dismiss();
                 finish();
             }
         });
@@ -204,6 +205,7 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
         //Intent intent = new Intent(user_uc4_5_ViewReservedEventAndCancel .this, user_uc3_ViewReservedEventsCalendar .class);
         /*intent.putExtra("username",username);
         startActivity(intent);*/
+        cancel_alert.dismiss();
         finish();
     }
     @Override
@@ -234,12 +236,14 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
                 editor.commit();
                 //------
                 startActivity(intent0);
+                cancel_alert.dismiss();
                 finish();
                 return true;
             case R.id.main_menu_go_home:
                 Intent intent = new Intent(user_uc4_5_ViewReservedEventAndCancel.this, user_uc0_Home.class);
                 intent.putExtra("username",username);
                 startActivity(intent);
+                cancel_alert.dismiss();
                 finish();
                 return true;
             case android.R.id.home:
