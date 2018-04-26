@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="comcse5324projutacatering.httpsgithub.utacatering.cat_uc34_ApproveOrRejectEventReq"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <!-- Below is android:focusable="true" necessary to hide keyboard also-->
+    <!-- Below android:onClick="hideKeyboard" function allowing keyboard  when clicking background-->
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/eventUserDetailsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:descendantFocusability="beforeDescendants"
+        android:focusable="true"
+        android:onClick="hideKeyboard">
+        <!-- Below is used instead of android:focusableInTouchMode="true" because it makes ONE click remove the keyboard, otherwise would take two clicks-->
+        <LinearLayout
+            android:layout_width="0px"
+            android:layout_height="0px"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <requestFocus />
+        </LinearLayout>
+        <!--
+        <TextView
+            android:id="@+id/textView0"
+            android:layout_width="116dp"
+            android:layout_height="72dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="15dp"
+            android:focusable="false"
+            android:text="Approval Status"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        -->
+        <!--
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="72dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:focusable="false"
+            android:text="Time"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView0" />
+        -->
+        <!--
+        <EditText
+            android:id="@+id/editTextTimeApproval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="time"
+            android:text="BLAH0"
+            android:textColor="#6f7275"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        -->
+        <!--
+        <EditText
+            android:id="@+id/editTextTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="37dp"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="time"
+            android:text="BLAH1"
+            android:textColor="#6f7275"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTimeApproval" />
+            -->
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="72dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:focusable="false"
+            android:text="Date"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView0" />
+
+        <EditText
+            android:id="@+id/editTextDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="40dp"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="date"
+            android:labelFor="@+id/editText2"
+            android:text="BLAH2"
+            android:textColor="#6f7275"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTimeApproval" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="72dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="28dp"
+            android:focusable="false"
+            android:text="Hall"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <EditText
+            android:id="@+id/editTextHall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="text"
+            android:text="BLAH3"
+            android:textColor="#6f7275"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="104dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:focusable="false"
+            android:text="Duration"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <EditText
+            android:id="@+id/editTextDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="text"
+            android:text="BLAH4"
+            android:textColor="#6f7275"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextHall" />
+
+        <TextView
+            android:id="@+id/textView4b"
+            android:layout_width="104dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="21dp"
+            android:focusable="false"
+            android:text="Venue"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <EditText
+            android:id="@+id/editTextVenue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="text"
+            android:text="BLAH4b"
+            android:textColor="#6f7275"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDuration" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="126dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="18dp"
+            android:focusable="false"
+            android:text="Meal Type"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4b" />
+
+        <EditText
+            android:id="@+id/editTextMealType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="13dp"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="text"
+            android:text="BLAH5"
+            android:textColor="#6f7275"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextVenue" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="126dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:focusable="false"
+            android:text="Formality"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <EditText
+            android:id="@+id/editTextFormality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="13dp"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="text"
+            android:text="BLAH6"
+            android:textColor="#6f7275"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextMealType" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="126dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="18dp"
+            android:focusable="false"
+            android:text="Drinks"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+        <EditText
+            android:id="@+id/editTextDrinks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="text"
+            android:text="BLAH7"
+            android:textColor="#6f7275"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextFormality" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="134dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="18dp"
+            android:focusable="false"
+            android:text="Attendance"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+        <EditText
+            android:id="@+id/editTextAtt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="text"
+            android:text="BLAH8"
+            android:textColor="#6f7275"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDrinks" />
+
+        <TextView
+            android:id="@+id/textViewPrice"
+            android:layout_width="118dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:focusable="false"
+            android:text="Price"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+        <EditText
+            android:id="@+id/editTextPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="text"
+            android:text="price"
+            android:textColor="#6f7275"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextAtt" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="118dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:focusable="false"
+            android:text="Occasion"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPrice" />
+
+        <EditText
+            android:id="@+id/editTextOccasion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="13dp"
+            android:ems="10"
+            android:inputType="text"
+            android:maxLength="20"
+            android:text="occ"
+            android:textColor="#6f7275"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextPrice" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="232dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="136dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="15dp"
+            android:focusable="false"
+            android:text="Entertainment Items"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+        <EditText
+            android:id="@+id/editTextEntItems"
+            android:layout_width="341dp"
+            android:layout_height="142dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:focusable="false"
+            android:gravity="top|left"
+            android:inputType="textMultiLine"
+            android:lines="6"
+            android:maxLength="140"
+            android:minLines="5"
+            android:scrollHorizontally="false"
+            android:scrollbars="vertical"
+            android:text="ent-items"
+            android:textColor="#6f7275"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+        <Button
+            android:id="@+id/button_goback"
+            android:layout_width="94dp"
+            android:layout_height="85dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/customBlue"
+            android:text="Back to event request queue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextEntItems" />
+
+        <Button
+            android:id="@+id/button_rejectEventRequest"
+            android:layout_width="94dp"
+            android:layout_height="85dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/customRed"
+            android:text="Reject Event"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextEntItems" />
+
+        <Button
+            android:id="@+id/button_approve_event"
+            android:layout_width="94dp"
+            android:layout_height="85dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/customBlue"
+            android:text="Approve Event"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button_rejectEventRequest"
+            app:layout_constraintStart_toEndOf="@+id/button_goback"
+            app:layout_constraintTop_toBottomOf="@+id/editTextEntItems"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

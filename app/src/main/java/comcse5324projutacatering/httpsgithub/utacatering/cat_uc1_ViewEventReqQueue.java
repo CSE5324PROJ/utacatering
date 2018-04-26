@@ -105,7 +105,7 @@ public class cat_uc1_ViewEventReqQueue extends Activity {
 
     private class eventRequestSummaryDataAdapter extends ArrayAdapter<String[]>{
 
-        public eventRequestSummaryDataAdapter() {super(cat_uc1_ViewEventReqQueue.this, R.layout.listview_item_event_request_listing, eventRequestSummaryStrings);}
+        public eventRequestSummaryDataAdapter() {super(cat_uc1_ViewEventReqQueue.this, R.layout.listview_item_events_listing, eventRequestSummaryStrings);}
 
         @Override
         public View getView(int position, View view, ViewGroup parent) {
@@ -146,6 +146,13 @@ public class cat_uc1_ViewEventReqQueue extends Activity {
         startActivity(intent);
         finish();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        populateList();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

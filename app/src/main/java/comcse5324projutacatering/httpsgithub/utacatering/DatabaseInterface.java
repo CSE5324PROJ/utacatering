@@ -3,6 +3,7 @@ package comcse5324projutacatering.httpsgithub.utacatering;
 import android.content.ContentValues;
 import android.content.Context;
 //import android.content.res.Resources;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -438,6 +439,25 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         return ret;
     }
 
+    public Intent logout(Context context) {
+        Intent intent = new Intent(context, sysuser_uc2_Login.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_CLEAR_TASK
+        );
+
+        //Makes sure shared preference is reset
+        final SharedPreferences sharedPref = mContext.getSharedPreferences(
+                "MavCat.preferences", Context.MODE_PRIVATE
+        );
+        final SharedPreferences.Editor editor = sharedPref.edit();
+        editor.remove("active_username");
+        editor.remove("active_id");
+        editor.commit();
+        //------
+        return intent;
+    }
+
     public String getActiveUsername() throws Exception {
         final SharedPreferences sharedPref = mContext.getSharedPreferences(
                 "MavCat.preferences", Context.MODE_PRIVATE
@@ -832,17 +852,19 @@ public class DatabaseInterface extends SQLiteOpenHelper {
 //        db.update(TABLE_NAME_PROFILE, values, selection, selectionArgs);
 //    }
 
-    public int updateEventApproval(String eventID) {
+    public void updateEventCaterer(String eventID, String catererID) {
 
         ContentValues values = new ContentValues();
-        values.put(EVENT_APPROVAL_COL, String.valueOf(1));
+        values.put(EVENT_AC_ID_COL, catererID);
+        values.put(EVENT_APPROVAL_COL, 1);
 
         String selection =
                 BaseColumns._ID + " = ?";
         String[] selectionArgs = { eventID };
 
         SQLiteDatabase db = getWritableDatabase();
-        return db.update(SQL_EVENT_TABLE_NAME, values, selection, selectionArgs);
+        int retVal =  db.update(SQL_EVENT_TABLE_NAME, values, selection, selectionArgs);
+        int doNothing;
     }
 
     public List<Long> getEpochs(String username){
