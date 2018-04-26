@@ -794,6 +794,57 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         );
     }
 
+    private Cursor searchProfileEventRequests(SQLiteDatabase db) {
+        //SQLiteDatabase db = getReadableDatabase();
+        String selection = EVENT_APPROVAL_COL+" = 0";
+
+
+        // How you want the results sorted in the resulting Cursor
+        //String sortOrder = COLUMN_NAME_USERNAME + " DESC";
+
+        return db.query(
+                SQL_EVENT_TABLE_NAME,     // The table to query
+                null,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                null,          // The values for the WHERE clause
+                null,          // don't group the rows
+                null,           // don't filter by row groups
+                EVENT_STIME_EPOCH_COL              // The sort order
+        );
+    }
+
+//    public void updateProfile(String profID, String username, String password, String role,
+//                              long uta_id, String contactDetails, String personalDetails) {
+//
+//        SQLiteDatabase db = getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put(COLUMN_NAME_USERNAME, username);
+//        values.put(COLUMN_NAME_PASSWORD, password);
+//        values.put(COLUMN_NAME_ROLE,     role);
+//        values.put(COLUMN_NAME_UTAID,    uta_id);
+//        values.put(COLUMN_NAME_CONTACT,  contactDetails);
+//        values.put(COLUMN_NAME_PERSONAL, personalDetails);
+//
+//        String selection =
+//                BaseColumns._ID + " = ?";
+//        String[] selectionArgs = { profID };
+//
+//        db.update(TABLE_NAME_PROFILE, values, selection, selectionArgs);
+//    }
+
+    public int updateEventApproval(String eventID) {
+
+        ContentValues values = new ContentValues();
+        values.put(EVENT_APPROVAL_COL, String.valueOf(1));
+
+        String selection =
+                BaseColumns._ID + " = ?";
+        String[] selectionArgs = { eventID };
+
+        SQLiteDatabase db = getWritableDatabase();
+        return db.update(SQL_EVENT_TABLE_NAME, values, selection, selectionArgs);
+    }
+
     public List<Long> getEpochs(String username){
         List<Long> eventEpochs = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
@@ -821,6 +872,15 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         int formal_flag;
         String occ_type;
         String ent_items;
+        String eventID;
+
+    }
+
+
+
+    public class eventRequestSummarySet{
+        String hall;
+        Long epoch;
         String eventID;
 
     }
@@ -869,6 +929,41 @@ public class DatabaseInterface extends SQLiteOpenHelper {
 
         }
         return eventSummary;
+    }
+
+    public List<eventSummarySet> getEventRequestSummaries(){
+        List<eventSummarySet> eventRequestSummaries = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor resultCursor = searchProfileEventRequests(db);
+        if(resultCursor != null) {
+
+            int i=0;
+
+            while (resultCursor.moveToNext()) {
+                eventSummarySet[] resultData = new eventSummarySet[1];
+                resultData[0] = new eventSummarySet();
+
+                resultData[0].hall=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_HALL_COL));
+                resultData[0].dur=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_DUR_COL));
+                resultData[0].price=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_PRC_COL));
+                resultData[0].epoch=(long) (resultCursor.getDouble(resultCursor.getColumnIndexOrThrow(EVENT_STIME_EPOCH_COL))*(double)1000);
+                resultData[0].req_user_id = resultCursor.getInt(resultCursor.getColumnIndexOrThrow(EVENT_REQ_USER_ID_COL));
+                resultData[0].approval_flag = resultCursor.getInt(resultCursor.getColumnIndexOrThrow(EVENT_APPROVAL_COL));
+                resultData[0].attendance = resultCursor.getInt(resultCursor.getColumnIndexOrThrow(EVENT_ATT_COL));
+                resultData[0].mealtype=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_MT_COL));
+                resultData[0].venue=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_VENUE_COL));
+                resultData[0].alco_flag = resultCursor.getInt(resultCursor.getColumnIndexOrThrow(EVENT_ALC_COL));
+                resultData[0].formal_flag = resultCursor.getInt(resultCursor.getColumnIndexOrThrow(EVENT_FORM_COL));
+                resultData[0].occ_type=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_OCTYP_COL));
+                resultData[0].ent_items=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_ENT_COL));
+                resultData[0].eventID=resultCursor.getString(resultCursor.getColumnIndexOrThrow(BaseColumns._ID));
+
+                eventRequestSummaries.add(resultData[0]);
+            }
+
+        }
+        return eventRequestSummaries;
     }
 
 }
