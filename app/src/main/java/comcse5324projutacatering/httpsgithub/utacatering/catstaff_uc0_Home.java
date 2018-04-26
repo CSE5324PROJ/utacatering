@@ -1,6 +1,6 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
 //TODO viewEventList
-//TODO connect to update profile page
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -31,8 +31,8 @@ public class catstaff_uc0_Home extends Activity {
         viewEventList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
-                //Intent intent =  new Intent(catstaff_uc0_Home.this, catstaff_uc1_ViewAssignedEventsList.class);
-                //startActivity(intent);
+                Intent intent =  new Intent(catstaff_uc0_Home.this, catstaff_uc1_ViewAssisgnedEvevntsList.class);
+                startActivity(intent);
             }
         });
 
