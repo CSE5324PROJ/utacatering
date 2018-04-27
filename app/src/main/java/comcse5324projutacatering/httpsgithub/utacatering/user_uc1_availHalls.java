@@ -33,6 +33,7 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TimeZone;
 
 //Work in progress
 public class user_uc1_availHalls extends Activity{
@@ -124,8 +125,8 @@ public class user_uc1_availHalls extends Activity{
         else{
             finish(); //activity not properly accessed (must come from login)
         }
-
-        Calendar cal = Calendar.getInstance();
+        TimeZone tz = TimeZone.getTimeZone("GMT+00:00");
+        Calendar cal = Calendar.getInstance(tz);
         cal.setTime(new Date()); // today's date
         cal.add(Calendar.DATE, 7); // Adds 7 days
         cal.add(Calendar.HOUR, 1); // Adds 1 hour

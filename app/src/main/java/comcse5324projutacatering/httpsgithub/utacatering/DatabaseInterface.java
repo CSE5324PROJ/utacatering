@@ -988,4 +988,88 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         return eventRequestSummaries;
     }
 
+
+//TODO in progress here
+/*
+    public List<eventSummarySet> getEventSummaryCatererStaff(String ID, Date selectedDate){
+
+
+
+        List<eventSummarySet> eventSummary = new ArrayList<>();
+        SimpleDateFormat ymd = new SimpleDateFormat("yyyyMMdd");
+        SQLiteDatabase db = getReadableDatabase();
+        //Calendar selectedDateCal = Calendar.getInstance();
+        //selectedDateCal.setTimeInMillis(selectedDate.getTime());
+        Calendar iteratingDateCal = Calendar.getInstance();
+
+
+        Cursor resultCursor = searchProfileEvents(db,username);
+        if(resultCursor != null) {
+
+            int i=0;
+
+            while (resultCursor.moveToNext()) {
+                eventSummarySet[] resultData = new eventSummarySet[1];
+                iteratingDateCal.clear();
+                long tempEpoch=(long) (resultCursor.getDouble(resultCursor.getColumnIndexOrThrow(EVENT_STIME_EPOCH_COL))*(double)1000);
+                iteratingDateCal.setTimeInMillis(tempEpoch);
+                if(ymd.format(selectedDate).equals(ymd.format(iteratingDateCal.getTime()))){
+                    resultData[0]=new eventSummarySet();
+                    resultData[0].hall=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_HALL_COL));
+                    resultData[0].dur=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_DUR_COL));
+                    resultData[0].price=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_PRC_COL));
+                    resultData[0].epoch=tempEpoch;
+                    resultData[0].req_user_id = resultCursor.getInt(resultCursor.getColumnIndexOrThrow(EVENT_REQ_USER_ID_COL));
+                    resultData[0].approval_flag = resultCursor.getInt(resultCursor.getColumnIndexOrThrow(EVENT_APPROVAL_COL));
+                    resultData[0].attendance = resultCursor.getInt(resultCursor.getColumnIndexOrThrow(EVENT_ATT_COL));
+                    resultData[0].mealtype=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_MT_COL));
+                    resultData[0].venue=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_VENUE_COL));
+                    resultData[0].alco_flag = resultCursor.getInt(resultCursor.getColumnIndexOrThrow(EVENT_ALC_COL));
+                    resultData[0].formal_flag = resultCursor.getInt(resultCursor.getColumnIndexOrThrow(EVENT_FORM_COL));
+                    resultData[0].occ_type=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_OCTYP_COL));
+                    resultData[0].ent_items=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_ENT_COL));
+                    resultData[0].eventID=resultCursor.getString(resultCursor.getColumnIndexOrThrow(BaseColumns._ID));
+                    eventSummary.add(resultData[0]);
+                }
+            }
+
+        }
+        return eventSummary;
+    }
+
+
+    public String EVENT_ID_COL;
+    public String EVENT_CS_PROFILE_ID_COL;
+    public String EVENT_CS_ASSIGN_TABLE_NAME;
+
+    private Cursor getEventEpochByCatStaffID(SQLiteDatabase db,String ID) {
+        //SQLiteDatabase db = getReadableDatabase();
+        String selection = "rowid"+" = ?";
+
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                EVENT_STIME_EPOCH_COL,
+                EVENT_HALL_COL,
+                EVENT_DUR_COL
+        };
+
+        // Filter results WHERE "title" = 'My Title'
+
+        String[] selectionArgs = {String.valueOf(ID)};
+
+        // How you want the results sorted in the resulting Cursor
+        //String sortOrder = COLUMN_NAME_USERNAME + " DESC";
+
+        return db.query(
+                SQL_EVENT_TABLE_NAME,     // The table to query
+                null,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
+                null,          // don't group the rows
+                null,           // don't filter by row groups
+                EVENT_STIME_EPOCH_COL              // The sort order
+        );
+    }
+*/
 }

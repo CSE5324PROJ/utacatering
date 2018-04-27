@@ -30,6 +30,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.text.DateFormat;
+import java.util.TimeZone;
 
 public class user_uc3_ViewReservedEventsCalendar extends Activity {
 
@@ -77,7 +78,8 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
         else{
             finish(); //activity not properly accessed
         }
-        Calendar cal = Calendar.getInstance();
+        TimeZone tz = TimeZone.getTimeZone("GMT+00:00");
+        Calendar cal = Calendar.getInstance(tz);
         cal.setTime(new Date());
         cal.set(Calendar.DAY_OF_MONTH, 1);
 
@@ -162,8 +164,8 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
 
 
     private void populateList(Date dateClicked) {
-
-        Calendar tempCal= Calendar.getInstance();
+        TimeZone tz = TimeZone.getTimeZone("GMT+00:00");
+        Calendar tempCal= Calendar.getInstance(tz);
 
         eventDataStrings = new ArrayList<>();
         eventData = new ArrayList<>();

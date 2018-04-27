@@ -105,6 +105,8 @@ public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
         username = active_username;
         //TODO undo this, only to debug
         username="c";
+
+
         refreshEvents();
 
 
