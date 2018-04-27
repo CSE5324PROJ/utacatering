@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -65,7 +64,7 @@ public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
         mIntent = getIntent();
         extras=mIntent.getExtras();
         if(extras!=null){
-            username = (String) extras.get("username");
+            username = (String) extras.get("username"); //deprecated
             importedDate=(Date) extras.get("trackSelectedDate");
         }
         else{
@@ -102,9 +101,7 @@ public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
             }
         }
 
-        username = active_username;
-        //TODO undo this, only to debug
-        username="c";
+        username = active_username; //CS should only be using the ID but this is left here. c
 
 
         refreshEvents();
@@ -149,7 +146,7 @@ public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
 
         eventDataStrings = new ArrayList<>();
         eventData = new ArrayList<>();
-        eventData =  DatabaseInterface.getInstance(this).getEventSummary(username,dateClicked);
+        eventData =  DatabaseInterface.getInstance(this).getEventSummaryCatererStaff(active_id,dateClicked);
         importedDate=dateClicked;
         for(int i=0;i<eventData.size();i++){
             tempCal.clear();
@@ -188,7 +185,7 @@ public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
 
     private void refreshEvents(){
         compactCalendar.removeAllEvents();
-        epochs=DatabaseInterface.getInstance(catstaff_uc1_ViewAssisgnedEvevntsList.this).getEpochs(username);
+        epochs=DatabaseInterface.getInstance(catstaff_uc1_ViewAssisgnedEvevntsList.this).getEventEpochByCatStaffID(active_id);
         for(int i=0;i<epochs.size();i++){
             compactCalendar.addEvent(new Event(R.color.customCalEventDot,epochs.get(i), "no data"));
         }
@@ -199,13 +196,14 @@ public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
 
 
     private class eventDataListAdapter extends ArrayAdapter<String[]> {
+        //listview_item_events_listing_cs is limited CS version
 
-        public eventDataListAdapter() {super(catstaff_uc1_ViewAssisgnedEvevntsList.this, R.layout.listview_item_events_listing, eventDataStrings);}
+        public eventDataListAdapter() {super(catstaff_uc1_ViewAssisgnedEvevntsList.this, R.layout.listview_item_events_listing_cs, eventDataStrings);}
 
         @Override
         public View getView(int position, View view, ViewGroup parent) {
             if(view == null){
-                view = getLayoutInflater().inflate(R.layout.listview_item_events_listing,parent,false);
+                view = getLayoutInflater().inflate(R.layout.listview_item_events_listing_cs,parent,false);
             }
 
             final String[] out = eventDataStrings.get(position);
@@ -233,17 +231,22 @@ public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    //Caterer Staff gets no access to this
+
+                    /*
                     Intent intent = new Intent(catstaff_uc1_ViewAssisgnedEvevntsList .this, cat_uc6_78_ViewEventDetails.class);
                     intent.putExtra("event_data_string_array", out);
                     intent.putExtra("trackSelectedDate", trackSelectedDate);
                     intent.putExtra("username", trackUsername);
-                    startActivity(intent);
+                    startActivity(intent); */
+
                 }
             });
 
             TextView summaryTitle = (TextView)view.findViewById(R.id.item_text_1);
-            TextView summaryText = (TextView)view.findViewById(R.id.item_text_2);
-            TextView warnText = (TextView)view.findViewById(R.id.item_text_3);
+            //TextView summaryText = (TextView)view.findViewById(R.id.item_text_2);
+            //TextView warnText = (TextView)view.findViewById(R.id.item_text_3);
             if(summaryTitle != null){
                 summaryTitle.setText(out[0]);
                 if(out[3].equals("0")){//check approval
@@ -254,7 +257,8 @@ public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
                 }
             }
 
-
+            //disabled for caterer staff
+            /*
             if(summaryText != null){
 
                 if(out[3].equals("0")){//check approval
@@ -277,7 +281,7 @@ public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
                 }
 
             }
-
+            */
             return view;
         }
     }

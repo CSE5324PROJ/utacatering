@@ -11,7 +11,7 @@
 
     <TextView
         android:id="@+id/textViewInfo"
-        android:layout_width="250dp"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
@@ -87,11 +87,11 @@
         android:layout_width="72dp"
         android:layout_height="31dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="8dp"
         android:text="Hour"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_duration" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewInfo" />
 
     <Spinner
         android:id="@+id/spinner_hour"
@@ -107,11 +107,11 @@
         android:layout_width="85dp"
         android:layout_height="31dp"
         android:layout_marginStart="195dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="7dp"
         android:text="Minute"
         android:textSize="25sp"
         app:layout_constraintStart_toEndOf="@+id/textView_hour"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_duration" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewInfo" />
 
     <Spinner
         android:id="@+id/spinner_minute"

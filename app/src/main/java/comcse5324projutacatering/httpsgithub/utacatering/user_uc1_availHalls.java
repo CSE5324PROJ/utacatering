@@ -183,6 +183,12 @@ public class user_uc1_availHalls extends Activity{
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+        searchAvailHalls(selectedYear,selectedMonth,selectedDay,selectedHour,selectedMin,selectedDur);
+    }
+
+    @Override
     public void onUserInteraction() {
         super.onUserInteraction();
         userIsInteracting = true;
