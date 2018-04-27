@@ -161,11 +161,11 @@ public class user_uc1_availHalls extends Activity{
 
         EVENT_HALL_COL = mContext.getString(R.string.EVENT_HALL_COL);
         genMonthsArray();
-        caltemp2 = Calendar.getInstance();
+        caltemp2 = Calendar.getInstance(tz);
         genDaysArray();
         //old_selectedDay=selectedDay;
         genOtherArray();
-        caltemp = Calendar.getInstance();
+        caltemp = Calendar.getInstance(tz);
         getHoursArray();
 
         //needs to initialize as null assuming no available halls to start.
@@ -190,7 +190,8 @@ public class user_uc1_availHalls extends Activity{
 
     private void searchAvailHalls(int year, int month, int day, int hour, int minute, int dur){
         conflictingHalls.clear();
-        Calendar calTemp = Calendar.getInstance();
+        TimeZone tz = TimeZone.getTimeZone("GMT+00:00");
+        Calendar calTemp = Calendar.getInstance(tz);
         calTemp.set(year,month,day,hour,minute);
         long start = calTemp.getTimeInMillis();
         start = start / (long)1000;
