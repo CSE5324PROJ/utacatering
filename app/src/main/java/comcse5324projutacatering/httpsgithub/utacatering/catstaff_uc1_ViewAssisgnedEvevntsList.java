@@ -23,6 +23,10 @@ import java.util.Locale;
 
 public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
 
+    private String active_username;
+    private String active_id;
+    private Context mContext;
+
     //CalendarView calendar;
     CompactCalendarView compactCalendar;
     private SimpleDateFormat dateFormTitle = new SimpleDateFormat("MMMM-yyyy", Locale.US);
@@ -40,10 +44,6 @@ public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
     public int customBlue;
     public int viewFlag=0;
     private Date test1;
-
-    private String active_username;
-    private String active_id;
-    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,19 +70,24 @@ public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
             importedDate=(Date) extras.get("trackSelectedDate");
         }
         else{
-            finish(); //activity not properly accessed
+            //finish(); //activity not properly accessed
         }
+
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         cal.set(Calendar.DAY_OF_MONTH, 1);
-
-        cal.setTime(new Date());
-
         final ActionBar actionbar = getActionBar();
         if(actionbar != null) {
             actionbar.setDisplayHomeAsUpEnabled(true);
             actionbar.setTitle("MavCat "+dateFormTitle.format(cal.getTime()));
         }
+        cal.setTime(new Date());
+
+        compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
+        compactCalendar.setUseThreeLetterAbbreviation(true);
+        compactCalendar.setCurrentDate(new Date());
+
+        //shared pref stuff
         final SharedPreferences sharedPref = mContext.getSharedPreferences(
                 "MavCat.preferences", Context.MODE_PRIVATE
         );
@@ -98,13 +103,8 @@ public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
                 finish();
             }
         }
+
         username=active_username;
-
-        compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
-        compactCalendar.setUseThreeLetterAbbreviation(true);
-        compactCalendar.setCurrentDate(new Date());
-
-
         refreshEvents();
 
         eventDataListView = (ListView)findViewById(R.id.listViewEvents);
