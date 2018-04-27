@@ -185,5 +185,12 @@ public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(catstaff_uc1_ViewAssisgnedEvevntsList.this, catstaff_uc0_Home.class);
+        startActivity(intent);
+        finish();
+    }
+
 
 }
