@@ -988,4 +988,30 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         return eventRequestSummaries;
     }
 
+    /*
+    public String[] getCatStaff(){
+        SQLiteDatabase db = getReadableDatabase();
+        String staffNames[];
+
+        return staffNames;
+    }*/
+
+    public void assignCatStaff(int eventID, String username) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        long profileID = getProfileID(db, username);
+        addCatStaff(eventID, profileID);
+    }
+
+    public void addCatStaff(int eventID, long profileID){
+
+    }
+
+    public void removeCatStaff(int eventID, String username){
+
+    }
+
+    public void delCatStaff(int eventID, long profileID){
+
+    }
 }

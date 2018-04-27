@@ -188,6 +188,7 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
                 cancel_alert.show();
             }
         });
+
         back_btn= findViewById(R.id.button_goback);
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,11 +205,12 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
         assign_cs_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
-                //Intent intent =  new Intent(cat_uc6_78_ViewEventDetails.this, cat_uc5_ViewEventCal.class);
+                Intent intent =  new Intent(cat_uc6_78_ViewEventDetails.this, cat_uc7_AssignCatererStaff.class);
                 assign_cs_btn.setBackgroundColor(customGreen);
-                /*intent.putExtra("username",username);
-                startActivity(intent);*/
-                finish();
+                intent.putExtra("eventID", event_data_string_array[15]);
+                //intent.putExtra("username",username);
+                startActivity(intent);
+                //finish();
             }
         });
     }
@@ -251,7 +253,7 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
                 finish();
                 return true;
             case R.id.main_menu_go_home:
-                Intent intent = new Intent(cat_uc6_78_ViewEventDetails.this, user_uc0_Home.class);
+                Intent intent = new Intent(cat_uc6_78_ViewEventDetails.this, cat_uc0_Home.class);
                 intent.putExtra("username",username);
                 startActivity(intent);
                 finish();
