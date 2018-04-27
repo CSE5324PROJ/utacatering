@@ -77,6 +77,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".user_uc3_ViewReservedEventsCalendar" />
+        <activity android:name=".user_uc4_5_ViewReservedEventAndCancel" />
 
         <!-- CATERER RELATED ACTIVITIES HERE - -->
         <activity android:name=".cat_uc0_Home">
@@ -87,8 +89,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".sysuser_uc4_nonadmin_UpdateProfile" />
-        <activity android:name=".user_uc3_ViewReservedEventsCalendar" />
-        <activity android:name=".user_uc4_5_ViewReservedEventAndCancel" />
+
         <activity android:name=".cat_uc5_ViewEventCal">
             <intent-filter>
                 <action android:name="comcse5324projutacatering.httpsgithub.utacatering.cat_uc5_ViewEventCal" />
@@ -103,9 +104,45 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".catstaff_uc0_Home" />
-        <activity android:name=".cat_uc6_78_ViewEventDetails" />
-        <activity android:name=".catstaff_uc1_ViewAssisgnedEvevntsList"></activity>
+        <activity android:name=".cat_uc34_ApproveOrRejectEventReq">
+            <intent-filter>
+                <action android:name="comcse5324projutacatering.httpsgithub.utacatering.cat_uc34_ApproveOrRejectEventReq" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".cat_uc6_78_ViewEventDetails">
+            <intent-filter>
+                <action android:name="comcse5324projutacatering.httpsgithub.utacatering.cat_uc6_78_ViewEventDetails" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+
+
+
+
+
+
+
+
+        <activity android:name=".catstaff_uc0_Home" >
+            <intent-filter>
+                <action android:name="comcse5324projutacatering.httpsgithub.utacatering.cat_uc0_Home" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".catstaff_uc1_ViewAssisgnedEvevntsList" >
+            <intent-filter>
+                <action android:name="comcse5324projutacatering.httpsgithub.utacatering.catstaff_uc1_ViewAssisgnedEvevntsList" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
