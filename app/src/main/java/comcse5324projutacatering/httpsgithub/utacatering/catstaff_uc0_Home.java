@@ -22,6 +22,7 @@ public class catstaff_uc0_Home extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catstaff_uc0_home);
+        setupButtons();
     }
 
     private void setupButtons(){

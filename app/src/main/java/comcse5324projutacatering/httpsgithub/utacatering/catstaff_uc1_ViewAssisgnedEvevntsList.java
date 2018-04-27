@@ -5,10 +5,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
@@ -22,6 +29,9 @@ import java.util.List;
 import java.util.Locale;
 
 public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
+    private String active_username;
+    private String active_id;
+    private Context mContext;
 
     //CalendarView calendar;
     CompactCalendarView compactCalendar;
@@ -40,21 +50,10 @@ public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
     public int customBlue;
     public int viewFlag=0;
     private Date test1;
-
-    private String active_username;
-    private String active_id;
-    private Context mContext;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catstaff_uc1_view_assisgned_events_list);
-        android.app.ActionBar actionBar = getActionBar();
-        if(actionBar != null) {
-            actionBar.setTitle("View Assigned Events");
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
         mContext = getApplicationContext();
 
         customRed = getResources().getColor(R.color.customRed);
@@ -70,19 +69,23 @@ public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
             importedDate=(Date) extras.get("trackSelectedDate");
         }
         else{
-            finish(); //activity not properly accessed
+            //finish(); //activity not properly accessed
         }
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         cal.set(Calendar.DAY_OF_MONTH, 1);
-
+        final ActionBar actionbar = getActionBar();
+        if(actionbar!=null){
+            actionbar.setDisplayHomeAsUpEnabled(true);
+            actionbar.setTitle("MavCat  "+dateFormTitle.format(cal.getTime()));
+        }
         cal.setTime(new Date());
 
-        final ActionBar actionbar = getActionBar();
-        if(actionbar != null) {
-            actionbar.setDisplayHomeAsUpEnabled(true);
-            actionbar.setTitle("MavCat "+dateFormTitle.format(cal.getTime()));
-        }
+        compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
+        compactCalendar.setUseThreeLetterAbbreviation(true);
+        compactCalendar.setCurrentDate(new Date());
+
+        //Shared pref stuff
         final SharedPreferences sharedPref = mContext.getSharedPreferences(
                 "MavCat.preferences", Context.MODE_PRIVATE
         );
@@ -98,14 +101,15 @@ public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
                 finish();
             }
         }
-        username=active_username;
 
-        compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
-        compactCalendar.setUseThreeLetterAbbreviation(true);
-        compactCalendar.setCurrentDate(new Date());
-
-
+        username = active_username;
+        //TODO undo this, only to debug
+        username="c";
         refreshEvents();
+
+
+
+
 
         eventDataListView = (ListView)findViewById(R.id.listViewEvents);
         if(importedDate==null){
@@ -114,11 +118,12 @@ public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
             populateList(importedDate);
         }
 
-        compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener(){
+
+        compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
-            public void onDayClick(Date dateClicked) {      //not needed as staff only needs to know on which days he has been assigned
-                //populateList(dateClicked);
-                //importedDate=dateClicked;
+            public void onDayClick(Date dateClicked) {
+                importedDate=dateClicked;
+                populateList(dateClicked);
                 //Left incase a toast is desired
                 //Context context = getApplicationContext();
                 /*if(ymd.format(test1).equals(ymd.format(dateClicked))){
@@ -133,6 +138,7 @@ public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
                 }
             }
         });
+
     }
 
     private void populateList(Date dateClicked) {
@@ -149,24 +155,25 @@ public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
             String tempDate= DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(tempCal.getTime());
 
             eventDataStrings.add(new String[]{eventData.get(i).hall+" Hall"+System.lineSeparator()+"@ "+tempDate,
-                    "For "+eventData.get(i).dur+" hours"+String.valueOf(eventData.get(i).req_user_id),
-                    //String.valueOf(eventData.get(i).approval_flag),
+                    "For "+eventData.get(i).dur+" hours"+" at the price of $"+eventData.get(i).price,
+                    String.valueOf(eventData.get(i).req_user_id),
+                    String.valueOf(eventData.get(i).approval_flag),
                     tempDate,
                     eventData.get(i).dur+" hours",
                     eventData.get(i).hall,
                     String.valueOf(eventData.get(i).attendance),
-                    //eventData.get(i).price,
-                    //eventData.get(i).mealtype,
+                    eventData.get(i).price,
+                    eventData.get(i).mealtype,
                     eventData.get(i).venue,
-                    //String.valueOf(eventData.get(i).alco_flag),
-                    //String.valueOf(eventData.get(i).formal_flag),
-                    //eventData.get(i).occ_type,
-                    //eventData.get(i).ent_items,
+                    String.valueOf(eventData.get(i).alco_flag),
+                    String.valueOf(eventData.get(i).formal_flag),
+                    eventData.get(i).occ_type,
+                    eventData.get(i).ent_items,
                     eventData.get(i).eventID
             });
         }
-        //ArrayAdapter<String[]> adapter = new cat_uc5_ViewEventCal.eventDataListAdapter();
-        //eventDataListView.setAdapter(adapter);
+        ArrayAdapter<String[]> adapter = new catstaff_uc1_ViewAssisgnedEvevntsList.eventDataListAdapter();
+        eventDataListView.setAdapter(adapter);
     }
 
     @Override
@@ -185,5 +192,136 @@ public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
         }
     }
 
+
+
+
+
+    private class eventDataListAdapter extends ArrayAdapter<String[]> {
+
+        public eventDataListAdapter() {super(catstaff_uc1_ViewAssisgnedEvevntsList.this, R.layout.listview_item_events_listing, eventDataStrings);}
+
+        @Override
+        public View getView(int position, View view, ViewGroup parent) {
+            if(view == null){
+                view = getLayoutInflater().inflate(R.layout.listview_item_events_listing,parent,false);
+            }
+
+            final String[] out = eventDataStrings.get(position);
+            final Date trackSelectedDate = importedDate;
+            final String trackUsername =username;
+            /*
+             * Array position translation:
+             * 0)Title String
+             * 1)Subtitle String (duration & price)
+             * 2)req_user_id
+             * 3)approval_flag
+             * 4)User friendly date string
+             * 5)User friendly hours string
+             * 6)hall
+             * 7)Attendance
+             * 8)price
+             * 9)meal type
+             * 10)venue
+             * 11)alco_flag
+             * 12)formal_flag
+             * 13)occ_type string
+             * 14)ent_items string
+             * 15)eventID
+             * */
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(catstaff_uc1_ViewAssisgnedEvevntsList .this, cat_uc6_78_ViewEventDetails.class);
+                    intent.putExtra("event_data_string_array", out);
+                    intent.putExtra("trackSelectedDate", trackSelectedDate);
+                    intent.putExtra("username", trackUsername);
+                    startActivity(intent);
+                }
+            });
+
+            TextView summaryTitle = (TextView)view.findViewById(R.id.item_text_1);
+            TextView summaryText = (TextView)view.findViewById(R.id.item_text_2);
+            TextView warnText = (TextView)view.findViewById(R.id.item_text_3);
+            if(summaryTitle != null){
+                summaryTitle.setText(out[0]);
+                if(out[3].equals("0")){//check approval
+                    summaryTitle.setTextColor(customRed);
+                }
+                else{
+                    summaryTitle.setTextColor(Color.parseColor("#40446d"));
+                }
+            }
+
+
+            if(summaryText != null){
+
+                if(out[3].equals("0")){//check approval
+                    if(viewFlag==0){
+                        //out[1]=out[1]+"  (event pending approval)";
+                        viewFlag=1;
+                    }
+                    summaryText.setText(out[1]);
+                    summaryText.setTextColor(customRed);
+                }
+                else{
+                    summaryText.setText(out[1]);
+                    summaryText.setTextColor(Color.parseColor("#40446d"));
+                }
+            }
+            if(warnText!=null){
+                if(out[3].equals("0")) {
+                    warnText.setText("(event pending approval)");
+                    warnText.setTextColor(customRed);
+                }
+
+            }
+
+            return view;
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.main_menu_sign_out:
+                Intent intent0 = new Intent(catstaff_uc1_ViewAssisgnedEvevntsList .this, sysuser_uc2_Login.class);
+                intent0.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                );
+                //Makes sure shared preference is reset
+                Context mContext = getApplicationContext();
+                final SharedPreferences sharedPref = mContext.getSharedPreferences(
+                        "MavCat.preferences", Context.MODE_PRIVATE
+                );
+                final SharedPreferences.Editor editor = sharedPref.edit();
+                editor.remove("active_username");
+                editor.remove("active_id");
+                editor.commit();
+                //------
+                startActivity(intent0);
+                finish();
+                return true;
+            case R.id.main_menu_go_home:
+                Intent intent = new Intent(catstaff_uc1_ViewAssisgnedEvevntsList .this, cat_uc0_Home.class);
+                intent.putExtra("username",username);
+                startActivity(intent);
+                finish();
+                return true;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return false;
+        }
+    }
 
 }
