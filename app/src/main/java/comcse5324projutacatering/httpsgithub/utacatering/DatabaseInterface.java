@@ -1111,23 +1111,6 @@ public class DatabaseInterface extends SQLiteOpenHelper {
 
     }
 
-    public String[] getAllCatStaff() {
-        String staff[] = new String [4];
-        staff[0] = "";
-        staff[1] = "cs";
-        staff[2] = "cs2";
-        staff[3] = "cs3";
-        return staff;
-    }
-
-    public String[] getAssignedCatStaff(int thisEventID) {
-        String staff[] = new String [3];
-        staff[0] = "";
-        staff[1] = "cs";
-        staff[2] = "cs2";
-        return staff;
-    }
-
     public List<String> getCSofEvent(String ID) {
         SQLiteDatabase db = getReadableDatabase();
         String[] arg = new String[]{ ID };
@@ -1213,11 +1196,11 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         return freeCSUsernames;
     }
 
-    public void assignCatStaff(int eventID, String username){
+    public void assignCatStaff(String eventID, String username){
 
     }
 
-    public void removeCatStaff(int eventID, String username) {
+    public void removeCatStaff(String eventID, String username) {
 
     }
 }

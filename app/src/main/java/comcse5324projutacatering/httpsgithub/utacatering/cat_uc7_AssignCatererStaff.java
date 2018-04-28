@@ -28,11 +28,10 @@ public class cat_uc7_AssignCatererStaff extends Activity {
     private Spinner spinAssigned;
     ArrayAdapter<String> unassignedAdapter;
     ArrayAdapter<String> assignedAdapter;
-    int thisEventID;
+    String thisEventID;
     String selectedStaff;
-    String allCatStaff[];
-    //ArrayList<String> unassignedStaffList = new ArrayList<>();
-    //ArrayList<String> assignedStaffList = new ArrayList<>();
+    List<String> unassignedStaffList = new ArrayList<>();
+    List<String> assignedStaffList = new ArrayList<>();
     String unassignedStaff[];
     String assignedStaff[];
 
@@ -65,10 +64,9 @@ public class cat_uc7_AssignCatererStaff extends Activity {
         spinAssigned = findViewById(R.id.spinner_assigned_cs);
 
         if(extras!=null){
-            thisEventID = Integer.parseInt(extras.getString("eventID"));
+            thisEventID = (String)extras.get("eventID");
         }
 
-        genAllCatStaff();
         genAssignedArray();
         genUnassignedArray();
 
@@ -149,32 +147,11 @@ public class cat_uc7_AssignCatererStaff extends Activity {
         });
     }
 
-    private void genAllCatStaff() {
-        allCatStaff = DatabaseInterface.getInstance(cat_uc7_AssignCatererStaff.this).getAllCatStaff();
-    }
-
     private void genUnassignedArray() {
-        List<String> staff = new ArrayList<>();
-        String user, test_user;
-        boolean user_assigned = false;
-        staff.add("");
-        for (int i = 0; i < allCatStaff.length; i++){
-            user = allCatStaff[i];
-            user_assigned = false;
-            for (int j = 0; j < assignedStaff.length; j++){
-                test_user = assignedStaff[j];
-                if (user.equals(test_user)) {
-                    user_assigned = true;
-                    break;
-                }
-            }
-            if (user_assigned == false)
-               staff.add(user);
-        }
-
-        unassignedStaff = new String[staff.size()];
+        unassignedStaffList = DatabaseInterface.getInstance(cat_uc7_AssignCatererStaff.this).getFreeCS(thisEventID);
+        unassignedStaff = new String[unassignedStaffList.size()];
         for (int i = 0; i<unassignedStaff.length; i++){
-            unassignedStaff[i] = staff.get(i);
+            unassignedStaff[i] = unassignedStaffList.get(i);
         }
 
         unassignedAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, unassignedStaff); //Used for indexing
@@ -184,14 +161,12 @@ public class cat_uc7_AssignCatererStaff extends Activity {
     }
 
     private void genAssignedArray() {
-        assignedStaff = DatabaseInterface.getInstance(cat_uc7_AssignCatererStaff.this).getAssignedCatStaff(thisEventID);
+        assignedStaffList = DatabaseInterface.getInstance(cat_uc7_AssignCatererStaff.this).getCSofEvent(thisEventID);
+        assignedStaff = new String[assignedStaffList.size()];
+        for (int i = 0; i<assignedStaff.length; i++){
+            assignedStaff[i] = assignedStaffList.get(i);
+        }
 
-        /*
-        assignedStaff = new String[3];
-        assignedStaff[0] = " ";
-        assignedStaff[1] = "1";
-        assignedStaff[2] = "2";
-        */
         assignedAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, assignedStaff); //Used for indexing
         assignedAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinAssigned = findViewById(R.id.spinner_assigned_cs);
