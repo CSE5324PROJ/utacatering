@@ -19,7 +19,7 @@ tools:context="comcse5324projutacatering.httpsgithub.utacatering.cat_uc0_Home">
         android:layout_marginTop="10dp"
         android:textSize="36dp"
         android:layout_marginBottom="10dp"
-        android:textColor="#4ccbff" />
+        android:textColor="@color/colorPrimary" />
 
     <Button
         android:id="@+id/button_view_event_req_queue"
@@ -27,7 +27,7 @@ tools:context="comcse5324projutacatering.httpsgithub.utacatering.cat_uc0_Home">
         android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
         android:layout_marginTop="2dp"
-        android:text="View Event Request Queue" />
+        android:text="View event request queue" />
 
     <Button
         android:id="@+id/button_view_event_cal"
@@ -35,7 +35,15 @@ tools:context="comcse5324projutacatering.httpsgithub.utacatering.cat_uc0_Home">
         android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
         android:layout_marginTop="2dp"
-        android:text="View Event Calendar" />
+        android:text="View events calendar" />
+
+    <ImageView
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/mavcat_blur" />
 
 </LinearLayout>
 

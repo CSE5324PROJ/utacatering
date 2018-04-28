@@ -120,7 +120,7 @@ public class user_uc2_ReqEvent extends Activity {
         customRed = getResources().getColor(R.color.customRed);
         customGreen = getResources().getColor(R.color.customGreen);
         customBlue = getResources().getColor(R.color.customBlue);
-        submitEvReq_btn.setBackgroundColor(customBlue);
+        //submitEvReq_btn.setBackgroundColor(customBlue); no longer using blue
 
         set_alert_dialogs();
     }
@@ -136,7 +136,7 @@ public class user_uc2_ReqEvent extends Activity {
 
                         Intent intent =  new Intent(user_uc2_ReqEvent.this, user_uc3_ViewReservedEventsCalendar .class);
                         if( selectedHall.length() > 0){
-                            submitEvReq_btn.setBackgroundColor(customGreen);
+                            //submitEvReq_btn.setBackgroundColor(customGreen); no longer using green
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                                     | Intent.FLAG_ACTIVITY_SINGLE_TOP
 
@@ -144,6 +144,7 @@ public class user_uc2_ReqEvent extends Activity {
                             intent.putExtra("username",username);
                             startActivity(intent);
                             processSubmission();
+                            confirm_request_alert.dismiss();
                             finish();
                         }
                     }})
@@ -356,6 +357,7 @@ public class user_uc2_ReqEvent extends Activity {
     public void onBackPressed() {
         Intent intent = new Intent(user_uc2_ReqEvent.this, user_uc0_Home.class);
         startActivity(intent);
+        confirm_request_alert.dismiss();
         finish();
     }
 
@@ -387,6 +389,7 @@ public class user_uc2_ReqEvent extends Activity {
                 editor.commit();
                 //------
                 startActivity(intent0);
+                confirm_request_alert.dismiss();
                 finish();
                 return true;
             case R.id.main_menu_go_home:
@@ -396,6 +399,7 @@ public class user_uc2_ReqEvent extends Activity {
 
                 );
                 startActivity(intent1);
+                confirm_request_alert.dismiss();
                 finish();
                 return true;
             case android.R.id.home:

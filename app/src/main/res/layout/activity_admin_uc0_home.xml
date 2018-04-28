@@ -26,12 +26,12 @@
         android:layout_marginTop="10dp"
         android:textSize="36dp"
         android:layout_marginBottom="10dp"
-        android:textColor="#4ccbff" />
+        android:textColor="@color/colorPrimary" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="View Registration Requests"
+        android:text="View registration requests"
         android:layout_marginBottom="2dp"
         android:layout_marginTop="2dp"
         android:id="@+id/button_view_reg_req" />
@@ -39,10 +39,18 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Search for System User"
+        android:text="Search for system user"
         android:layout_marginBottom="2dp"
         android:layout_marginTop="2dp"
         android:id="@+id/button_search_user" />
+
+    <ImageView
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/mavcat_blur" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -50,9 +58,11 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Sign out"
         android:id="@+id/text_signout"
-        android:textColor="#4ccbff"
+        android:textColor="@color/colorPrimary"
         android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal" />
+
+
 
     </LinearLayout>
 </ScrollView>

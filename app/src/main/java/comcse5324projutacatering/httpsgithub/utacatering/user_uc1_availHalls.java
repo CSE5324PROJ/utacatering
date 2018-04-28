@@ -9,6 +9,8 @@ import android.database.Cursor;
 //import android.graphics.Color;
 //import android.provider.BaseColumns;
 //import android.support.v7.app.AppCompatActivity;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 //import android.provider.BaseColumns;
@@ -34,6 +36,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TimeZone;
+//import java.util.TimeZone;
 
 //Work in progress
 public class user_uc1_availHalls extends Activity{
@@ -176,7 +179,7 @@ public class user_uc1_availHalls extends Activity{
         setupButtons();
 
         user_uc2_ReqEvent_btn = findViewById(R.id.button_user_uc2);
-        user_uc2_ReqEvent_btn.setBackgroundColor(customRed);
+        user_uc2_ReqEvent_btn.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
         user_uc2_ReqEvent_btn.setText(user_uc1_btn_noHalls);
 
         searchAvailHalls(selectedYear,selectedMonth,selectedDay,selectedHour,selectedMin,selectedDur);
@@ -203,7 +206,7 @@ public class user_uc1_availHalls extends Activity{
         start = start / (long)1000;
         String startString = String.valueOf(start);
         long end = start + ((long)dur * (long)3600);
-        String endString = String.valueOf(end);
+        String endString = String.valueOf(end); // subtract 60k (one minute) to prevent an event starting at the extact time another ends from being considered a conflict.
         Cursor resultCursor = DatabaseInterface.getInstance(this).searchAvailHalls(startString.substring(0,10), endString.substring(0,10));
         if(resultCursor != null) {
             while (resultCursor.moveToNext()) {
@@ -232,7 +235,8 @@ public class user_uc1_availHalls extends Activity{
         else{
             spinHalls.setAdapter(null);
             selectedHall="";
-            user_uc2_ReqEvent_btn.setBackgroundColor(customRed);
+            //user_uc2_ReqEvent_btn.setBackgroundColor(customRed);
+            user_uc2_ReqEvent_btn.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
             user_uc2_ReqEvent_btn.setText(user_uc1_btn_noHalls);
         }
 
@@ -433,7 +437,8 @@ public class user_uc1_availHalls extends Activity{
                 if(spinner.getId() == R.id.spinner_availHalls) {
                     if(availHalls.length>0){
                         selectedHall=(availHalls[position]);
-                        user_uc2_ReqEvent_btn.setBackgroundColor(customBlue);
+                        //user_uc2_ReqEvent_btn.setBackgroundColor(customBlue);
+                        user_uc2_ReqEvent_btn.getBackground().clearColorFilter();
                         user_uc2_ReqEvent_btn.setText(user_uc1_btn_proceed);
                         //if size =0 selectedHall = "", as updated by searchAvailHalls function when another spinner is accessed.
                     }
@@ -753,7 +758,7 @@ public class user_uc1_availHalls extends Activity{
             public void onClick (View v)  {
                 Intent intent =  new Intent(user_uc1_availHalls.this, user_uc2_ReqEvent.class);
                 if( selectedHall.length() > 0){
-                    user_uc2_ReqEvent_btn.setBackgroundColor(customGreen);
+                    //user_uc2_ReqEvent_btn.setBackgroundColor(customGreen);
                     intent.putExtra("selectedYear",selectedYear); //all int's except selectedHall is a String
                     intent.putExtra("selectedMonth",selectedMonth);
                     intent.putExtra("selectedDay",selectedDay);
@@ -763,12 +768,12 @@ public class user_uc1_availHalls extends Activity{
                     intent.putExtra("selectedHall",selectedHall);
                     intent.putExtra("username",username);
                     startActivity(intent);
-                    Handler handler = new Handler();
+                    /*Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         public void run() {
                             user_uc2_ReqEvent_btn.setBackgroundColor(customBlue);
                         }
-                    }, 500);
+                    }, 500);*/ //for when button was blue
 
                     //finish();
                 }

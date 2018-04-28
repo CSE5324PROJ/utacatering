@@ -158,15 +158,15 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         //if req_user_id is left null, it searches based on username.
         createBaseEvent(db, "u",null,"2018-04-01 13:30:00","2", "Liberty", "Italian",3,1,50,0,
                 0,"Lunch",900.00,"Classy Gathering","Classical Music");
-        createBaseEvent(db, "u",null,"2018-05-13 16:30:00","6", "Arlington", "Italian",3,1,40,1,
+        createBaseEvent(db, "u",null,"2018-05-16 16:30:00","6", "Arlington", "Italian",3,1,40,1,
                 1,"Dinner",2280.00,"Wedding","Play 80's Music");
-        createBaseEvent(db, "u",null,"2018-05-13 15:30:00","6", "Maverick", "Indian",3,1,100,1,
+        createBaseEvent(db, "u",null,"2018-05-16 15:30:00","6", "Maverick", "Indian",3,1,100,1,
                 1,"Dinner",5400.00,"Wedding","Play 70's Music");
-        createBaseEvent(db, "u",null,"2018-05-13 14:30:00","6", "KC", "American",3,1,20,1,
+        createBaseEvent(db, "u",null,"2018-05-16 14:30:00","6", "KC", "American",3,1,20,1,
                 1,"Dinner",1140.00,"Wedding","Play 60's Music");
-        createBaseEvent(db, "u",null,"2018-05-13 13:30:00","6", "Shard", "Chinese",6,1,25,1,
+        createBaseEvent(db, "u",null,"2018-05-16 13:30:00","6", "Shard", "Chinese",6,1,25,1,
                 1,"Dinner",1350.00,"Wedding","Play 50's Music");
-        createBaseEvent(db, "u",null,"2018-05-13 12:00:00","6", "Liberty", "French",6,1,70,1,
+        createBaseEvent(db, "u",null,"2018-05-16 12:00:00","6", "Liberty", "French",6,1,70,1,
                 1,"Dinner",3840.00,"Wedding","Play 40's Music");
         createBaseEvent(db, "u",null,"2018-05-15 12:00:00","6", "Liberty", "Chinese",6,1,70,1,
                 1,"Dinner",3840.00,"Wedding","Play Chinese Music");
@@ -707,13 +707,17 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         //String sortOrder = COLUMN_NAME_USERNAME + " DESC";
 
         return db.query(
+                true,
                 SQL_EVENT_TABLE_NAME,     // The table to query
                 projection,             // The array of columns to return (pass null to get all)
                 selection,              // The columns for the WHERE clause
                 selectionArgs,          // The values for the WHERE clause
                 null,          // don't group the rows
                 null,           // don't filter by row groups
-                null              // The sort order
+                null,           // The sort order
+                null                //limitation on rows returned
+
+
         );
     }
 
