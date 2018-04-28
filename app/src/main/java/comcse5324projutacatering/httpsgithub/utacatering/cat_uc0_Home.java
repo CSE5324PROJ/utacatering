@@ -16,6 +16,7 @@ public class cat_uc0_Home extends Activity {
 
     private Button viewEventReqQueue;
     private Button viewEventCal;
+    private Button sysuser_uc4_nonadmin_UpdateProfile_btn;
     private String username;
 
     @Override
@@ -44,7 +45,7 @@ public class cat_uc0_Home extends Activity {
     private void setupButtons() {
         viewEventReqQueue = (Button)findViewById(R.id.button_view_event_req_queue);
         viewEventCal = (Button)findViewById(R.id.button_view_event_cal);
-
+        sysuser_uc4_nonadmin_UpdateProfile_btn = (Button)findViewById(R.id.button_cat_upd_profile);
         viewEventReqQueue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
@@ -58,6 +59,21 @@ public class cat_uc0_Home extends Activity {
             public void onClick(View v) {
                 Intent intent =  new Intent(cat_uc0_Home.this, cat_uc5_ViewEventCal.class);
                 startActivity(intent);
+            }
+        });
+        sysuser_uc4_nonadmin_UpdateProfile_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v)  {
+                //sysuser_uc4_nonadmin_UpdateProfile_btn.setBackgroundColor(customGreen);
+                Intent intent =  new Intent(cat_uc0_Home.this, sysuser_uc4_nonadmin_UpdateProfile.class);
+                intent.putExtra("username",username);
+                startActivity(intent);
+                /*Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        sysuser_uc4_nonadmin_UpdateProfile_btn.setBackgroundColor(customBlue);
+                    }}, 500);*/
+                //finish();
             }
         });
     }

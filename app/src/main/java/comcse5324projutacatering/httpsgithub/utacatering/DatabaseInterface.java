@@ -1208,10 +1208,24 @@ public class DatabaseInterface extends SQLiteOpenHelper {
 
 
     public void assignCatStaff(String eventID, String username){
+        SQLiteDatabase db = getReadableDatabase();
+        int userID = getProfileID(db,username);
 
+        ContentValues values = new ContentValues();
+        values.put(EVENT_ID_COL, eventID);
+        values.put(EVENT_CS_PROFILE_ID_COL, userID);
+
+        // Insert the new row, returning the primary key value of the new row
+        long newRowId = db.insert(EVENT_CS_ASSIGN_TABLE_NAME, null, values);
     }
 
     public void removeCatStaff(String eventID, String username) {
+        SQLiteDatabase db = getReadableDatabase();
+        String selection = EVENT_ID_COL + " = ? AND " + EVENT_CS_PROFILE_ID_COL + " = ?";
+        int userID = getProfileID(db,username);
 
+        String[] selectionArgs = {eventID, String.valueOf(userID)};
+
+        int deletedRows = db.delete(EVENT_CS_ASSIGN_TABLE_NAME, selection, selectionArgs);
     }
 }
