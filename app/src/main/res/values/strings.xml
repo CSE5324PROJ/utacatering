@@ -11,4 +11,7 @@
     <string name="HomeString">Home Page</string>
     <string name="SignOutString">Sign Out</string>
     <string name="HallHoursString">Halls close at 11pm on week nights and 2am on weekends.\n\nHalls open at 7am each day except on Sunday, when the halls open at noon.</string>
+    <string name="AssignCSWarningString">WARNING: Changes are immediately applied to the database when you select a staff member!</string>
 </resources>
+
+

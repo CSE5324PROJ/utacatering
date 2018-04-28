@@ -62,7 +62,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_assigned_cs" />
-
+    <!--
     <TextView
         android:id="@+id/textView14"
         android:layout_width="368dp"
@@ -74,5 +74,18 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_assigned_cs"
-        tools:textColor="@color/customRed" />
+        tools:textColor="@color/customRed" /> -->
+
+    <TextView
+        android:id="@+id/textViewInfo"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:background="#d7dde2"
+        android:text="@string/AssignCSWarningString"
+        android:textColor="#6f7275"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_assigned_cs" />
 </android.support.constraint.ConstraintLayout>
