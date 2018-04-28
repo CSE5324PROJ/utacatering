@@ -1115,7 +1115,6 @@ public class DatabaseInterface extends SQLiteOpenHelper {
 
     }
 
-
     public List<String> getCSofEvent(String ID) {
         SQLiteDatabase db = getReadableDatabase();
         String[] arg = new String[]{ ID };
@@ -1204,5 +1203,11 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         return freeCSUsernames;
     }
 
+    public void assignCatStaff(String eventID, String username){
 
+    }
+
+    public void removeCatStaff(String eventID, String username) {
+
+    }
 }

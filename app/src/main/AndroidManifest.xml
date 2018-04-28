@@ -111,6 +111,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <activity android:name=".cat_uc6_78_ViewEventDetails">
             <intent-filter>
                 <action android:name="comcse5324projutacatering.httpsgithub.utacatering.cat_uc6_78_ViewEventDetails" />
@@ -119,6 +120,13 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".cat_uc7_AssignCatererStaff">
+            <intent-filter>
+                <action android:name="comcse5324projutacatering.httpsgithub.utacatering.cat_uc7_AssignCatererStaff" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
 
 
