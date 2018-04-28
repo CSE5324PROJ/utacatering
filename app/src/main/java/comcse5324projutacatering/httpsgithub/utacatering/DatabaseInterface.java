@@ -1132,9 +1132,8 @@ public class DatabaseInterface extends SQLiteOpenHelper {
                 }
 
         }
-
+        java.util.Collections.sort(CSAssignedUsernames);
         return CSAssignedUsernames;
-
 
     }
 
@@ -1200,8 +1199,11 @@ public class DatabaseInterface extends SQLiteOpenHelper {
                 freeCSUsernames.add(allCSids.getString(allCSids.getColumnIndexOrThrow(COLUMN_NAME_USERNAME)));
             }
         }
+        java.util.Collections.sort(freeCSUsernames);
         return freeCSUsernames;
     }
+
+
 
     public void assignCatStaff(String eventID, String username){
         SQLiteDatabase db = getReadableDatabase();
