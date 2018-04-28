@@ -79,7 +79,8 @@ public class cat_uc7_AssignCatererStaff extends Activity {
         final ActionBar actionbar = getActionBar();
         if(actionbar!=null){
             actionbar.setDisplayHomeAsUpEnabled(true);
-            actionbar.setTitle("Assign staff to event ID: "+thisEventID);
+            //actionbar.setTitle("Assign staff to event ID: "+thisEventID); // For debugging
+            actionbar.setTitle("Assign caterer staff to event");
         }
     }
 

@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -201,7 +202,7 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
             }
         });
 
-        assign_cs_btn= findViewById(R.id.button_approve_event);
+        assign_cs_btn= findViewById(R.id.button_assign_cs);
         assign_cs_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
@@ -209,6 +210,14 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
                 assign_cs_btn.setBackgroundColor(customGreen);
                 intent.putExtra("eventID", event_data_string_array[15]);
                 //intent.putExtra("username",username);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        assign_cs_btn.setBackgroundColor(customBlue);
+                    }
+                }, 1000);
+
+
                 startActivity(intent);
                 //finish();
             }
