@@ -1126,8 +1126,8 @@ public class DatabaseInterface extends SQLiteOpenHelper {
                 arg);
 
         while (assignedCSIDs.moveToNext()) {
-
-                Cursor usernameCursor = getProfileByID(ID);
+                String tempProfID = assignedCSIDs.getString(assignedCSIDs.getColumnIndexOrThrow(EVENT_CS_PROFILE_ID_COL));
+                Cursor usernameCursor = getProfileByID(tempProfID);
                 while (usernameCursor.moveToNext()) {
                     CSAssignedUsernames.add(usernameCursor.getString(usernameCursor.getColumnIndexOrThrow(COLUMN_NAME_USERNAME)));
                 }
@@ -1147,18 +1147,21 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         String[] arg = new String[]{ ID };
         String startTime="";
         String endTime="";
-        Cursor eventInfo = db.rawQuery("SELECT ("+EVENT_STIME_EPOCH_COL+"+','+"+EVENT_DUR_COL+") FROM "+SQL_EVENT_TABLE_NAME+"WHERE "+EVENT_ID_COL+" = ?",
+        Cursor eventInfo = db.rawQuery("SELECT "+EVENT_STIME_EPOCH_COL+" , "+EVENT_DUR_COL+" FROM "+SQL_EVENT_TABLE_NAME+" WHERE "+"rowid = CAST(? AS INTEGER)",
             arg);
 
         while(eventInfo.moveToNext()){
-            startTime=eventInfo.getString(eventInfo.getColumnIndexOrThrow(EVENT_STIME_EPOCH_COL));
-            endTime= String.valueOf(Long.parseLong(startTime)+ (((long) 3600000)*Long.parseLong(eventInfo.getString(eventInfo.getColumnIndexOrThrow(EVENT_DUR_COL)))));
-            //3600000 milliseconds per hour
+            double startTimeval=eventInfo.getDouble(eventInfo.getColumnIndexOrThrow(EVENT_STIME_EPOCH_COL));
+            startTime = String.format("%.1f",startTimeval);
+            double endTimeval= Double.parseDouble(startTime)+ (((double) 3600)*Double.parseDouble(eventInfo.getString(eventInfo.getColumnIndexOrThrow(EVENT_DUR_COL))));
+
+            endTime = String.format("%.1f",endTimeval);
+            //3600 seconds per hour
         }
 
         if(!startTime.isEmpty() && !endTime.isEmpty()){
             String[] projection = {
-                    EVENT_ID_COL
+                    BaseColumns._ID
             };
 
             // Filter results WHERE "title" = 'My Title'

@@ -19,7 +19,9 @@ import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.TimeZone;
 
 
@@ -136,6 +138,13 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
         setupButtons();
         past_event_check();
         set_alert_dialogs();
+
+        //For debugging these are here, but unneeded.
+        List<String> freeCSUsernames= new ArrayList<>();
+        freeCSUsernames=DatabaseInterface.getInstance(user_uc4_5_ViewReservedEventAndCancel.this).getFreeCS(event_data_string_array[15]);
+        List<String> CSAssignedUsernames = new ArrayList<>();
+        CSAssignedUsernames=DatabaseInterface.getInstance(user_uc4_5_ViewReservedEventAndCancel.this).getCSofEvent(event_data_string_array[15]);
+
     }
 
     private void set_alert_dialogs(){
