@@ -37,6 +37,14 @@ tools:context="comcse5324projutacatering.httpsgithub.utacatering.cat_uc0_Home">
         android:layout_marginTop="2dp"
         android:text="View events calendar" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update profile"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:id="@+id/button_cat_upd_profile" />
+
     <ImageView
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"

@@ -114,9 +114,9 @@ public class cat_uc7_AssignCatererStaff extends Activity {
                 if(spinner.getId() == R.id.spinner_unassigned_cs) {
                     if(userIsInteracting){
                         selectedStaff = unassignedStaff[position];
-                        Toast.makeText(cat_uc7_AssignCatererStaff.this, "Added "+selectedStaff, Toast.LENGTH_SHORT).show();
                         spinUnassigned.setSelection(0);
                         DatabaseInterface.getInstance(cat_uc7_AssignCatererStaff.this).assignCatStaff(thisEventID, selectedStaff);
+                        Toast.makeText(cat_uc7_AssignCatererStaff.this, "Added "+selectedStaff, Toast.LENGTH_SHORT).show();
                         genUnassignedArray();
                         userIsInteracting=false;
                     }
@@ -134,9 +134,9 @@ public class cat_uc7_AssignCatererStaff extends Activity {
                 if(spinner.getId() == R.id.spinner_assigned_cs) {
                     if(userIsInteracting){
                         selectedStaff = assignedStaff[position];
-                        Toast.makeText(cat_uc7_AssignCatererStaff.this, "Removed "+selectedStaff, Toast.LENGTH_SHORT).show();
                         spinAssigned.setSelection(0);
                         DatabaseInterface.getInstance(cat_uc7_AssignCatererStaff.this).removeCatStaff(thisEventID, selectedStaff);
+                        Toast.makeText(cat_uc7_AssignCatererStaff.this, "Removed "+selectedStaff, Toast.LENGTH_SHORT).show();
                         genAssignedArray();
                         userIsInteracting=false;
                     }

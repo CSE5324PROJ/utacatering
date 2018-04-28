@@ -317,7 +317,7 @@ public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
                 finish();
                 return true;
             case R.id.main_menu_go_home:
-                Intent intent = new Intent(catstaff_uc1_ViewAssisgnedEvevntsList .this, cat_uc0_Home.class);
+                Intent intent = new Intent(catstaff_uc1_ViewAssisgnedEvevntsList .this, catstaff_uc0_Home.class);
                 intent.putExtra("username",username);
                 startActivity(intent);
                 finish();
