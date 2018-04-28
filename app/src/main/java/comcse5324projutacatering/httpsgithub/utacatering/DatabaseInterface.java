@@ -1112,5 +1112,90 @@ public class DatabaseInterface extends SQLiteOpenHelper {
     }
 
 
+    public List<String> getCSofEvent(String ID) {
+        SQLiteDatabase db = getReadableDatabase();
+        String[] arg = new String[]{ ID };
+
+        List<String> CSAssignedUsernames = new ArrayList<>();
+
+        Cursor assignedCSIDs = db.rawQuery("SELECT "+EVENT_CS_PROFILE_ID_COL+" FROM "+EVENT_CS_ASSIGN_TABLE_NAME+" WHERE "+EVENT_ID_COL+" = ?",
+                arg);
+
+        while (assignedCSIDs.moveToNext()) {
+
+                Cursor usernameCursor = getProfileByID(ID);
+                while (usernameCursor.moveToNext()) {
+                    CSAssignedUsernames.add(usernameCursor.getString(usernameCursor.getColumnIndexOrThrow(COLUMN_NAME_USERNAME)));
+                }
+
+        }
+
+        return CSAssignedUsernames;
+
+
+    }
+
+    public List<String> getFreeCS(String ID) {
+        List<String> conflictedCSIds= new ArrayList<>();
+        List<String> freeCSUsernames= new ArrayList<>();
+
+        SQLiteDatabase db = getReadableDatabase();
+        String[] arg = new String[]{ ID };
+        String startTime="";
+        String endTime="";
+        Cursor eventInfo = db.rawQuery("SELECT ("+EVENT_STIME_EPOCH_COL+"+','+"+EVENT_DUR_COL+") FROM "+SQL_EVENT_TABLE_NAME+"WHERE "+EVENT_ID_COL+" = ?",
+            arg);
+
+        while(eventInfo.moveToNext()){
+            startTime=eventInfo.getString(eventInfo.getColumnIndexOrThrow(EVENT_STIME_EPOCH_COL));
+            endTime= String.valueOf(Long.parseLong(startTime)+ (((long) 3600000)*Long.parseLong(eventInfo.getString(eventInfo.getColumnIndexOrThrow(EVENT_DUR_COL)))));
+            //3600000 milliseconds per hour
+        }
+
+        if(!startTime.isEmpty() && !endTime.isEmpty()){
+            String[] projection = {
+                    EVENT_ID_COL
+            };
+
+            // Filter results WHERE "title" = 'My Title'
+            String selection =
+                    //COLUMN_NAME_USERNAME + " LIKE ?";
+                    "(CAST(((julianday(" + EVENT_STIME_COL + ")-2440587.5)*86400.0) AS INTEGER) < CAST(? AS INTEGER)) AND (CAST(((julianday(" + EVENT_ETIME_COL + ")-2440587.5)*86400.0) AS INTEGER) > CAST(? AS INTEGER))";
+            //EVENT_HALL_COL+ " LIKE ?";
+            String[] selectionArgs = {endTime, startTime};
+
+
+            Cursor conflictingEventIDs= db.query(
+                    true,
+                    SQL_EVENT_TABLE_NAME,     // The table to query
+                    projection,             // The array of columns to return (pass null to get all)
+                    selection,              // The columns for the WHERE clause
+                    selectionArgs,          // The values for the WHERE clause
+                    null,          // don't group the rows
+                    null,           // don't filter by row groups
+                    null,           // The sort order
+                    null                //limitation on rows returned
+
+
+            );
+            while(conflictingEventIDs.moveToNext()){
+                Cursor assignedConflictedCSIDs = db.rawQuery("SELECT "+EVENT_CS_PROFILE_ID_COL+" FROM "+EVENT_CS_ASSIGN_TABLE_NAME+" WHERE "+EVENT_ID_COL+" = ?",
+                        arg);
+                while(assignedConflictedCSIDs.moveToNext()){
+                    conflictedCSIds.add(assignedConflictedCSIDs.getString(assignedConflictedCSIDs.getColumnIndexOrThrow(EVENT_CS_PROFILE_ID_COL)));
+                }
+            }
+        }
+        String[] arg2 = new String[]{ "Caterer Staff" };
+        Cursor allCSids = db.rawQuery("SELECT "+COLUMN_NAME_USERNAME+", _id FROM "+TABLE_NAME_PROFILE+" WHERE "+COLUMN_NAME_ROLE+" = ?",
+                arg2);
+        while(allCSids.moveToNext()){
+            if(!conflictedCSIds.contains(allCSids.getString(allCSids.getColumnIndexOrThrow(BaseColumns._ID)))){
+                freeCSUsernames.add(allCSids.getString(allCSids.getColumnIndexOrThrow(COLUMN_NAME_USERNAME)));
+            }
+        }
+        return freeCSUsernames;
+    }
+
 
 }
