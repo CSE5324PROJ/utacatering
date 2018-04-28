@@ -104,7 +104,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".cat_uc34_ApproveOrRejectEventReq">
+        <activity android:name=".cat_uc2_34_ApproveOrRejectEventReq">
             <intent-filter>
                 <action android:name="comcse5324projutacatering.httpsgithub.utacatering.cat_uc34_ApproveOrRejectEventReq" />
 

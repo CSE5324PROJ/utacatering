@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="comcse5324projutacatering.httpsgithub.utacatering.cat_uc34_ApproveOrRejectEventReq"
+    tools:context="comcse5324projutacatering.httpsgithub.utacatering.cat_uc2_34_ApproveOrRejectEventReq"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >

@@ -130,7 +130,7 @@ public class cat_uc1_ViewEventReqQueue extends Activity {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent newIntent = new Intent(cat_uc1_ViewEventReqQueue.this, cat_uc34_ApproveOrRejectEventReq.class);
+                    Intent newIntent = new Intent(cat_uc1_ViewEventReqQueue.this, cat_uc2_34_ApproveOrRejectEventReq.class);
                     newIntent.putExtra("selectedEventRequestInfo", selectedEventRequestInfo);
                     startActivity(newIntent);
                 }

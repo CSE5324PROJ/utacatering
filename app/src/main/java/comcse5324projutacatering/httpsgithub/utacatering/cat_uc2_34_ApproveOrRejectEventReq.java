@@ -1,5 +1,4 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-// TODO Assign caterer staff
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -22,7 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
-public class cat_uc34_ApproveOrRejectEventReq extends Activity {
+public class cat_uc2_34_ApproveOrRejectEventReq extends Activity {
     String username;
     String active_username;
     String active_id;
@@ -169,8 +168,8 @@ public class cat_uc34_ApproveOrRejectEventReq extends Activity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         //Intent intent =  new Intent(cat_uc6_78_ViewEventDetails.this, cat_uc5_ViewEventCal.class);
                         //reject_btn.setBackgroundColor(customGreen);
-                        DatabaseInterface.getInstance(cat_uc34_ApproveOrRejectEventReq.this).deleteEvent(event_data_string_array[15]);
-                        Toast.makeText(cat_uc34_ApproveOrRejectEventReq.this, "Event cancelled", Toast.LENGTH_SHORT).show();
+                        DatabaseInterface.getInstance(cat_uc2_34_ApproveOrRejectEventReq.this).deleteEvent(event_data_string_array[15]);
+                        Toast.makeText(cat_uc2_34_ApproveOrRejectEventReq.this, "Event cancelled", Toast.LENGTH_SHORT).show();
                         /*intent.putExtra("username",username);
                         startActivity(intent);*/
                         reject_alert.dismiss();
@@ -225,7 +224,7 @@ public class cat_uc34_ApproveOrRejectEventReq extends Activity {
             @Override
             public void onClick (View v)  {
                 approve_btn.setBackgroundColor(customGreen);
-                DatabaseInterface.getInstance(cat_uc34_ApproveOrRejectEventReq.this).updateEventCaterer(event_data_string_array[15], active_id);
+                DatabaseInterface.getInstance(cat_uc2_34_ApproveOrRejectEventReq.this).updateEventCaterer(event_data_string_array[15], active_id);
                 reject_alert.dismiss();
                 finish();
                 }
@@ -252,7 +251,7 @@ public class cat_uc34_ApproveOrRejectEventReq extends Activity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.main_menu_sign_out:
-                Intent intent0 = new Intent(cat_uc34_ApproveOrRejectEventReq.this, sysuser_uc2_Login.class);
+                Intent intent0 = new Intent(cat_uc2_34_ApproveOrRejectEventReq.this, sysuser_uc2_Login.class);
                 intent0.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                         | Intent.FLAG_ACTIVITY_CLEAR_TOP
                         | Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -272,7 +271,7 @@ public class cat_uc34_ApproveOrRejectEventReq extends Activity {
                 finish();
                 return true;
             case R.id.main_menu_go_home:
-                Intent intent = new Intent(cat_uc34_ApproveOrRejectEventReq.this, user_uc0_Home.class);
+                Intent intent = new Intent(cat_uc2_34_ApproveOrRejectEventReq.this, cat_uc0_Home.class);
                 intent.putExtra("username",username);
                 startActivity(intent);
                 reject_alert.dismiss();
