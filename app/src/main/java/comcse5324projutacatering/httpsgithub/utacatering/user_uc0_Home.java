@@ -50,13 +50,20 @@ public class user_uc0_Home extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
+
         inflater.inflate(R.menu.menu_main, menu);
+
+        //hide go to home page when on the home page
+        MenuItem item = menu.findItem(R.id.main_menu_go_home);
+        item.setVisible(false);
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
+
         switch (item.getItemId()) {
             case R.id.main_menu_sign_out:
                 Intent intent = new Intent(user_uc0_Home.this, sysuser_uc2_Login .class);
@@ -94,22 +101,25 @@ public class user_uc0_Home extends Activity {
         final Button user_uc1_availHalls_btn = findViewById(R.id.button_user_uc1);
         final Button user_uc3_ViewReservedEventsCalendar_btn = findViewById(R.id.button_user_uc3);
         final Button sysuser_uc4_nonadmin_UpdateProfile_btn = findViewById(R.id.button_user_upd_profile);
-        user_uc1_availHalls_btn.setBackgroundColor(customBlue);
-        user_uc3_ViewReservedEventsCalendar_btn.setBackgroundColor(customBlue);
-        sysuser_uc4_nonadmin_UpdateProfile_btn.setBackgroundColor(customBlue);
+
+        //blue buttons
+        //user_uc1_availHalls_btn.setBackgroundColor(customBlue);
+        //user_uc3_ViewReservedEventsCalendar_btn.setBackgroundColor(customBlue);
+        //sysuser_uc4_nonadmin_UpdateProfile_btn.setBackgroundColor(customBlue);
+
         user_uc1_availHalls_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
-                user_uc1_availHalls_btn.setBackgroundColor(customGreen);
+                //user_uc1_availHalls_btn.setBackgroundColor(customGreen);
                 Intent intent =  new Intent(user_uc0_Home.this, user_uc1_availHalls.class);
                 intent.putExtra("username",username);
                 startActivity(intent);
-                Handler handler = new Handler();
+                /*Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
                         user_uc1_availHalls_btn.setBackgroundColor(customBlue);
                     }
-                }, 500);
+                }, 500);*/
 
                 //finish();
             }
@@ -117,30 +127,30 @@ public class user_uc0_Home extends Activity {
         user_uc3_ViewReservedEventsCalendar_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
-                user_uc3_ViewReservedEventsCalendar_btn.setBackgroundColor(customGreen);
+                //user_uc3_ViewReservedEventsCalendar_btn.setBackgroundColor(customGreen);
                 Intent intent =  new Intent(user_uc0_Home.this, user_uc3_ViewReservedEventsCalendar.class);
                 intent.putExtra("username",username);
                 startActivity(intent);
-                Handler handler = new Handler();
+                /*Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
                         user_uc3_ViewReservedEventsCalendar_btn.setBackgroundColor(customBlue);
-                    }}, 500);
+                    }}, 500);*/
                 //finish();
             }
         });
         sysuser_uc4_nonadmin_UpdateProfile_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
-                sysuser_uc4_nonadmin_UpdateProfile_btn.setBackgroundColor(customGreen);
+                //sysuser_uc4_nonadmin_UpdateProfile_btn.setBackgroundColor(customGreen);
                 Intent intent =  new Intent(user_uc0_Home.this, sysuser_uc4_nonadmin_UpdateProfile.class);
                 intent.putExtra("username",username);
                 startActivity(intent);
-                Handler handler = new Handler();
+                /*Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
                         sysuser_uc4_nonadmin_UpdateProfile_btn.setBackgroundColor(customBlue);
-                    }}, 500);
+                    }}, 500);*/
                 //finish();
             }
         });

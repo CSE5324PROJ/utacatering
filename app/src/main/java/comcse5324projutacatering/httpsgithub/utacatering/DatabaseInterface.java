@@ -12,7 +12,9 @@ import android.provider.BaseColumns;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -156,15 +158,15 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         //if req_user_id is left null, it searches based on username.
         createBaseEvent(db, "u",null,"2018-04-01 13:30:00","2", "Liberty", "Italian",3,1,50,0,
                 0,"Lunch",900.00,"Classy Gathering","Classical Music");
-        createBaseEvent(db, "u",null,"2018-05-13 16:30:00","6", "Arlington", "Italian",3,1,40,1,
+        createBaseEvent(db, "u",null,"2018-05-16 16:30:00","6", "Arlington", "Italian",3,1,40,1,
                 1,"Dinner",2280.00,"Wedding","Play 80's Music");
-        createBaseEvent(db, "u",null,"2018-05-13 15:30:00","6", "Maverick", "Indian",3,1,100,1,
+        createBaseEvent(db, "u",null,"2018-05-16 15:30:00","6", "Maverick", "Indian",3,1,100,1,
                 1,"Dinner",5400.00,"Wedding","Play 70's Music");
-        createBaseEvent(db, "u",null,"2018-05-13 14:30:00","6", "KC", "American",3,1,20,1,
+        createBaseEvent(db, "u",null,"2018-05-16 14:30:00","6", "KC", "American",3,1,20,1,
                 1,"Dinner",1140.00,"Wedding","Play 60's Music");
-        createBaseEvent(db, "u",null,"2018-05-13 13:30:00","6", "Shard", "Chinese",6,1,25,1,
+        createBaseEvent(db, "u",null,"2018-05-16 13:30:00","6", "Shard", "Chinese",6,1,25,1,
                 1,"Dinner",1350.00,"Wedding","Play 50's Music");
-        createBaseEvent(db, "u",null,"2018-05-13 12:00:00","6", "Liberty", "French",6,1,70,1,
+        createBaseEvent(db, "u",null,"2018-05-16 12:00:00","6", "Liberty", "French",6,1,70,1,
                 1,"Dinner",3840.00,"Wedding","Play 40's Music");
         createBaseEvent(db, "u",null,"2018-05-15 12:00:00","6", "Liberty", "Chinese",6,1,70,1,
                 1,"Dinner",3840.00,"Wedding","Play Chinese Music");
@@ -705,13 +707,17 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         //String sortOrder = COLUMN_NAME_USERNAME + " DESC";
 
         return db.query(
+                true,
                 SQL_EVENT_TABLE_NAME,     // The table to query
                 projection,             // The array of columns to return (pass null to get all)
                 selection,              // The columns for the WHERE clause
                 selectionArgs,          // The values for the WHERE clause
                 null,          // don't group the rows
                 null,           // don't filter by row groups
-                null              // The sort order
+                null,           // The sort order
+                null                //limitation on rows returned
+
+
         );
     }
 
@@ -987,6 +993,125 @@ public class DatabaseInterface extends SQLiteOpenHelper {
         }
         return eventRequestSummaries;
     }
+
+
+//TODO in progress here
+
+    public List<eventSummarySet> getEventSummaryCatererStaff(String ID, Date selectedDate){
+
+
+
+        List<eventSummarySet> eventSummary = new ArrayList<>();
+        SimpleDateFormat ymd = new SimpleDateFormat("yyyyMMdd");
+        SQLiteDatabase db = getReadableDatabase();
+        //Calendar selectedDateCal = Calendar.getInstance();
+        //selectedDateCal.setTimeInMillis(selectedDate.getTime());
+        Calendar iteratingDateCal = Calendar.getInstance();
+
+
+
+        String[] arg = new String[]{ ID };
+        Cursor assignedEventIDs = db.rawQuery("SELECT "+EVENT_ID_COL+" FROM "+EVENT_CS_ASSIGN_TABLE_NAME+" WHERE "+EVENT_CS_PROFILE_ID_COL+" = ?",
+                arg);
+
+        while (assignedEventIDs.moveToNext()) {
+            String selection = "rowid"+" = ?";
+            String[] projection = {
+                    EVENT_STIME_EPOCH_COL, //not using this currently
+            };
+            String[] selectionArgs = {assignedEventIDs.getString(assignedEventIDs.getColumnIndexOrThrow(EVENT_ID_COL))};
+
+            Cursor resultCursor = db.query(
+                    SQL_EVENT_TABLE_NAME,     // The table to query
+                    null,             // The array of columns to return (pass null to get all)
+                    selection,              // The columns for the WHERE clause
+                    selectionArgs,          // The values for the WHERE clause
+                    null,          // don't group the rows
+                    null,           // don't filter by row groups
+                    EVENT_STIME_EPOCH_COL              // The sort order
+            );
+            if(resultCursor != null) {
+
+                while (resultCursor.moveToNext()) {
+                    eventSummarySet[] resultData = new eventSummarySet[1];
+                    iteratingDateCal.clear();
+                    long tempEpoch=(long) (resultCursor.getDouble(resultCursor.getColumnIndexOrThrow(EVENT_STIME_EPOCH_COL))*(double)1000);
+                    iteratingDateCal.setTimeInMillis(tempEpoch);
+                    if(ymd.format(selectedDate).equals(ymd.format(iteratingDateCal.getTime()))){
+                        resultData[0]=new eventSummarySet();
+                        resultData[0].hall=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_HALL_COL));
+                        resultData[0].dur=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_DUR_COL));
+                        resultData[0].price=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_PRC_COL));
+                        resultData[0].epoch=tempEpoch;
+                        resultData[0].req_user_id = resultCursor.getInt(resultCursor.getColumnIndexOrThrow(EVENT_REQ_USER_ID_COL));
+                        resultData[0].approval_flag = resultCursor.getInt(resultCursor.getColumnIndexOrThrow(EVENT_APPROVAL_COL));
+                        resultData[0].attendance = resultCursor.getInt(resultCursor.getColumnIndexOrThrow(EVENT_ATT_COL));
+                        resultData[0].mealtype=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_MT_COL));
+                        resultData[0].venue=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_VENUE_COL));
+                        resultData[0].alco_flag = resultCursor.getInt(resultCursor.getColumnIndexOrThrow(EVENT_ALC_COL));
+                        resultData[0].formal_flag = resultCursor.getInt(resultCursor.getColumnIndexOrThrow(EVENT_FORM_COL));
+                        resultData[0].occ_type=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_OCTYP_COL));
+                        resultData[0].ent_items=resultCursor.getString(resultCursor.getColumnIndexOrThrow(EVENT_ENT_COL));
+                        resultData[0].eventID=resultCursor.getString(resultCursor.getColumnIndexOrThrow(BaseColumns._ID));
+                        eventSummary.add(resultData[0]);
+                    }
+                }
+            }
+        }
+        if(eventSummary!=null){
+            //events will be out of order without this
+            eventSummarySet[] tempArray = new eventSummarySet[eventSummary.size()];
+            tempArray = eventSummary.toArray(tempArray);
+
+            Arrays.sort(tempArray, new SortObjectsByEpoch());
+            eventSummary=Arrays.asList(tempArray);
+        }
+        return eventSummary;
+    }
+
+    class SortObjectsByEpoch implements Comparator<eventSummarySet> {
+        public int compare(eventSummarySet A, eventSummarySet B) {
+            if ( A.epoch < B.epoch ) return -1;
+            else if ( A.epoch == B.epoch ) return 0;
+            else return 1;
+        }
+    }
+
+    public List<Long> getEventEpochByCatStaffID(String ID) {
+        SQLiteDatabase db = getReadableDatabase();
+        List<Long> eventEpochs = new ArrayList<>();
+
+        String[] arg = new String[]{ ID };
+        Cursor assignedEventIDs = db.rawQuery("SELECT "+EVENT_ID_COL+" FROM "+EVENT_CS_ASSIGN_TABLE_NAME+" WHERE "+EVENT_CS_PROFILE_ID_COL+" = ?",
+                arg);
+
+        while (assignedEventIDs.moveToNext()) {
+            String selection = "rowid"+" = ?";
+            String[] projection = {
+                    EVENT_STIME_EPOCH_COL, //not using this currently
+            };
+            String[] selectionArgs = {assignedEventIDs.getString(assignedEventIDs.getColumnIndexOrThrow(EVENT_ID_COL))};
+
+            Cursor eventInfo = db.query(
+                    SQL_EVENT_TABLE_NAME,     // The table to query
+                    null,             // The array of columns to return (pass null to get all)
+                    selection,              // The columns for the WHERE clause
+                    selectionArgs,          // The values for the WHERE clause
+                    null,          // don't group the rows
+                    null,           // don't filter by row groups
+                    EVENT_STIME_EPOCH_COL              // The sort order
+            );
+            while (eventInfo.moveToNext()) {
+                eventEpochs.add((long) (eventInfo.getDouble(eventInfo.getColumnIndexOrThrow(EVENT_STIME_EPOCH_COL))*(double)1000));
+            }
+
+        }
+
+        return eventEpochs;
+
+    }
+
+
 
     /*
     public String[] getCatStaff(){

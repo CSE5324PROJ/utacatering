@@ -1,54 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="comcse5324projutacatering.httpsgithub.utacatering.user_uc0_Home">
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/user_Home"
-        android:descendantFocusability="beforeDescendants"
-        android:focusable="true"
-        android:focusableInTouchMode="true" >
+        android:orientation="vertical"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        tools:context="comcse5324projutacatering.httpsgithub.utacatering.admin_uc0_Home">
 
-
-        <Button
-            android:id="@+id/button_user_uc1"
-            android:layout_width="317dp"
-            android:layout_height="100dp"
-            android:layout_marginEnd="35dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
-            android:text="View available halls\n and request event"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="User Home"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:textSize="36dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/colorPrimary" />
 
         <Button
-            android:id="@+id/button_user_uc3"
-            android:layout_width="317dp"
-            android:layout_height="58dp"
-            android:layout_marginEnd="35dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="52dp"
-            android:text="View reserved events"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_user_uc1" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View available halls &amp; request event"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp"
+            android:id="@+id/button_user_uc1" />
 
         <Button
-            android:id="@+id/button_user_upd_profile"
-            android:layout_width="317dp"
-            android:layout_height="58dp"
-            android:layout_marginEnd="35dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="52dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View events calendar"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:id="@+id/button_user_uc3" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="Update profile"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_user_uc3" />
-    </android.support.constraint.ConstraintLayout>
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp"
+            android:id="@+id/button_user_upd_profile" />
+
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/mavcat_blur" />
+
+
+    </LinearLayout>
 </ScrollView>

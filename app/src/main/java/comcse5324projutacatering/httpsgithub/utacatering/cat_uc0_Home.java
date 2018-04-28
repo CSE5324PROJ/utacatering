@@ -76,6 +76,11 @@ public class cat_uc0_Home extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
+
+        //hide go to home page when on the home page
+        MenuItem item = menu.findItem(R.id.main_menu_go_home);
+        item.setVisible(false);
+
         return true;
     }
 

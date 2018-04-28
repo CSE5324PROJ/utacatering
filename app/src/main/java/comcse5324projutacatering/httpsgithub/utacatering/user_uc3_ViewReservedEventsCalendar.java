@@ -30,6 +30,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.text.DateFormat;
+import java.util.TimeZone;
+//import java.util.TimeZone;
 
 public class user_uc3_ViewReservedEventsCalendar extends Activity {
 
@@ -77,6 +79,7 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
         else{
             finish(); //activity not properly accessed
         }
+        //TimeZone tz = TimeZone.getTimeZone("GMT+00:00");
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         cal.set(Calendar.DAY_OF_MONTH, 1);
@@ -162,7 +165,7 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
 
 
     private void populateList(Date dateClicked) {
-
+        //TimeZone tz = TimeZone.getTimeZone("GMT+00:00");
         Calendar tempCal= Calendar.getInstance();
 
         eventDataStrings = new ArrayList<>();
@@ -172,7 +175,11 @@ public class user_uc3_ViewReservedEventsCalendar extends Activity {
         for(int i=0;i<eventData.size();i++){
             tempCal.clear();
             tempCal.setTimeInMillis(eventData.get(i).epoch);
-            String tempDate=DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(tempCal.getTime());
+            Date timing = tempCal.getTime();
+            TimeZone zone = TimeZone.getTimeZone("GMT");
+            DateFormat timingFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT);
+            timingFormat.setTimeZone(zone);
+            String tempDate=timingFormat.format(timing);
 
             eventDataStrings.add(new String[]{eventData.get(i).hall+" Hall"+System.lineSeparator()+"@ "+tempDate,
                     "For "+eventData.get(i).dur+" hours"+" at the price of $"+eventData.get(i).price,

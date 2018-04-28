@@ -20,6 +20,7 @@ import android.widget.Toast;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 
 public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
@@ -162,7 +163,8 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
     }
 
     private void past_event_check(){
-        Calendar cal = Calendar.getInstance();
+        TimeZone tz = TimeZone.getTimeZone("GMT+00:00");
+        Calendar cal = Calendar.getInstance(tz);
         long current_time = cal.getTimeInMillis();
         final String selected_date = event_data_string_array[4];
         long millis=0;
