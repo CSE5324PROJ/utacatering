@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -34,6 +35,8 @@ public class cat_uc7_AssignCatererStaff extends Activity {
     List<String> assignedStaffList = new ArrayList<>();
     String unassignedStaff[];
     String assignedStaff[];
+    String unassignedSpinText = "Available staff";
+    String assignedSpinText = "Assigned staff";
 
     private boolean userIsInteracting;
     private DatabaseInterface db;
@@ -107,18 +110,37 @@ public class cat_uc7_AssignCatererStaff extends Activity {
     private void addListeners() {
 
         spinUnassigned.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+            @Override public void onItemSelected(AdapterView<?> adapterView, View view, final int position, long id) {
                 //selectedRole = String.valueOf(editRole.getSelectedItem());
                 Spinner spinner = (Spinner) adapterView;
 
                 if(spinner.getId() == R.id.spinner_unassigned_cs) {
                     if(userIsInteracting){
+                        spinUnassigned.setEnabled(false);
+                        spinAssigned.setEnabled(false);
                         selectedStaff = unassignedStaff[position];
-                        spinUnassigned.setSelection(0);
-                        DatabaseInterface.getInstance(cat_uc7_AssignCatererStaff.this).assignCatStaff(thisEventID, selectedStaff);
-                        Toast.makeText(cat_uc7_AssignCatererStaff.this, "Added "+selectedStaff, Toast.LENGTH_SHORT).show();
-                        genUnassignedArray();
-                        userIsInteracting=false;
+                        if (!selectedStaff.equals(unassignedSpinText)) {
+                            DatabaseInterface.getInstance(cat_uc7_AssignCatererStaff.this).assignCatStaff(thisEventID, selectedStaff);
+                            Toast.makeText(cat_uc7_AssignCatererStaff.this, "Added " + selectedStaff, Toast.LENGTH_SHORT).show();
+
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                public void run() {
+                                    genAssignedArray();
+                                    genUnassignedArray();
+                                    userIsInteracting = false;
+                                    spinUnassigned.setEnabled(true);
+                                    spinAssigned.setEnabled(true);
+
+                                }
+                            }, 1500);
+                            //spinUnassigned.setSelection(0);
+                        }
+                        else {
+                            userIsInteracting = false;
+                            spinUnassigned.setEnabled(true);
+                            spinAssigned.setEnabled(true);
+                        }
                     }
 
                 }
@@ -133,12 +155,31 @@ public class cat_uc7_AssignCatererStaff extends Activity {
 
                 if(spinner.getId() == R.id.spinner_assigned_cs) {
                     if(userIsInteracting){
+                        spinUnassigned.setEnabled(false);
+                        spinAssigned.setEnabled(false);
                         selectedStaff = assignedStaff[position];
-                        spinAssigned.setSelection(0);
-                        DatabaseInterface.getInstance(cat_uc7_AssignCatererStaff.this).removeCatStaff(thisEventID, selectedStaff);
-                        Toast.makeText(cat_uc7_AssignCatererStaff.this, "Removed "+selectedStaff, Toast.LENGTH_SHORT).show();
-                        genAssignedArray();
-                        userIsInteracting=false;
+                        if (!selectedStaff.equals(assignedSpinText)) {
+                            DatabaseInterface.getInstance(cat_uc7_AssignCatererStaff.this).removeCatStaff(thisEventID, selectedStaff);
+                            Toast.makeText(cat_uc7_AssignCatererStaff.this, "Removed " + selectedStaff, Toast.LENGTH_SHORT).show();
+
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                public void run() {
+                                    genAssignedArray();
+                                    genUnassignedArray();
+                                    userIsInteracting = false;
+                                    spinUnassigned.setEnabled(true);
+                                    spinAssigned.setEnabled(true);
+
+                                }
+                            }, 1500);
+                            //spinUnassigned.setSelection(0);
+                        }
+                        else {
+                            userIsInteracting = false;
+                            spinUnassigned.setEnabled(true);
+                            spinAssigned.setEnabled(true);
+                        }
                     }
 
                 }
@@ -149,6 +190,8 @@ public class cat_uc7_AssignCatererStaff extends Activity {
 
     private void genUnassignedArray() {
         unassignedStaffList = DatabaseInterface.getInstance(cat_uc7_AssignCatererStaff.this).getFreeCS(thisEventID);
+        unassignedStaffList.add(0,unassignedSpinText);
+
         unassignedStaff = new String[unassignedStaffList.size()];
         for (int i = 0; i<unassignedStaff.length; i++){
             unassignedStaff[i] = unassignedStaffList.get(i);
@@ -162,6 +205,8 @@ public class cat_uc7_AssignCatererStaff extends Activity {
 
     private void genAssignedArray() {
         assignedStaffList = DatabaseInterface.getInstance(cat_uc7_AssignCatererStaff.this).getCSofEvent(thisEventID);
+        assignedStaffList.add(0,assignedSpinText);
+
         assignedStaff = new String[assignedStaffList.size()];
         for (int i = 0; i<assignedStaff.length; i++){
             assignedStaff[i] = assignedStaffList.get(i);
@@ -172,6 +217,7 @@ public class cat_uc7_AssignCatererStaff extends Activity {
         spinAssigned = findViewById(R.id.spinner_assigned_cs);
         spinAssigned.setAdapter(assignedAdapter);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
