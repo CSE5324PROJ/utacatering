@@ -1184,8 +1184,10 @@ public class DatabaseInterface extends SQLiteOpenHelper {
 
             );
             while(conflictingEventIDs.moveToNext()){
+                String ID_conflictingSelection = conflictingEventIDs.getString(conflictingEventIDs.getColumnIndexOrThrow(BaseColumns._ID));
+                String[] arg3 = new String[]{ ID_conflictingSelection };
                 Cursor assignedConflictedCSIDs = db.rawQuery("SELECT "+EVENT_CS_PROFILE_ID_COL+" FROM "+EVENT_CS_ASSIGN_TABLE_NAME+" WHERE "+EVENT_ID_COL+" = ?",
-                        arg);
+                        arg3);
                 while(assignedConflictedCSIDs.moveToNext()){
                     conflictedCSIds.add(assignedConflictedCSIDs.getString(assignedConflictedCSIDs.getColumnIndexOrThrow(EVENT_CS_PROFILE_ID_COL)));
                 }
