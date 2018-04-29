@@ -51,7 +51,7 @@ tools:context="comcse5324projutacatering.httpsgithub.utacatering.cat_uc0_Home">
         android:layout_height="fill_parent"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        android:src="@drawable/mavcat_blur" />
+        android:src="@drawable/mavcat_blur_wh_adj" />
 
 </LinearLayout>
 
