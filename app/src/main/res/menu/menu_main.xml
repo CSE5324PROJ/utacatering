@@ -14,4 +14,3 @@
         app:showAsAction="ifRoom"/>
 </menu>
 
-    <!-- android:enabled removed, and android:icon="@drawable/ic_menu", does this fix Kolton's issue? -->

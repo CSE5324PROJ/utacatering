@@ -130,7 +130,6 @@ public class sysuser_uc4_nonadmin_UpdateProfile extends Activity {
         String personal = editPersonalDetails.getText().toString();
 
         selected_data=new String[]{username,password,String.valueOf(stu_id),contact,personal};
-        int test=0;
     }
 
 

@@ -38,14 +38,10 @@ public class sysuser_uc2_Login extends Activity {
         password = (EditText)findViewById(R.id.editText_password);
         attemptMessage = (TextView)findViewById(R.id.textView_attempts);
         attemptMessage.setText("Invalid login.");
-        //((ViewGroup.MarginLayoutParams)attemptMessage.getLayoutParams()).topMargin = 5;
         attemptMessage.setVisibility(View.INVISIBLE);
         login_button = (Button)findViewById(R.id.button_login);
-        //((ViewGroup.MarginLayoutParams)login_button.getLayoutParams()).topMargin = 10;
         register_text = (TextView)findViewById(R.id.text_register);
-        //attemptMessage.setVisibility(View.GONE);
 
-        //DatabaseInterface.getInstance(this).createProfile("k","k","Admin",1000555555,"555-555-5555","no allergies");
         setupListeners();
     }
 

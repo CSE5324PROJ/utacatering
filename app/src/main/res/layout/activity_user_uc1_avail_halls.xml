@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".user_uc1_availHalls">
 
-    <!-- INCOMPLETE-->
+
 
     <TextView
         android:id="@+id/textViewInfo"

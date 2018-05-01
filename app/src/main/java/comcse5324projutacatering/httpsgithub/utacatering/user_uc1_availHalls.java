@@ -289,9 +289,7 @@ public class user_uc1_availHalls extends Activity{
                 Spinner spinner = (Spinner) adapterView;
                 int old_selectedHour=selectedHour;
                 if(spinner.getId() == R.id.spinner_day) {
-                    //old_selectedDay=selectedDay;
                     selectedDay=Integer.parseInt(uniqueDayArray[position]);
-                    //searchAvailHalls(selectedYear,selectedMonth,selectedDay,selectedHour,selectedMin,selectedDur);
                     getHoursArray();
                     if(old_selectedHour!=selectedHour){
                         hourFlash();
@@ -321,7 +319,6 @@ public class user_uc1_availHalls extends Activity{
                         spinMin.setEnabled(false);
                         minFlash();
                     }
-                    //searchAvailHalls(selectedYear,selectedMonth,selectedDay,selectedHour,selectedMin,selectedDur);
                     if(userIsInteracting){
                         if((hours_mil.length-1)==position && selectedHour!=24){//means last possible hour was selected, so minute must be hard set to 00.
                             spinMin.setSelection(0);
@@ -432,19 +429,14 @@ public class user_uc1_availHalls extends Activity{
         });
         spinHalls.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                //selectedRole = String.valueOf(editRole.getSelectedItem());
                 Spinner spinner = (Spinner) adapterView;
                 if(spinner.getId() == R.id.spinner_availHalls) {
                     if(availHalls.length>0){
                         selectedHall=(availHalls[position]);
-                        //user_uc2_ReqEvent_btn.setBackgroundColor(customBlue);
                         user_uc2_ReqEvent_btn.getBackground().clearColorFilter();
                         user_uc2_ReqEvent_btn.setText(user_uc1_btn_proceed);
-                        //if size =0 selectedHall = "", as updated by searchAvailHalls function when another spinner is accessed.
                     }
-                    //searchAvailHalls(selectedYear,selectedMonth,selectedDay,selectedHour,selectedMin,selectedDur);
                     if(userIsInteracting){
-                        //searchAvailHalls(selectedYear,selectedMonth,selectedDay,selectedHour,selectedMin,selectedDur);
                         userIsInteracting=false;
                     }
                 }

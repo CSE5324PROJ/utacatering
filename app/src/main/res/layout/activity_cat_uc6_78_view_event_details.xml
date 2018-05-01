@@ -25,62 +25,7 @@
 
             <requestFocus />
         </LinearLayout>
-        <!--
-        <TextView
-            android:id="@+id/textView0"
-            android:layout_width="116dp"
-            android:layout_height="72dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="15dp"
-            android:focusable="false"
-            android:text="Approval Status"
-            android:textSize="25sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        -->
-        <!--
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="72dp"
-            android:layout_height="31dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="5dp"
-            android:focusable="false"
-            android:text="Time"
-            android:textSize="25sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView0" />
-        -->
-        <!--
-        <EditText
-            android:id="@+id/editTextTimeApproval"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="24dp"
-            android:ems="10"
-            android:focusable="false"
-            android:inputType="time"
-            android:text="BLAH0"
-            android:textColor="#6f7275"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        -->
-        <!--
-        <EditText
-            android:id="@+id/editTextTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="37dp"
-            android:ems="10"
-            android:focusable="false"
-            android:inputType="time"
-            android:text="BLAH1"
-            android:textColor="#6f7275"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTimeApproval" />
-            -->
+
         <TextView
             android:id="@+id/textView2"
             android:layout_width="72dp"

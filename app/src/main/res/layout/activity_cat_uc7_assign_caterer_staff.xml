@@ -62,19 +62,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_assigned_cs" />
-    <!--
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="368dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="WARNING: Changes are immediately applied to the database when you select a staff member!"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_assigned_cs"
-        tools:textColor="@color/customRed" /> -->
+
 
     <TextView
         android:id="@+id/textViewInfo"

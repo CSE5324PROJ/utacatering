@@ -9,6 +9,7 @@
         android:roundIcon="@drawable/uta_logo_styled"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!-- SYSUSER RELATED ACTIVITIES HERE - -->
         <activity android:name=".sysuser_uc2_Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +24,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".sysuser_uc4_nonadmin_UpdateProfile" />
+
+
+        <!-- ADMIN RELATED ACTIVITIES HERE - -->
         <activity android:name=".admin_uc0_Home">
             <intent-filter>
                 <action android:name="comcse5324projutacatering.httpsgithub.utacatering.AdminHome" />
@@ -88,7 +93,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".sysuser_uc4_nonadmin_UpdateProfile" />
+
 
         <activity android:name=".cat_uc5_ViewEventCal">
             <intent-filter>
@@ -111,7 +116,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".cat_uc7_AssignCatererStaff">
+            <intent-filter>
+                <action android:name="comcse5324projutacatering.httpsgithub.utacatering.cat_uc7_AssignCatererStaff" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".cat_uc6_78_ViewEventDetails">
             <intent-filter>
                 <action android:name="comcse5324projutacatering.httpsgithub.utacatering.cat_uc6_78_ViewEventDetails" />
@@ -120,13 +131,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".cat_uc7_AssignCatererStaff">
-            <intent-filter>
-                <action android:name="comcse5324projutacatering.httpsgithub.utacatering.cat_uc7_AssignCatererStaff" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
 
 
 
@@ -135,6 +139,7 @@
 
 
 
+        <!-- CATERER STAFF RELATED ACTIVITIES HERE - -->
         <activity android:name=".catstaff_uc0_Home" >
             <intent-filter>
                 <action android:name="comcse5324projutacatering.httpsgithub.utacatering.cat_uc0_Home" />

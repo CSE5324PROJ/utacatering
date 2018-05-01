@@ -7,11 +7,7 @@
     tools:context=".user_uc3_ViewReservedEventsCalendar"
     android:id="@+id/userCalendar">
 
-    <!--<CalendarView
-        android:id="@+id/calendar_old"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:unfocusedMonthDateColor="#cdcbd6"/>-->
+
 
     <com.github.sundeepk.compactcalendarview.CompactCalendarView
         xmlns:app="http://schemas.android.com/apk/res-auto"

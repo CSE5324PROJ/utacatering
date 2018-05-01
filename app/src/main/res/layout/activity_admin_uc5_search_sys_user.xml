@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:queryHint="Enter a username to search"
         android:id="@+id/searchView"/>
-        <!-- android:background="@layout/rounded_border" -->
+
 
     <ListView
         android:layout_width="fill_parent"

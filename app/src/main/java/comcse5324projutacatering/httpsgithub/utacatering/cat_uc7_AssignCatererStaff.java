@@ -98,11 +98,7 @@ public class cat_uc7_AssignCatererStaff extends Activity {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
-                //Intent intent =  new Intent(cat_uc6_78_ViewEventDetails.this, cat_uc5_ViewEventCal.class);
                 back_btn.setBackgroundColor(customGreen);
-
-                /*intent.putExtra("username",username);
-                startActivity(intent);*/
                 finish();
             }
         });
@@ -112,7 +108,6 @@ public class cat_uc7_AssignCatererStaff extends Activity {
 
         spinUnassigned.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override public void onItemSelected(AdapterView<?> adapterView, View view, final int position, long id) {
-                //selectedRole = String.valueOf(editRole.getSelectedItem());
                 Spinner spinner = (Spinner) adapterView;
 
                 if(spinner.getId() == R.id.spinner_unassigned_cs) {
@@ -135,7 +130,6 @@ public class cat_uc7_AssignCatererStaff extends Activity {
 
                                 }
                             }, 1500);
-                            //spinUnassigned.setSelection(0);
                         }
                         else {
                             userIsInteracting = false;
@@ -151,7 +145,6 @@ public class cat_uc7_AssignCatererStaff extends Activity {
 
         spinAssigned.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                //selectedRole = String.valueOf(editRole.getSelectedItem());
                 Spinner spinner = (Spinner) adapterView;
 
                 if(spinner.getId() == R.id.spinner_assigned_cs) {
@@ -174,7 +167,6 @@ public class cat_uc7_AssignCatererStaff extends Activity {
 
                                 }
                             }, 1500);
-                            //spinUnassigned.setSelection(0);
                         }
                         else {
                             userIsInteracting = false;
