@@ -26,6 +26,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
     private String active_username;
@@ -151,7 +152,13 @@ public class catstaff_uc1_ViewAssisgnedEvevntsList extends Activity {
         for(int i=0;i<eventData.size();i++){
             tempCal.clear();
             tempCal.setTimeInMillis(eventData.get(i).epoch);
-            String tempDate= DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(tempCal.getTime());
+            //String tempDate= DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(tempCal.getTime());
+
+            Date timing = tempCal.getTime();
+            TimeZone zone = TimeZone.getTimeZone("GMT");
+            DateFormat timingFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT);
+            timingFormat.setTimeZone(zone);
+            String tempDate=timingFormat.format(timing);
 
             eventDataStrings.add(new String[]{eventData.get(i).hall+" Hall"+System.lineSeparator()+"@ "+tempDate,
                     "For "+eventData.get(i).dur+" hours"+" at the price of $"+eventData.get(i).price,
