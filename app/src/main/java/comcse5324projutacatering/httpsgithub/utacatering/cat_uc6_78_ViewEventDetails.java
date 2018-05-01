@@ -1,5 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-
+// TODO Assign caterer staff
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -49,7 +49,6 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
         extras=mIntent.getExtras();
 
         EditText editTextTimeApproval = (EditText)findViewById(R.id.editTextTimeApproval);
-        //EditText editTextTime = (EditText)findViewById(R.id.editTextTime);
         EditText editTextDate = (EditText)findViewById(R.id.editTextDate);
         EditText editTextHall = (EditText)findViewById(R.id.editTextHall);
         EditText editTextDuration = (EditText)findViewById(R.id.editTextDuration);
@@ -91,7 +90,6 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
         else{
             finish(); //activity not properly accessed
         }
-
         editTextDate.setText(event_data_string_array[4]);
         editTextHall.setText(event_data_string_array[6]);
         editTextDuration.setText(event_data_string_array[5]);
@@ -138,6 +136,7 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
                 .setPositiveButton("Yes.", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         Toast.makeText(cat_uc6_78_ViewEventDetails.this, "Event cancelled", Toast.LENGTH_SHORT).show();
+
                         DatabaseInterface.getInstance(cat_uc6_78_ViewEventDetails.this).deleteEvent(event_data_string_array[15]);
                         finish();
                     }})

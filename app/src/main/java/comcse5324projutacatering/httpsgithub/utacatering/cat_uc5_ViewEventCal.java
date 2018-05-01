@@ -125,11 +125,6 @@ public class cat_uc5_ViewEventCal extends Activity {
             public void onDayClick(Date dateClicked) {
                 importedDate=dateClicked;
                 populateList(dateClicked);
-                //Left incase a toast is desired
-                //Context context = getApplicationContext();
-                /*if(ymd.format(test1).equals(ymd.format(dateClicked))){
-                    Toast.makeText(context,"TESTING", Toast.LENGTH_LONG).show();
-                }*/
             }
 
             @Override

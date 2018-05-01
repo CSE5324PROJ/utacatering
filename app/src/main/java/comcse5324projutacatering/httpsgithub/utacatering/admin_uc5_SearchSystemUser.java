@@ -59,13 +59,15 @@ public class admin_uc5_SearchSystemUser extends Activity {
         searchView.clearFocus();
         resultsList = new ArrayList<>();
         Cursor resultCursor = db.searchUsername(s);
-        if(resultCursor != null) {
+        if(resultCursor != null && resultCursor.getCount()>0) {
             while (resultCursor.moveToNext()) {
                 String username = resultCursor.getString(resultCursor.getColumnIndexOrThrow(DatabaseInterface.COLUMN_NAME_USERNAME));
                 String role = resultCursor.getString(resultCursor.getColumnIndexOrThrow(DatabaseInterface.COLUMN_NAME_ROLE));
                 String profileID = resultCursor.getString(resultCursor.getColumnIndexOrThrow(BaseColumns._ID));
                 resultsList.add(new String[]{username, role, profileID});
             }
+        } else {
+            resultsList.add(new String[] {"No results","",""});
         }
         populateList();
     }
@@ -86,14 +88,15 @@ public class admin_uc5_SearchSystemUser extends Activity {
 
             String[] result = resultsList.get(position);
             final String profile_id = result[2];
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(admin_uc5_SearchSystemUser.this, admin_uc6_78_ViewEditProfile.class);
-                    intent.putExtra("profile_id", profile_id);
-                    startActivity(intent);
-                }
-            });
+            if(! profile_id.equals(""))
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(admin_uc5_SearchSystemUser.this, admin_uc6_78_ViewEditProfile.class);
+                        intent.putExtra("profile_id", profile_id);
+                        startActivity(intent);
+                    }
+                });
 
             TextView summaryTitle = (TextView)view.findViewById(R.id.item_text_1);
             TextView summaryText  = (TextView)view.findViewById(R.id.item_text_2);

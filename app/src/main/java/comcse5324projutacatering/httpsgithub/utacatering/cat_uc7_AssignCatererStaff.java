@@ -99,6 +99,7 @@ public class cat_uc7_AssignCatererStaff extends Activity {
             @Override
             public void onClick (View v)  {
                 back_btn.setBackgroundColor(customGreen);
+
                 finish();
             }
         });
