@@ -1,5 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-////TODO No transition to another page according to UCID after updating .... change to transition home?
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;

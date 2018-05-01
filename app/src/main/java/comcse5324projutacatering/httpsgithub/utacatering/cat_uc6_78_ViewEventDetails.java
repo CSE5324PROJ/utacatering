@@ -1,5 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-// TODO Assign caterer staff
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;

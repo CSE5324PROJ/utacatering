@@ -1,5 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-//TODO 2x if issues with changing roles with the db layout...
+
 import android.content.ContentValues;
 import android.content.Context;
 //import android.content.res.Resources;
@@ -999,7 +999,7 @@ public class DatabaseInterface extends SQLiteOpenHelper {
     }
 
 
-//TODO in progress here
+
 
     public List<eventSummarySet> getEventSummaryCatererStaff(String ID, Date selectedDate){
 

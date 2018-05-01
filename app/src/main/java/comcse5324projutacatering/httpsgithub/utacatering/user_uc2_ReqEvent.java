@@ -1,5 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-//TODO add alert popup to confirm
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;

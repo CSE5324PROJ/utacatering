@@ -1,5 +1,5 @@
 package comcse5324projutacatering.httpsgithub.utacatering;
-//TODO confirmation popup??
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -182,7 +182,7 @@ public class user_uc4_5_ViewReservedEventAndCancel extends Activity {
     }
 
     private void setupButtons() {
-        //TODO "cancel_btn = findViewById(R.id.button_rejectEventRequest);" misplaced by Neelim
+
         cancel_btn = findViewById(R.id.button_CancelEvent);
         cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
