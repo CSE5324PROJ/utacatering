@@ -49,7 +49,6 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
         extras=mIntent.getExtras();
 
         EditText editTextTimeApproval = (EditText)findViewById(R.id.editTextTimeApproval);
-        //EditText editTextTime = (EditText)findViewById(R.id.editTextTime);
         EditText editTextDate = (EditText)findViewById(R.id.editTextDate);
         EditText editTextHall = (EditText)findViewById(R.id.editTextHall);
         EditText editTextDuration = (EditText)findViewById(R.id.editTextDuration);
@@ -87,22 +86,10 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
              * */
             event_data_string_array=(String[])extras.get("event_data_string_array");
 
-            //importedDate=(Date) extras.get("trackSelectedDate");
         }
         else{
             finish(); //activity not properly accessed
         }
-        /*
-        if(event_data_string_array[3].equals("0")){
-            editTextTimeApproval.setText("Unapproved");
-            editTextTimeApproval.setTextColor(customRed);
-        }
-        else if(event_data_string_array[3].equals("1")){
-            editTextTimeApproval.setText("Approved");
-            editTextTimeApproval.setTextColor(customGreen);
-        }
-        */
-        //editTextTime.setText(event_data_string_array[5]);
         editTextDate.setText(event_data_string_array[4]);
         editTextHall.setText(event_data_string_array[6]);
         editTextDuration.setText(event_data_string_array[5]);
@@ -150,12 +137,7 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         Toast.makeText(cat_uc6_78_ViewEventDetails.this, "Event cancelled", Toast.LENGTH_SHORT).show();
 
-                        //Intent intent =  new Intent(cat_uc6_78_ViewEventDetails.this, cat_uc5_ViewEventCal.class);
-                        //reject_btn.setBackgroundColor(customGreen);
                         DatabaseInterface.getInstance(cat_uc6_78_ViewEventDetails.this).deleteEvent(event_data_string_array[15]);
-
-                        /*intent.putExtra("username",username);
-                        startActivity(intent);*/
                         finish();
                     }})
                 .setNegativeButton("No, go back.", null).show();
@@ -194,10 +176,7 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)  {
-                //Intent intent =  new Intent(cat_uc6_78_ViewEventDetails.this, cat_uc5_ViewEventCal.class);
                 back_btn.setBackgroundColor(customGreen);
-                /*intent.putExtra("username",username);
-                startActivity(intent);*/
                 finish();
             }
         });
@@ -209,7 +188,6 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
                 Intent intent =  new Intent(cat_uc6_78_ViewEventDetails.this, cat_uc7_AssignCatererStaff.class);
                 assign_cs_btn.setBackgroundColor(customGreen);
                 intent.putExtra("eventID", event_data_string_array[15]);
-                //intent.putExtra("username",username);
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
@@ -226,9 +204,6 @@ public class cat_uc6_78_ViewEventDetails extends Activity {
 
     @Override
     public void onBackPressed() {
-        //Intent intent = new Intent(cat_uc6_78_ViewEventDetails .this, cat_uc5_ViewEventCal.class);
-        /*intent.putExtra("username",username);
-        startActivity(intent);*/
         finish();
     }
     @Override
